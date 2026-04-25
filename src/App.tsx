@@ -373,8 +373,8 @@ function App() {
   };
 
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [showTerms, setShowTerms] = useState(false);
-  const [showPrivacy, setShowPrivacy] = useState(false);
+  const [showTerms, setShowTerms] = useState(() => window.location.hash === '#terms');
+  const [showPrivacy, setShowPrivacy] = useState(() => window.location.hash === '#privacy');
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0a0a0a] font-sans text-slate-100">
