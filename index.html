@@ -2,9 +2,7 @@
 <html lang="en" class="h-full">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="icon" type="image/svg+xml" href="https://seldonmindev.s3.ap-southeast-2.amazonaws.com/logo/logo_light.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sheldonmind – Multi‑Model AI Workspace</title>
     <meta
@@ -17,6 +15,41 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&display=swap"
       rel="stylesheet"
     />
+    <script>
+      (function () {
+        var logoUrl = "https://seldonmindev.s3.ap-southeast-2.amazonaws.com/logo/logo_light.svg";
+        var img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = function () {
+          var size = 32;
+          var radius = 8;
+          var canvas = document.createElement("canvas");
+          canvas.width = size;
+          canvas.height = size;
+          var ctx = canvas.getContext("2d");
+          if (!ctx) return;
+          ctx.beginPath();
+          ctx.moveTo(radius, 0);
+          ctx.arcTo(size, 0, size, size, radius);
+          ctx.arcTo(size, size, 0, size, radius);
+          ctx.arcTo(0, size, 0, 0, radius);
+          ctx.arcTo(0, 0, size, 0, radius);
+          ctx.closePath();
+          ctx.clip();
+          ctx.drawImage(img, 0, 0, size, size);
+          try {
+            var dataUrl = canvas.toDataURL("image/png");
+            var link = document.querySelector('link[rel="icon"]');
+            if (link && dataUrl) {
+              link.href = dataUrl;
+              link.type = "image/png";
+            }
+          } catch (e) {}
+        };
+        img.onerror = function () {};
+        img.src = logoUrl;
+      })();
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
