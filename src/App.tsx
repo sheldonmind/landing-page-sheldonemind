@@ -982,16 +982,16 @@ function App() {
             {['Features', 'Gallery', 'Pricing', 'FAQ', 'Contact', 'Privacy', 'Terms'].map((l) => {
               if (l === 'Privacy') {
                 return (
-                  <button key={l} onClick={() => setShowPrivacy(true)} className="hover:text-slate-200">
+                  <a key={l} href="#privacy" onClick={(e) => { e.preventDefault(); setShowPrivacy(true); window.location.hash = 'privacy'; }} className="hover:text-slate-200">
                     {l}
-                  </button>
+                  </a>
                 );
               }
               if (l === 'Terms') {
                 return (
-                  <button key={l} onClick={() => setShowTerms(true)} className="hover:text-slate-200">
+                  <a key={l} href="#terms" onClick={(e) => { e.preventDefault(); setShowTerms(true); window.location.hash = 'terms'; }} className="hover:text-slate-200">
                     {l}
-                  </button>
+                  </a>
                 );
               }
               return (
@@ -1019,8 +1019,8 @@ function App() {
         </div>
       </footer>
 
-      {showTerms && <TermsModal onClose={() => setShowTerms(false)} />}
-      {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
+      {showTerms && <TermsModal onClose={() => { setShowTerms(false); history.replaceState(null, '', window.location.pathname); }} />}
+      {showPrivacy && <PrivacyModal onClose={() => { setShowPrivacy(false); history.replaceState(null, '', window.location.pathname); }} />}
     </div>
   );
 }
