@@ -104,8 +104,8 @@ export default function TermsModal({ onClose }: { onClose: () => void }) {
 
         <Section title="13. Contact">
           For questions about these Terms, contact us at{' '}
-          <a href="mailto:sheldonmind123@gmail.com" className="text-blue-400 hover:underline">
-            sheldonmind123@gmail.com
+          <a href="mailto:support@sheldonmind.com" className="text-blue-400 hover:underline">
+            support@sheldonmind.com
           </a>
           .
         </Section>

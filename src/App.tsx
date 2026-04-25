@@ -965,7 +965,7 @@ function App() {
           >
             Sign in with Google ↗
           </a>
-          <p className="mt-3 text-sm text-slate-400">sheldonmind123@gmail.com</p>
+          <p className="mt-3 text-sm text-slate-400">support@sheldonmind.com</p>
         </section>
         </div>
       </main>

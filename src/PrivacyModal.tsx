@@ -25,8 +25,8 @@ export default function PrivacyModal({ onClose }: { onClose: () => void }) {
           committed to protecting your personal information and your right to privacy.
           <br />
           Contact:{' '}
-          <a href="mailto:sheldonmind123@gmail.com" className="text-blue-400 hover:underline">
-            sheldonmind123@gmail.com
+          <a href="mailto:support@sheldonmind.com" className="text-blue-400 hover:underline">
+            support@sheldonmind.com
           </a>
         </Section>
 
@@ -125,8 +125,8 @@ export default function PrivacyModal({ onClose }: { onClose: () => void }) {
             <li>Withdraw consent for optional data processing.</li>
           </ul>
           To exercise any of these rights, contact us at{' '}
-          <a href="mailto:sheldonmind123@gmail.com" className="text-blue-400 hover:underline">
-            sheldonmind123@gmail.com
+          <a href="mailto:support@sheldonmind.com" className="text-blue-400 hover:underline">
+            support@sheldonmind.com
           </a>
           .
         </Section>
@@ -146,8 +146,8 @@ export default function PrivacyModal({ onClose }: { onClose: () => void }) {
         <Section title="12. Contact Us">
           For privacy-related questions or requests:
           <br />
-          <a href="mailto:sheldonmind123@gmail.com" className="text-blue-400 hover:underline">
-            sheldonmind123@gmail.com
+          <a href="mailto:support@sheldonmind.com" className="text-blue-400 hover:underline">
+            support@sheldonmind.com
           </a>
         </Section>
       </div>
