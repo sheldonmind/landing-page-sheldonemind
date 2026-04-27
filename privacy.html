@@ -9,34 +9,280 @@
       name="description"
       content="SheldonMind Privacy Policy — how we collect, use, and protect your personal information."
     />
+    <meta property="og:title" content="Privacy Policy – SheldonMind" />
+    <meta property="og:description" content="SheldonMind Privacy Policy — how we collect, use, and protect your personal information." />
+    <meta property="og:type" content="website" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&display=swap"
       rel="stylesheet"
     />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ["Inter", "system-ui", "sans-serif"],
-              display: ["Playfair Display", "serif"],
-            },
-            colors: {
-              background: "#0a0a0a",
-              surface: "#111111",
-              "surface-elevated": "#111827",
-              accent: "#60A5FA",
-            },
-          },
-        },
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { height: 100%; }
+      body {
+        font-family: 'Inter', system-ui, sans-serif;
+        background: #0a0a0a;
+        color: #f1f5f9;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
       }
-    </script>
+      .display { font-family: 'Playfair Display', serif; font-style: italic; }
+      a { color: #60a5fa; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      header {
+        border-bottom: 1px solid rgba(30, 41, 59, 0.7);
+        padding: 1.25rem 0;
+      }
+      .header-inner {
+        max-width: 768px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .logo { display: flex; align-items: center; gap: 0.5rem; color: #e2e8f0; }
+      .logo img { width: 20px; height: 20px; }
+      .logo span { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; }
+      .back-link { color: #94a3b8; font-size: 0.875rem; }
+      .back-link:hover { color: #e2e8f0; text-decoration: none; }
+      main {
+        max-width: 768px;
+        margin: 0 auto;
+        padding: 3rem 1.5rem;
+        color: #cbd5e1;
+      }
+      h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #f1f5f9;
+        line-height: 1.2;
+      }
+      .effective {
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+        color: #64748b;
+      }
+      .content { margin-top: 2.5rem; }
+      section { margin-bottom: 1.75rem; }
+      h2 {
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #f1f5f9;
+        margin-bottom: 0.5rem;
+      }
+      section p, section ul, section div {
+        font-size: 0.9375rem;
+        line-height: 1.7;
+        color: #94a3b8;
+      }
+      ul { margin-top: 0.5rem; padding-left: 1.5rem; }
+      li { margin-bottom: 0.25rem; }
+      strong { color: #e2e8f0; font-weight: 600; }
+      footer {
+        border-top: 1px solid rgba(30, 41, 59, 0.7);
+        padding: 1.75rem 0;
+      }
+      .footer-inner {
+        max-width: 768px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        text-align: center;
+        font-size: 0.75rem;
+        color: #64748b;
+      }
+      .footer-inner a { color: #64748b; }
+      .footer-inner a:hover { color: #e2e8f0; }
+    </style>
   </head>
-  <body class="h-full overflow-x-hidden bg-background text-slate-100 antialiased">
-    <div id="root"></div>
-    <script type="module" src="/src/privacy.tsx"></script>
+  <body>
+    <header>
+      <div class="header-inner">
+        <a href="/" class="logo">
+          <img src="/logoWhite.svg" alt="SheldonMind" />
+          <span>SheldonMind</span>
+        </a>
+        <a href="/" class="back-link">← Back to home</a>
+      </div>
+    </header>
+
+    <main>
+      <h1>Privacy Policy</h1>
+      <p class="effective">Effective Date: April 25, 2026</p>
+
+      <div class="content">
+        <section>
+          <h2>1. Who We Are</h2>
+          <div>
+            SheldonMind ("we", "us", or "our") operates the SheldonMind AI assistant platform. We are committed to protecting your personal information and your right to privacy.<br />
+            Contact: <a href="mailto:support@sheldonmind.com">support@sheldonmind.com</a>
+          </div>
+        </section>
+
+        <section>
+          <h2>2. Information We Collect</h2>
+          <div>
+            <strong>Account Information</strong>
+            <ul>
+              <li>Name, email address, and profile picture — obtained via Google OAuth or Facebook Login.</li>
+              <li>Provider account ID (Google ID or Facebook ID) used to authenticate your session.</li>
+              <li>If you sign in with Facebook/Meta, we receive only your public profile (name, profile picture) and email address — we do not access your friends list, posts, pages, or messages.</li>
+            </ul>
+            <strong style="display:block; margin-top: 0.75rem;">Usage Data</strong>
+            <ul>
+              <li>Conversation history: messages you send and AI responses you receive.</li>
+              <li>File attachments you upload (images, documents).</li>
+              <li>Token usage per message and per session.</li>
+              <li>Prompts submitted to the prompt library (public or private).</li>
+              <li>Images and videos you generate, including whether you share them publicly.</li>
+            </ul>
+            <strong style="display:block; margin-top: 0.75rem;">Billing &amp; Financial Data</strong>
+            <ul>
+              <li>Credit balance, subscription status, billing cycle, and top-up transaction history.</li>
+              <li>Payment is processed by Lemon Squeezy — we do not store payment card details.</li>
+            </ul>
+            <strong style="display:block; margin-top: 0.75rem;">Integration Credentials</strong>
+            <ul>
+              <li>If you connect third-party integrations (e.g., Gmail, Outlook via MCP), access tokens are stored in encrypted form (AES-256) in our database.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>3. How We Use Your Information</h2>
+          <ul>
+            <li>To authenticate you and provide core Service functionality.</li>
+            <li>To send your prompts to AI providers and return responses to you.</li>
+            <li>To store and retrieve your conversation history.</li>
+            <li>To manage your credit balance and process billing.</li>
+            <li>To display public community content (gallery, prompts) you have chosen to share.</li>
+            <li>To improve Service reliability, debug issues, and prevent abuse.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>4. Data Sharing</h2>
+          <div>
+            We share your data only in the following circumstances:
+            <ul>
+              <li><strong>AI Providers</strong> — your prompts are transmitted to the AI provider you select (OpenAI, Anthropic, Google AI, Mistral, Groq, etc.) to generate responses. Each provider has its own privacy policy.</li>
+              <li><strong>Authentication Providers</strong> — Google and Meta (Facebook) handle the authentication process. We share only what is required to verify your identity, governed by their respective privacy policies.</li>
+              <li><strong>Cloud Infrastructure</strong> — files you upload are stored on AWS S3. We use Redis for session caching and PostgreSQL for persistent data.</li>
+              <li><strong>Payment Processor</strong> — billing is handled by Lemon Squeezy; we share only what is necessary to complete transactions.</li>
+              <li><strong>Legal Obligations</strong> — we may disclose data if required by law or to protect the rights and safety of users.</li>
+            </ul>
+            We do <strong>not</strong> sell your personal data to third parties. We do <strong>not</strong> share your data with advertisers.
+          </div>
+        </section>
+
+        <section>
+          <h2>5. Third-Party Login Providers (Google &amp; Meta)</h2>
+          <div>
+            When you sign in with a third-party provider, we receive a limited set of data to create and authenticate your account:
+            <ul>
+              <li><strong>Google:</strong> name, email address, profile picture, and Google account ID.</li>
+              <li><strong>Meta (Facebook):</strong> name, email address, profile picture, and Facebook user ID. We request only the <em>public_profile</em> and <em>email</em> permissions. We do not access friends, photos, posts, pages, groups, or messages.</li>
+            </ul>
+            We use this data exclusively to identify you and link your activity within SheldonMind. You can revoke our access at any time from the security settings of the respective provider.
+          </div>
+        </section>
+
+        <section>
+          <h2>6. Data Retention</h2>
+          <ul>
+            <li>Conversation history is retained until you delete it or close your account.</li>
+            <li>Billing records are retained as required by applicable tax and financial regulations.</li>
+            <li>If you delete your account, we will delete or anonymize your personal data within 30 days, except where retention is required by law.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>7. Data Deletion Instructions</h2>
+          <div>
+            You may request deletion of your account and all associated data at any time. SheldonMind does not maintain a separate data deletion callback URL; instead, please follow the steps below:
+            <ul>
+              <li>Email <a href="mailto:support@sheldonmind.com">support@sheldonmind.com</a> from the email address linked to your account, with the subject line <strong>"Delete my account"</strong>.</li>
+              <li>We will verify your identity and delete or anonymize your personal data within <strong>30 days</strong> of the verified request.</li>
+              <li>If you signed in via Facebook and want to revoke our access without deleting your account, go to <a href="https://www.facebook.com/settings?tab=applications" target="_blank" rel="noopener">Facebook Settings → Apps and Websites</a>, locate "SheldonMind", and click "Remove".</li>
+              <li>If you signed in via Google, visit <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">Google Account → Third-party access</a> to revoke access.</li>
+            </ul>
+            Records that we are legally required to retain (e.g., billing records for tax purposes) will be securely retained for the minimum required period and then deleted.
+          </div>
+        </section>
+
+        <section>
+          <h2>8. Incognito Mode</h2>
+          <div>
+            When Incognito Mode is enabled, your conversations are not saved to our database. Messages are processed in memory only and are discarded when the session ends.
+          </div>
+        </section>
+
+        <section>
+          <h2>9. Cookies &amp; Local Storage</h2>
+          <div>
+            We use session cookies and browser local storage to maintain your authenticated session and user preferences. We do not use third-party advertising cookies.
+          </div>
+        </section>
+
+        <section>
+          <h2>10. Security</h2>
+          <div>
+            We implement industry-standard measures to protect your data, including AES-256 encryption for sensitive credentials, HTTPS for all data in transit, and access controls limiting who can access production data. No system is 100% secure; we cannot guarantee absolute security.
+          </div>
+        </section>
+
+        <section>
+          <h2>11. Your Rights</h2>
+          <div>
+            Depending on your jurisdiction (including GDPR for EU residents and CCPA for California residents), you may have the right to:
+            <ul>
+              <li>Access the personal data we hold about you.</li>
+              <li>Request correction of inaccurate data.</li>
+              <li>Request deletion of your account and associated data.</li>
+              <li>Export a copy of your conversation history.</li>
+              <li>Withdraw consent for optional data processing.</li>
+              <li>Lodge a complaint with your local data protection authority.</li>
+            </ul>
+            To exercise any of these rights, contact us at <a href="mailto:support@sheldonmind.com">support@sheldonmind.com</a>.
+          </div>
+        </section>
+
+        <section>
+          <h2>12. Children's Privacy</h2>
+          <div>
+            The Service is not directed to children under 13. We do not knowingly collect personal information from children. If you believe a child has provided us with personal data, please contact us immediately.
+          </div>
+        </section>
+
+        <section>
+          <h2>13. Changes to This Policy</h2>
+          <div>
+            We may update this Privacy Policy periodically. We will notify you of significant changes by posting a notice in the Service or sending an email. Continued use after changes constitutes acceptance of the updated policy.
+          </div>
+        </section>
+
+        <section>
+          <h2>14. Data Protection Contact</h2>
+          <div>
+            For privacy-related questions, data subject requests, or concerns, contact our Data Protection contact:<br />
+            <strong>Email:</strong> <a href="mailto:support@sheldonmind.com">support@sheldonmind.com</a><br />
+            <strong>Subject line:</strong> "Privacy Request" or "Data Deletion"<br />
+            We respond to verified requests within 30 days.
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        © 2026 SheldonMind · <a href="/terms">Terms</a>
+      </div>
+    </footer>
   </body>
 </html>

@@ -9,34 +9,225 @@
       name="description"
       content="SheldonMind Terms of Service — the rules and guidelines for using our AI assistant platform."
     />
+    <meta property="og:title" content="Terms of Service – SheldonMind" />
+    <meta property="og:description" content="SheldonMind Terms of Service — the rules and guidelines for using our AI assistant platform." />
+    <meta property="og:type" content="website" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&display=swap"
       rel="stylesheet"
     />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ["Inter", "system-ui", "sans-serif"],
-              display: ["Playfair Display", "serif"],
-            },
-            colors: {
-              background: "#0a0a0a",
-              surface: "#111111",
-              "surface-elevated": "#111827",
-              accent: "#60A5FA",
-            },
-          },
-        },
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { height: 100%; }
+      body {
+        font-family: 'Inter', system-ui, sans-serif;
+        background: #0a0a0a;
+        color: #f1f5f9;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
       }
-    </script>
+      .display { font-family: 'Playfair Display', serif; font-style: italic; }
+      a { color: #60a5fa; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      header {
+        border-bottom: 1px solid rgba(30, 41, 59, 0.7);
+        padding: 1.25rem 0;
+      }
+      .header-inner {
+        max-width: 768px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .logo { display: flex; align-items: center; gap: 0.5rem; color: #e2e8f0; }
+      .logo img { width: 20px; height: 20px; }
+      .logo span { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; }
+      .back-link { color: #94a3b8; font-size: 0.875rem; }
+      .back-link:hover { color: #e2e8f0; text-decoration: none; }
+      main {
+        max-width: 768px;
+        margin: 0 auto;
+        padding: 3rem 1.5rem;
+        color: #cbd5e1;
+      }
+      h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #f1f5f9;
+        line-height: 1.2;
+      }
+      .effective {
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+        color: #64748b;
+      }
+      .content { margin-top: 2.5rem; }
+      section { margin-bottom: 1.75rem; }
+      h2 {
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #f1f5f9;
+        margin-bottom: 0.5rem;
+      }
+      section p, section ul, section div {
+        font-size: 0.9375rem;
+        line-height: 1.7;
+        color: #94a3b8;
+      }
+      ul { margin-top: 0.5rem; padding-left: 1.5rem; }
+      li { margin-bottom: 0.25rem; }
+      strong { color: #e2e8f0; font-weight: 600; }
+      footer {
+        border-top: 1px solid rgba(30, 41, 59, 0.7);
+        padding: 1.75rem 0;
+      }
+      .footer-inner {
+        max-width: 768px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        text-align: center;
+        font-size: 0.75rem;
+        color: #64748b;
+      }
+      .footer-inner a { color: #64748b; }
+      .footer-inner a:hover { color: #e2e8f0; }
+    </style>
   </head>
-  <body class="h-full overflow-x-hidden bg-background text-slate-100 antialiased">
-    <div id="root"></div>
-    <script type="module" src="/src/terms.tsx"></script>
+  <body>
+    <header>
+      <div class="header-inner">
+        <a href="/" class="logo">
+          <img src="/logoWhite.svg" alt="SheldonMind" />
+          <span>SheldonMind</span>
+        </a>
+        <a href="/" class="back-link">← Back to home</a>
+      </div>
+    </header>
+
+    <main>
+      <h1>Terms of Service</h1>
+      <p class="effective">Effective Date: April 25, 2026</p>
+
+      <div class="content">
+        <section>
+          <h2>1. Acceptance of Terms</h2>
+          <div>
+            By accessing or using SheldonMind ("the Service"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the Service.
+          </div>
+        </section>
+
+        <section>
+          <h2>2. Description of Service</h2>
+          <div>
+            SheldonMind is an AI-powered assistant platform that allows users to interact with multiple large language model (LLM) providers, generate images and videos, manage conversation history, and access a community prompt library. The Service requires account registration and operates on a credit-based billing system.
+          </div>
+        </section>
+
+        <section>
+          <h2>3. Account Registration</h2>
+          <ul>
+            <li>You must sign in via Google OAuth or Facebook Login (Meta) to use the Service.</li>
+            <li>You are responsible for maintaining the confidentiality of your account.</li>
+            <li>You must be at least 13 years of age (or the minimum age of digital consent in your jurisdiction) to use the Service.</li>
+            <li>You agree to provide accurate information and keep it up to date.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>4. Credits &amp; Billing</h2>
+          <ul>
+            <li>The Service operates on a credit system. Credits are consumed when you send messages, generate images, or generate videos.</li>
+            <li>Credits can be purchased via top-up or subscription plans processed through our payment provider (Lemon Squeezy).</li>
+            <li>All purchases are final and non-refundable unless required by applicable law.</li>
+            <li>SheldonMind reserves the right to change credit pricing with reasonable notice.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>5. Acceptable Use</h2>
+          <div>
+            You agree NOT to use the Service to:
+            <ul>
+              <li>Generate content that is illegal, harmful, threatening, abusive, defamatory, or violates any third-party rights.</li>
+              <li>Attempt to reverse-engineer, scrape, or abuse the API in ways that violate provider terms (OpenAI, Anthropic, Google, Meta, etc.).</li>
+              <li>Circumvent usage limits, share accounts, or sell access to the Service.</li>
+              <li>Generate spam, misinformation, or content intended to deceive others.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>6. AI-Generated Content</h2>
+          <ul>
+            <li>AI outputs are generated by third-party LLM providers and may be inaccurate, incomplete, or inappropriate. Do not rely on them for medical, legal, or financial decisions.</li>
+            <li>You retain ownership of prompts you submit. You grant SheldonMind a limited license to process your prompts to deliver the Service.</li>
+            <li>Public generations and prompts shared to the community gallery may be viewed and forked by other users.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>7. Intellectual Property</h2>
+          <div>
+            All platform software, UI, branding, and non-user-generated content are owned by SheldonMind. You may not copy, distribute, or create derivative works without written permission.
+          </div>
+        </section>
+
+        <section>
+          <h2>8. Third-Party Services</h2>
+          <div>
+            The Service integrates with third-party providers (OpenAI, Anthropic, Google AI, Mistral, Groq, Meta, Lemon Squeezy, AWS S3, etc.). Your use of those services is also governed by their respective terms of service.
+          </div>
+        </section>
+
+        <section>
+          <h2>9. Disclaimer of Warranties</h2>
+          <div>
+            The Service is provided "as is" without warranties of any kind. SheldonMind does not guarantee uninterrupted availability, accuracy of AI outputs, or fitness for a particular purpose.
+          </div>
+        </section>
+
+        <section>
+          <h2>10. Limitation of Liability</h2>
+          <div>
+            To the maximum extent permitted by law, SheldonMind shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the Service, including loss of data or profits.
+          </div>
+        </section>
+
+        <section>
+          <h2>11. Termination</h2>
+          <div>
+            We reserve the right to suspend or terminate accounts that violate these Terms, misuse the Service, or engage in fraudulent activity, without prior notice.
+          </div>
+        </section>
+
+        <section>
+          <h2>12. Changes to Terms</h2>
+          <div>
+            We may update these Terms from time to time. Continued use of the Service after changes are posted constitutes acceptance of the new terms.
+          </div>
+        </section>
+
+        <section>
+          <h2>13. Contact</h2>
+          <div>
+            For questions about these Terms, contact us at <a href="mailto:support@sheldonmind.com">support@sheldonmind.com</a>.
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        © 2026 SheldonMind · <a href="/privacy">Privacy</a>
+      </div>
+    </footer>
   </body>
 </html>
