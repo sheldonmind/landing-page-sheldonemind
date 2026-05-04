@@ -1,3 +1,127 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "system-ui", "sans-serif";
+  --font-display: "Playfair Display", "serif";
+  --font-bradford: "DM Serif Display", "Playfair Display", "serif";
+  --font-product-sans: "DM Sans", "Inter", "system-ui", "sans-serif";
+  /* Figma node 2316-23681 headline */
+  --font-figtree: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --color-background: #0a0a0a;
+  --color-surface: #111111;
+  --color-surface-elevated: #111827;
+  --color-accent: #60A5FA;
+
+  /* Figma plugin design tokens — colors */
+  --color-absoluteblack: #000000;
+  --color-absolutewhite: #ffffff;
+  --color-blueblue-50: #e6f2ff;
+  --color-blueblue-100: #b0d6ff;
+  --color-blueblue-200: #8ac2ff;
+  --color-blueblue-300: #54a6ff;
+  --color-blueblue-400: #3395ff;
+  --color-blueblue-500: #007aff;
+  --color-blueblue-600: #006fe8;
+  --color-blueblue-700: #0057b5;
+  --color-cyan-brightcyan-50: #ebfdff;
+  --color-cyan-brightcyan-100: #e0fcff;
+  --color-cyan-brightcyan-200: #bffaff;
+  --color-cyan-brightcyan-300: #32eeff;
+  --color-cyan-brightcyan-400: #2dd6e6;
+  --color-cyan-brightcyan-500: #28becc;
+  --color-cyan-brightcyan-600: #26b3bf;
+  --color-cyan-brightcyan-700: #1e8f99;
+  --color-greygrey-50: #141414;
+  --color-greygrey-100: #1a1a1a;
+  --color-greygrey-200: #262626;
+  --color-greygrey-300: #333333;
+  --color-greygrey-400: #404040;
+  --color-greygrey-500: #4d4d4d;
+  --color-greygrey-600: #595959;
+  --color-greygrey-700: #666666;
+  --color-greygrey-800: #d0d0d0;
+  --color-greygrey-900: #e8e8e8;
+  --color-greygrey-1000: #f0f0f0;
+  --color-greygrey-1100: #fafafa;
+
+  /* Figma plugin design tokens — typography (Figtree) */
+  --font-main-figtree-is-display: "Figtree", Helvetica;
+  --font-main-figtree-is-h1: "Figtree", Helvetica;
+  --font-main-figtree-is-h2: "Figtree", Helvetica;
+  --font-main-figtree-is-h3: "Figtree", Helvetica;
+  --font-main-figtree-is-h4: "Figtree", Helvetica;
+  --font-main-figtree-is-h5: "Figtree", Helvetica;
+  --font-main-figtree-is-h6: "Figtree", Helvetica;
+  --font-main-figtree-is-h7: "Figtree", Helvetica;
+  --font-main-figtree-is-h8: "Figtree", Helvetica;
+  --font-main-figtree-is-h9: "Figtree", Helvetica;
+  --font-main-figtree-is-h10: "Figtree", Helvetica;
+  --font-main-figtree-is-h11: "Figtree", Helvetica;
+  --font-main-figtree-is-txt-large: "Figtree", Helvetica;
+  --font-main-figtree-is-txt-medium: "Figtree", Helvetica;
+  --font-main-figtree-is-txt-small: "Figtree", Helvetica;
+  --font-main-figtree-is-txt-xsmall: "Figtree", Helvetica;
+}
+
+:root {
+  /* Figma plugin typography variables (raw) — referenced by font-[number:var(--*)] etc. */
+  --main-figtree-is-display-font-family: "Figtree", Helvetica;
+  --main-figtree-is-display-font-size: 72px;
+  --main-figtree-is-display-font-style: normal;
+  --main-figtree-is-display-font-weight: 500;
+  --main-figtree-is-display-letter-spacing: 0px;
+  --main-figtree-is-display-line-height: 100%;
+
+  --main-figtree-is-h2-font-family: "Figtree", Helvetica;
+  --main-figtree-is-h2-font-size: 48px;
+  --main-figtree-is-h2-font-style: normal;
+  --main-figtree-is-h2-font-weight: 500;
+  --main-figtree-is-h2-letter-spacing: 0px;
+  --main-figtree-is-h2-line-height: 100%;
+
+  --main-figtree-is-h6-font-family: "Figtree", Helvetica;
+  --main-figtree-is-h6-font-size: 24px;
+  --main-figtree-is-h6-font-style: normal;
+  --main-figtree-is-h6-font-weight: 500;
+  --main-figtree-is-h6-letter-spacing: 0px;
+  --main-figtree-is-h6-line-height: 120%;
+
+  --main-figtree-is-h8-font-family: "Figtree", Helvetica;
+  --main-figtree-is-h8-font-size: 18px;
+  --main-figtree-is-h8-font-style: normal;
+  --main-figtree-is-h8-font-weight: 500;
+  --main-figtree-is-h8-letter-spacing: 0px;
+  --main-figtree-is-h8-line-height: 120%;
+
+  --main-figtree-is-h9-font-family: "Figtree", Helvetica;
+  --main-figtree-is-h9-font-size: 16px;
+  --main-figtree-is-h9-font-style: normal;
+  --main-figtree-is-h9-font-weight: 500;
+  --main-figtree-is-h9-letter-spacing: 0px;
+  --main-figtree-is-h9-line-height: 140%;
+
+  --main-figtree-is-h10-font-family: "Figtree", Helvetica;
+  --main-figtree-is-h10-font-size: 14px;
+  --main-figtree-is-h10-font-style: normal;
+  --main-figtree-is-h10-font-weight: 500;
+  --main-figtree-is-h10-letter-spacing: 0px;
+  --main-figtree-is-h10-line-height: 140%;
+
+  --main-figtree-is-txt-large-font-family: "Figtree", Helvetica;
+  --main-figtree-is-txt-large-font-size: 18px;
+  --main-figtree-is-txt-large-font-style: normal;
+  --main-figtree-is-txt-large-font-weight: 400;
+  --main-figtree-is-txt-large-letter-spacing: 0px;
+  --main-figtree-is-txt-large-line-height: 120%;
+
+  --main-figtree-is-txt-medium-font-family: "Figtree", Helvetica;
+  --main-figtree-is-txt-medium-font-size: 16px;
+  --main-figtree-is-txt-medium-font-style: normal;
+  --main-figtree-is-txt-medium-font-weight: 400;
+  --main-figtree-is-txt-medium-letter-spacing: 0px;
+  --main-figtree-is-txt-medium-line-height: 140%;
+}
+
 :root {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   text-rendering: optimizeLegibility;
@@ -17,6 +141,19 @@ body {
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* Hero media frame: tái tạo y chang shape của unsplash_FeBoOVQv0sQ.png
+   - Bo góc ~60px (≈ 4.25% width, 7.55% height tại display 1412×794)
+   - Mép trên võng xuống ~40px (~5 units / 100)
+   - Mép dưới nhô lên ~32px (~4 units / 100) */
+.hero-media-frame {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M4.25 0 C30 5 70 5 95.75 0 Q100 0 100 7.55 L100 92.45 Q100 100 95.75 100 C70 96 30 96 4.25 100 Q0 100 0 92.45 L0 7.55 Q0 0 4.25 0 Z' fill='white'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M4.25 0 C30 5 70 5 95.75 0 Q100 0 100 7.55 L100 92.45 Q100 100 95.75 100 C70 96 30 96 4.25 100 Q0 100 0 92.45 L0 7.55 Q0 0 4.25 0 Z' fill='white'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
 }
 
 @keyframes marquee {

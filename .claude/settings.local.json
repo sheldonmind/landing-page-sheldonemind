@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__figma__get_design_context",
+      "Bash(curl -sSL \"https://www.figma.com/api/mcp/asset/c915c18d-b3d9-4abc-97b9-2940f887ce81\" -o /Users/luongphuong/landingpage_sheldonmind/public/figma/curve-lines-2316.png)"
+    ]
+  }
+}
