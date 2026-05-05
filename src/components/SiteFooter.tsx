@@ -76,7 +76,7 @@ export default function SiteFooter({ hashPrefix = '' }: Props) {
                     <li key={label} className="list-none">
                       <a
                         href={href}
-                        className={`relative flex w-fit items-center whitespace-nowrap font-['Figtree'] text-[20px] font-normal leading-[1.4] text-greygrey-800 transition-colors hover:text-white ${index === 0 ? '-mt-px' : ''}`}
+                        className={`relative flex w-fit cursor-pointer items-center whitespace-nowrap font-['Figtree'] text-[20px] font-normal leading-[1.4] text-greygrey-800 transition-colors hover:text-white ${index === 0 ? '-mt-px' : ''}`}
                       >
                         {label}
                       </a>

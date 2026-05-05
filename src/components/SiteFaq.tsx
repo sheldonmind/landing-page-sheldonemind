@@ -47,7 +47,7 @@ export default function SiteFaq() {
               </div>
               <a
                 href="mailto:support@sheldonmind.com"
-                className="absolute left-1/2 top-[calc(86%+8px)] z-20 inline-flex w-fit -translate-x-1/2 -translate-y-1/2 items-center justify-center gap-1 overflow-hidden whitespace-nowrap rounded-xl bg-black/0 px-5 py-[11px] font-['Figtree',sans-serif] text-base font-medium leading-[1.4] text-white"
+                className="absolute left-1/2 top-[calc(86%+8px)] z-20 inline-flex w-fit -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center gap-1 overflow-hidden whitespace-nowrap rounded-xl bg-black/0 px-5 py-[11px] font-['Figtree',sans-serif] text-base font-medium leading-[1.4] text-white"
                 style={{
                   boxShadow:
                     'inset 0 0.5px 0 0 rgba(255,255,255,0.22), inset 0.5px 0 0 0 rgba(160,186,210,0.18), inset -2px -1px 1px 0 rgba(50,238,255,1)',
@@ -81,7 +81,7 @@ export default function SiteFaq() {
                   <button
                     type="button"
                     onClick={() => setOpenFaq(expanded ? null : idx)}
-                    className="flex h-37.5 w-full items-center justify-between px-6 text-left"
+                    className="flex h-37.5 w-full cursor-pointer items-center justify-between px-6 text-left"
                   >
                     <span className="font-['Figtree',sans-serif] text-2xl font-medium leading-[1.2] text-white">{q}</span>
                     <svg

@@ -4,7 +4,7 @@ type Billing = 'monthly' | 'yearly';
 
 function Check() {
   return (
-    <svg width={24} height={24} viewBox="0 0 24 24" fill="none" aria-hidden className="shrink-0 text-white">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden className="size-6 shrink-0 text-white">
       <path d="M4 12.5L9 17.5L20 6.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
@@ -12,7 +12,7 @@ function Check() {
 
 function FileStack() {
   return (
-    <svg width={24} height={24} viewBox="0 0 24 24" fill="none" aria-hidden className="shrink-0 text-white">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden className="size-6 shrink-0 text-white">
       <path
         d="M9 3H17C18.1 3 19 3.9 19 5V13M5 7H13C14.1 7 15 7.9 15 9V19C15 20.1 14.1 21 13 21H5C3.9 21 3 20.1 3 19V9C3 7.9 3.9 7 5 7Z"
         stroke="currentColor"
@@ -101,7 +101,7 @@ export default function PricingCards() {
   const [billing, setBilling] = useState<Billing>('monthly');
 
   return (
-    <div className="self-stretch w-full max-w-none px-4 py-12 md:px-8 md:py-16 lg:px-12 lg:py-24 xl:px-[150px] flex justify-center items-start">
+    <div className="self-stretch w-full max-w-none px-4 py-12 md:px-8 md:py-16 lg:px-[max(3rem,calc((100vw-1212px)/2))] lg:py-24 flex justify-center items-start">
       <div className="w-full max-w-none flex flex-col justify-start items-center gap-8 md:gap-12 overflow-hidden">
         {/* Heading + background blobs */}
         <div className="self-stretch relative flex flex-col justify-start items-center gap-8">
@@ -135,7 +135,7 @@ export default function PricingCards() {
           <div
             role="tablist"
             aria-label="Billing period"
-            className="px-2.5 py-1.5 bg-zinc-900 rounded-[50px] outline outline-1 outline-offset-[-1px] outline-white backdrop-blur-[10px] inline-flex justify-start items-center gap-2"
+            className="px-3 py-2 bg-zinc-900 rounded-[50px] outline outline-1 outline-offset-[-1px] outline-white backdrop-blur-[10px] inline-flex justify-start items-center gap-2.5"
           >
             <button
               type="button"
@@ -144,12 +144,12 @@ export default function PricingCards() {
               onClick={() => setBilling('monthly')}
               className={
                 billing === 'monthly'
-                  ? "px-3.5 py-2 relative bg-black/0 rounded-[30px] shadow-[inset_0_0.5px_0_0_rgba(255,255,255,0.22),inset_0.5px_0_0_0_rgba(160,186,210,0.18),inset_-2px_-1px_1px_0px_rgba(50,238,255,1)] flex justify-center items-center gap-0.5 overflow-hidden"
-                  : "px-3.5 py-2 relative rounded-[30px] flex justify-center items-center gap-0.5 overflow-hidden"
+                  ? "cursor-pointer px-5 py-2.5 relative bg-black/0 rounded-[30px] shadow-[inset_0_0.5px_0_0_rgba(255,255,255,0.22),inset_0.5px_0_0_0_rgba(160,186,210,0.18),inset_-2px_-1px_1px_0px_rgba(50,238,255,1)] flex justify-center items-center gap-1 overflow-hidden"
+                  : "cursor-pointer px-5 py-2.5 relative rounded-[30px] flex justify-center items-center gap-1 overflow-hidden"
               }
             >
-              <div className="h-5 flex justify-center items-center gap-2.5">
-                <div className={`text-center text-sm font-medium font-['Figtree'] leading-5 ${billing === 'monthly' ? 'text-white' : 'text-stone-500'}`}>
+              <div className="h-6 flex justify-center items-center gap-2.5">
+                <div className={`text-center text-base font-medium font-['Figtree'] leading-6 ${billing === 'monthly' ? 'text-white' : 'text-stone-500'}`}>
                   Monthly
                 </div>
               </div>
@@ -164,16 +164,16 @@ export default function PricingCards() {
               onClick={() => setBilling('yearly')}
               className={
                 billing === 'yearly'
-                  ? "px-3.5 py-2 relative bg-black/0 rounded-[30px] shadow-[inset_0_0.5px_0_0_rgba(255,255,255,0.22),inset_0.5px_0_0_0_rgba(160,186,210,0.18),inset_-2px_-1px_1px_0px_rgba(50,238,255,1)] flex justify-center items-center gap-0.5 overflow-hidden"
-                  : "px-3.5 py-2 relative rounded-[30px] flex justify-center items-center gap-0.5 overflow-hidden"
+                  ? "cursor-pointer px-5 py-2.5 relative bg-black/0 rounded-[30px] shadow-[inset_0_0.5px_0_0_rgba(255,255,255,0.22),inset_0.5px_0_0_0_rgba(160,186,210,0.18),inset_-2px_-1px_1px_0px_rgba(50,238,255,1)] flex justify-center items-center gap-1 overflow-hidden"
+                  : "cursor-pointer px-5 py-2.5 relative rounded-[30px] flex justify-center items-center gap-1 overflow-hidden"
               }
             >
-              <div className="flex justify-center items-center gap-2">
-                <div className={`text-center text-sm font-medium font-['Figtree'] leading-5 ${billing === 'yearly' ? 'text-white' : 'text-stone-500'}`}>
+              <div className="flex justify-center items-center gap-2.5">
+                <div className={`text-center text-base font-medium font-['Figtree'] leading-6 ${billing === 'yearly' ? 'text-white' : 'text-stone-500'}`}>
                   Yearly
                 </div>
-                <div className="px-2 py-1 rounded-[20px] outline outline-1 outline-offset-[-1px] outline-white flex justify-center items-center overflow-hidden shrink-0">
-                  <div className="text-center text-stone-500 text-[10px] font-medium font-['Figtree'] leading-3">Save 20%</div>
+                <div className="px-2.5 py-1 rounded-[20px] outline outline-1 outline-offset-[-1px] outline-white flex justify-center items-center overflow-hidden shrink-0">
+                  <div className="text-center text-stone-500 text-xs font-medium font-['Figtree'] leading-4">Save 20%</div>
                 </div>
               </div>
               {billing === 'yearly' && (
@@ -182,39 +182,35 @@ export default function PricingCards() {
             </button>
           </div>
 
-          {/* Cards — equal columns; section lề ngang 150px ở wrapper ngoài */}
-          <div className="self-stretch w-full flex flex-col lg:flex-row lg:items-stretch gap-4 md:gap-5">
+          {/* Cards */}
+          <div className="self-stretch w-full flex flex-col lg:flex-row lg:items-stretch gap-[19px]">
             {/* Free */}
-            <div className="relative w-full flex-1 min-w-0 min-h-0 p-4 rounded-2xl bg-black flex flex-col justify-start items-stretch gap-6 overflow-hidden md:min-h-[820px] md:p-5 md:gap-10">
+            <div className="relative w-full flex-1 min-w-0 rounded-2xl bg-black flex flex-col justify-start items-stretch gap-10 overflow-hidden p-5 md:min-h-[650px]">
               <div aria-hidden className="pointer-events-none absolute inset-0 rounded-2xl border border-zinc-500 z-[2]" />
-              <div className="self-stretch h-auto min-h-0 p-4 relative rounded-lg border border-zinc-500 flex flex-col justify-start items-start gap-6 overflow-hidden md:h-[420px] md:min-h-[420px] md:p-5 md:gap-10">
+              <div className="self-stretch h-[330px] p-5 relative rounded-lg border border-zinc-500 flex flex-col overflow-hidden">
                 <FreeCardColors />
-                <div className="self-stretch flex flex-col justify-start items-start gap-10 relative z-[1]">
-                  <div className="self-stretch flex flex-col justify-start items-start gap-7">
-                    <div className="self-stretch text-white text-2xl font-medium font-['Figtree'] leading-7">Free</div>
-                    <div className="inline-flex justify-start items-center gap-1">
-                      <div className="text-white text-4xl font-medium font-['Figtree'] leading-[1] md:text-5xl md:leading-[48px]">{billing === 'monthly' ? '$0' : '$0'}</div>
-                      <div className="self-stretch pb-4 flex justify-end items-end gap-2.5">
-                        <div className="w-20 text-white text-base font-normal font-['Figtree'] leading-6">/month</div>
-                      </div>
+                <div className="relative z-[1] flex w-full flex-1 flex-col justify-between gap-10">
+                  <div className="flex flex-col items-start gap-[30px]">
+                    <div className="text-white text-2xl font-medium font-['Figtree'] leading-7">Free</div>
+                    <div className="inline-flex flex-wrap items-end gap-2">
+                      <span className="text-white font-medium font-['Figtree'] text-5xl leading-[48px]">{billing === 'monthly' ? '$0' : '$0'}</span>
+                      <span className="text-white pb-4 text-base font-normal font-['Figtree'] leading-[22px]">/month</span>
                     </div>
                   </div>
                   <a
                     href="https://app.sheldonmind.com/"
                     aria-label="Get started with Free"
-                    className="self-stretch h-12 px-4 bg-transparent rounded-2xl shadow-[inset_0_0.5px_0_0_rgba(255,255,255,0.22),inset_0.5px_0_0_0_rgba(255,255,255,0.18),inset_-2px_-1px_1px_0px_#32eeff] inline-flex justify-center items-center gap-[4px] overflow-clip md:h-14 md:px-5"
+                    className="inline-flex h-14 w-full shrink-0 cursor-pointer items-center justify-center overflow-clip rounded-2xl bg-transparent px-5 shadow-[inset_0_0.5px_0_0_rgba(255,255,255,0.22),inset_0.5px_0_0_0_rgba(255,255,255,0.18),inset_-2px_-1px_1px_0px_#32eeff]"
                   >
-                    <div className="h-6 flex justify-center items-center">
-                      <div className="text-center text-white text-[18px] font-medium font-['Figtree'] leading-[1.2]">Get Started</div>
-                    </div>
+                    <span className="font-medium font-['Figtree'] text-white text-[18px] leading-[1.2]">Get Started</span>
                   </a>
-                </div>
-                <div className="self-stretch inline-flex justify-start items-center gap-3.5 relative z-[1]">
-                  <FileStack />
-                  <div className="flex-1 text-white text-base font-normal font-['Figtree'] leading-6">
-                    {billing === 'monthly'
-                      ? '450,000 free credits/mo - $1,34 per 1M credits'
-                      : '5,400,000 free credits/yr - $1,34 per 1M credits'}
+                  <div className="inline-flex shrink-0 items-center gap-[15px]">
+                    <FileStack />
+                    <p className="m-0 flex-1 text-white text-base font-normal font-['Figtree'] leading-[1.4]">
+                      {billing === 'monthly'
+                        ? '450,000 free credits/mo - $1,34 per 1M credits'
+                        : '5,400,000 free credits/yr - $1,34 per 1M credits'}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -230,43 +226,39 @@ export default function PricingCards() {
                 ].map((f) => (
                   <div key={f} className="inline-flex justify-start items-center gap-3">
                     <Check />
-                    <div className="text-white text-base font-normal font-['Figtree'] leading-6">{f}</div>
+                    <div className="text-white text-base font-normal font-['Figtree'] leading-[1.4]">{f}</div>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Pro */}
-            <div className="relative w-full flex-1 min-w-0 min-h-0 p-4 rounded-2xl bg-black flex flex-col justify-start items-stretch gap-6 overflow-hidden md:min-h-[820px] md:p-5 md:gap-10">
+            <div className="relative w-full flex-1 min-w-0 rounded-2xl bg-black flex flex-col justify-start items-stretch gap-10 overflow-hidden p-5 md:min-h-[650px]">
               <div aria-hidden className="pointer-events-none absolute inset-0 rounded-2xl border border-zinc-500 z-[2]" />
-              <div className="self-stretch h-auto min-h-0 p-4 relative rounded-lg border border-zinc-500 flex flex-col justify-start items-start gap-6 overflow-hidden md:h-[420px] md:min-h-[420px] md:p-5 md:gap-10">
+              <div className="self-stretch h-[330px] p-5 relative rounded-lg border border-zinc-500 flex flex-col overflow-hidden">
                 <ProCardColors />
-                <div className="self-stretch flex flex-col justify-start items-start gap-10 relative z-[1]">
-                  <div className="self-stretch flex flex-col justify-start items-start gap-7">
-                    <div className="self-stretch text-white text-2xl font-medium font-['Figtree'] leading-7">Pro</div>
-                    <div className="inline-flex justify-start items-center gap-1">
-                      <div className="text-white text-4xl font-medium font-['Figtree'] leading-[1] md:text-5xl md:leading-[48px]">{billing === 'monthly' ? '$8' : '$6.4'}</div>
-                      <div className="self-stretch pb-4 flex justify-end items-end gap-2.5">
-                        <div className="w-20 text-white text-base font-normal font-['Figtree'] leading-6">/month</div>
-                      </div>
+                <div className="relative z-[1] flex w-full flex-1 flex-col justify-between gap-10">
+                  <div className="flex flex-col items-start gap-[30px]">
+                    <div className="text-white text-2xl font-medium font-['Figtree'] leading-7">Pro</div>
+                    <div className="inline-flex flex-wrap items-end gap-2">
+                      <span className="text-white font-medium font-['Figtree'] text-5xl leading-[48px]">{billing === 'monthly' ? '$8' : '$6.4'}</span>
+                      <span className="text-white pb-4 text-base font-normal font-['Figtree'] leading-[22px]">/month</span>
                     </div>
                   </div>
                   <a
                     href="https://app.sheldonmind.com/"
                     aria-label="Get started with Pro"
-                    className="self-stretch h-12 px-4 bg-transparent rounded-2xl shadow-[inset_0_0.5px_0_0_rgba(255,255,255,0.22),inset_0.5px_0_0_0_rgba(255,255,255,0.18),inset_-2px_-1px_1px_0px_#32eeff] inline-flex justify-center items-center gap-[4px] overflow-clip md:h-14 md:px-5"
+                    className="inline-flex h-14 w-full shrink-0 cursor-pointer items-center justify-center overflow-clip rounded-2xl bg-transparent px-5 shadow-[inset_0_0.5px_0_0_rgba(255,255,255,0.22),inset_0.5px_0_0_0_rgba(255,255,255,0.18),inset_-2px_-1px_1px_0px_#32eeff]"
                   >
-                    <div className="h-6 flex justify-center items-center">
-                      <div className="text-center text-white text-[18px] font-medium font-['Figtree'] leading-[1.2]">Get Started</div>
-                    </div>
+                    <span className="font-medium font-['Figtree'] text-white text-[18px] leading-[1.2]">Get Started</span>
                   </a>
-                </div>
-                <div className="self-stretch inline-flex justify-start items-start gap-3.5 relative z-[1]">
-                  <FileStack />
-                  <div className="flex-1 text-white text-base font-normal font-['Figtree'] leading-6">
-                    {billing === 'monthly'
-                      ? '450,000 + 1,000,000 credits/mo - $0,67 per 1M credits'
-                      : '5,400,000 + 12,000,000 credits/yr - $0,67 per 1M credits'}
+                  <div className="inline-flex shrink-0 items-start gap-[15px]">
+                    <FileStack />
+                    <p className="m-0 flex-1 text-white text-base font-normal font-['Figtree'] leading-[1.4]">
+                      {billing === 'monthly'
+                        ? '450,000 + 1,000,000 credits/mo - $0,67 per 1M credits'
+                        : '5,400,000 + 12,000,000 credits/yr - $0,67 per 1M credits'}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -282,43 +274,39 @@ export default function PricingCards() {
                 ].map((f) => (
                   <div key={f} className="inline-flex justify-start items-center gap-3">
                     <Check />
-                    <div className="text-white text-base font-normal font-['Figtree'] leading-6">{f}</div>
+                    <div className="text-white text-base font-normal font-['Figtree'] leading-[1.4]">{f}</div>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Business */}
-            <div className="relative w-full flex-1 min-w-0 min-h-0 p-4 rounded-2xl bg-black flex flex-col justify-start items-stretch gap-6 overflow-hidden md:min-h-[820px] md:p-5 md:gap-10">
+            <div className="relative w-full flex-1 min-w-0 rounded-2xl bg-black flex flex-col justify-start items-stretch gap-10 overflow-hidden p-5 md:min-h-[650px]">
               <div aria-hidden className="pointer-events-none absolute inset-0 rounded-2xl border border-zinc-500 z-[2]" />
-              <div className="self-stretch h-auto min-h-0 p-4 relative rounded-lg border border-zinc-500 flex flex-col justify-start items-start gap-6 overflow-hidden md:h-[420px] md:min-h-[420px] md:p-5 md:gap-10">
+              <div className="self-stretch h-[331px] p-5 relative rounded-lg border border-zinc-500 flex flex-col overflow-hidden">
                 <BusinessCardColors />
-                <div className="self-stretch flex flex-col justify-start items-start gap-10 relative z-[1]">
-                  <div className="self-stretch flex flex-col justify-start items-start gap-7">
-                    <div className="self-stretch text-white text-2xl font-medium font-['Figtree'] leading-7">Business</div>
-                    <div className="inline-flex justify-start items-center gap-1">
-                      <div className="text-white text-4xl font-medium font-['Figtree'] leading-[1] md:text-5xl md:leading-[48px]">{billing === 'monthly' ? '$12.5' : '$10'}</div>
-                      <div className="self-stretch pb-4 flex justify-end items-end gap-2.5">
-                        <div className="w-20 text-white text-base font-medium font-['Figtree'] leading-6">/month</div>
-                      </div>
+                <div className="relative z-[1] flex w-full flex-1 flex-col justify-between gap-10">
+                  <div className="flex flex-col items-start gap-[30px]">
+                    <div className="text-white text-2xl font-medium font-['Figtree'] leading-7">Business</div>
+                    <div className="inline-flex flex-wrap items-end gap-2">
+                      <span className="text-white font-medium font-['Figtree'] text-5xl leading-[48px]">{billing === 'monthly' ? '$12.5' : '$10'}</span>
+                      <span className="text-white pb-4 text-base font-medium font-['Figtree'] leading-[22px]">/month</span>
                     </div>
                   </div>
                   <a
                     href="https://app.sheldonmind.com/"
                     aria-label="Get started with Business"
-                    className="self-stretch h-12 px-4 bg-transparent rounded-2xl shadow-[inset_0_0.5px_0_0_rgba(255,255,255,0.22),inset_0.5px_0_0_0_rgba(255,255,255,0.18),inset_-2px_-1px_1px_0px_#32eeff] inline-flex justify-center items-center gap-[4px] overflow-clip md:h-14 md:px-5"
+                    className="inline-flex h-14 w-full shrink-0 cursor-pointer items-center justify-center overflow-clip rounded-2xl bg-transparent px-5 shadow-[inset_0_0.5px_0_0_rgba(255,255,255,0.22),inset_0.5px_0_0_0_rgba(255,255,255,0.18),inset_-2px_-1px_1px_0px_#32eeff]"
                   >
-                    <div className="h-6 flex justify-center items-center">
-                      <div className="text-center text-white text-[18px] font-medium font-['Figtree'] leading-[1.2]">Get Started</div>
-                    </div>
+                    <span className="font-medium font-['Figtree'] text-white text-[18px] leading-[1.2]">Get Started</span>
                   </a>
-                </div>
-                <div className="self-stretch inline-flex justify-start items-start gap-3.5 relative z-[1]">
-                  <FileStack />
-                  <div className="flex-1 text-white text-base font-normal font-['Figtree'] leading-6">
-                    {billing === 'monthly'
-                      ? '450,000 + 2,000,000 credits/mo - $0,67 per 1M credits'
-                      : '5,400,000 + 24,000,000 credits/yr - $0,67 per 1M credits'}
+                  <div className="inline-flex shrink-0 items-start gap-[15px]">
+                    <FileStack />
+                    <p className="m-0 flex-1 text-white text-base font-normal font-['Figtree'] leading-[1.4]">
+                      {billing === 'monthly'
+                        ? '450,000 + 2,000,000 credits/mo - $0,67 per 1M credits'
+                        : '5,400,000 + 24,000,000 credits/yr - $0,67 per 1M credits'}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -326,7 +314,7 @@ export default function PricingCards() {
                 {['Everything in Pro', 'Member management', 'Sharing and collaboration'].map((f) => (
                   <div key={f} className="inline-flex justify-start items-center gap-3">
                     <Check />
-                    <div className="text-white text-base font-normal font-['Figtree'] leading-6">{f}</div>
+                    <div className="text-white text-base font-normal font-['Figtree'] leading-[1.4]">{f}</div>
                   </div>
                 ))}
               </div>

@@ -25,7 +25,7 @@ export default function SiteNav({ navItems = defaultItems }: Props) {
   return (
     <header className="z-30 w-full bg-black">
       <div className="flex w-full items-center gap-1 px-[100px] py-5 max-lg:px-[50px] max-md:px-4">
-        <a href="/" className="flex flex-1 items-center gap-3 rounded-lg">
+        <a href="/" className="flex flex-1 cursor-pointer items-center gap-3 rounded-lg">
           <div className="flex items-center gap-3">
             <div className="h-[80px] w-[80px] shrink-0">
               <svg width="100%" height="100%" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +54,7 @@ export default function SiteNav({ navItems = defaultItems }: Props) {
             <a
               key={label}
               href={href}
-              className="flex items-center justify-center whitespace-nowrap rounded-2xl border border-white/15 px-[30px] py-3 font-productSans text-lg font-medium text-white transition-all hover:bg-white/5"
+              className="flex cursor-pointer items-center justify-center whitespace-nowrap rounded-2xl border border-white/15 px-[30px] py-3 font-productSans text-lg font-medium text-white transition-all hover:bg-white/5"
             >
               {label}
             </a>
@@ -88,7 +88,7 @@ export default function SiteNav({ navItems = defaultItems }: Props) {
           </a>
         </div>
 
-        <button type="button" onClick={() => setMobileOpen((o) => !o)} className="ml-auto flex flex-col gap-1 p-2 md:hidden">
+        <button type="button" onClick={() => setMobileOpen((o) => !o)} className="ml-auto flex cursor-pointer flex-col gap-1 p-2 md:hidden">
           <span className="h-0.5 w-5 rounded-full bg-white" />
           <span className="h-0.5 w-5 rounded-full bg-white" />
           <span className="h-0.5 w-5 rounded-full bg-white" />
@@ -97,13 +97,13 @@ export default function SiteNav({ navItems = defaultItems }: Props) {
       {mobileOpen && (
         <div className="border-t border-white/10 bg-black/98 md:hidden px-6 py-4 flex flex-col gap-3">
           {navItems.map(([label, href]) => (
-            <a key={label} href={href} className="py-1 text-white/80 hover:text-white" onClick={() => setMobileOpen(false)}>
+            <a key={label} href={href} className="cursor-pointer py-1 text-white/80 hover:text-white" onClick={() => setMobileOpen(false)}>
               {label}
             </a>
           ))}
           <a
             href="https://app.sheldonmind.com/"
-            className="mt-2 flex items-center justify-center gap-2 rounded-2xl border-2 border-white/20 px-6 py-3 font-medium text-white"
+            className="mt-2 flex cursor-pointer items-center justify-center gap-2 rounded-2xl border-2 border-white/20 px-6 py-3 font-medium text-white"
             onClick={() => setMobileOpen(false)}
           >
             Sign Up ↗

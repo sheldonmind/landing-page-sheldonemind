@@ -45,12 +45,12 @@ export default function HeroSection() {
               Choose your best AI model ...
             </p>
             <div className="flex w-full items-start justify-between">
-              <button type="button" className="flex items-center justify-center overflow-hidden rounded-full border border-white p-3 md:p-4" aria-label="Add">
+              <button type="button" className="flex cursor-pointer items-center justify-center overflow-hidden rounded-full border border-white p-3 md:p-4" aria-label="Add">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="md:h-8 md:w-8">
                   <path d="M12 5V19M5 12H19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
-              <button type="button" className="relative flex items-center justify-center overflow-hidden rounded-full border border-white/20 p-3 md:p-4" aria-label="Send" style={{ boxShadow: 'inset -0.765px -0.765px 0.765px 0 #32EEFF' }}>
+              <button type="button" className="relative flex cursor-pointer items-center justify-center overflow-hidden rounded-full border border-white/20 p-3 md:p-4" aria-label="Send" style={{ boxShadow: 'inset -0.765px -0.765px 0.765px 0 #32EEFF' }}>
                 <img src="/send.png" alt="Send" className="h-6 w-6 object-contain md:h-8 md:w-8" />
               </button>
             </div>
