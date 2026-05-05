@@ -83,7 +83,7 @@ function HeroFigmaSendIcon({ className }: { className?: string }) {
 
 export default function HeroSection() {
   return (
-    <section className="box-border flex w-full max-w-full flex-col items-center pb-8 max-md:pb-6">
+    <section className="box-border mx-[50px] flex w-[calc(100%-100px)] max-w-full flex-col items-center pb-8 max-md:pb-6 max-lg:mx-[calc(2rem+10px)] max-lg:w-[calc(100%-2*((2rem+10px)))] max-md:mx-[calc(1rem+10px)] max-md:w-[calc(100%-2*((1rem+10px)))] max-[220px]:mx-2 max-[220px]:w-[calc(100%-16px)]">
       {/* 2316:26125 — full width frame 1512×875, border 1px #6C6C6C, radius 16 */}
       <div
         className="hero-card-frame relative mx-auto w-full overflow-hidden rounded-2xl border border-solid border-[#6C6C6C] bg-black"

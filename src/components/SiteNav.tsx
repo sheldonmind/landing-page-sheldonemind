@@ -24,7 +24,7 @@ export default function SiteNav({ navItems = defaultItems }: Props) {
 
   return (
     <header className="z-30 w-full bg-black">
-      <div className="site-header-bar box-border mx-[50px] flex w-[calc(100%-100px)] max-w-full items-center gap-1 py-4 max-md:mx-[calc(1rem+10px)] max-md:w-[calc(100%-2*((1rem+10px)))] max-[220px]:mx-2 max-[220px]:w-[calc(100%-16px)]">
+      <div className="site-header-bar box-border mx-[100px] flex w-[calc(100%-200px)] max-w-full items-center gap-1 py-4 max-lg:mx-[calc(2rem+60px)] max-lg:w-[calc(100%-2*((2rem+60px)))] max-md:mx-[calc(1rem+60px)] max-md:w-[calc(100%-2*((1rem+60px)))] max-[220px]:mx-[58px] max-[220px]:w-[calc(100%-116px)]">
         <a
           href="/"
           className="site-nav-logo-link flex min-w-0 flex-1 cursor-pointer items-center gap-3 rounded-lg"
@@ -109,7 +109,7 @@ export default function SiteNav({ navItems = defaultItems }: Props) {
         </button>
       </div>
       {mobileOpen && (
-        <div className="border-t border-white/10 bg-black/98 px-6 py-4 flex flex-col gap-3 md:hidden max-[220px]:px-2">
+        <div className="flex flex-col gap-3 border-t border-white/10 bg-black/98 px-[calc(1rem+60px)] py-4 md:hidden max-[220px]:px-[58px]">
           {navItems.map(([label, href]) => (
             <a key={label} href={href} className="cursor-pointer py-1 text-white/80 hover:text-white" onClick={() => setMobileOpen(false)}>
               {label}
