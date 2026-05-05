@@ -1,68 +1,56 @@
 import VisualizeMediaCard from './VisualizeMediaCard';
-import { VISUAL_ASSETS, visualCardFrameStyle } from './visualizeConstants';
+import { VISUAL_ASSETS } from './visualizeConstants';
 
 export default function VisualizeBentoGrid() {
+  /* Vertical gap bento → Video Studio: Figma 2316:23696 = 20px; dùng gap-8 (32px) để tách rõ trên nền đen */
   return (
-    <div className="w-full px-4 md:px-6 lg:px-8 xl:px-10.5">
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-stretch">
-        <div className="w-full shrink-0 lg:w-[min(600px,48vw)] lg:max-w-150">
+    <div className="flex w-full flex-col gap-8">
+      {/* Bento cluster: 350 left + 2×2 right, gutter 20px (Figma) */}
+      <div className="flex w-full gap-[20px] max-lg:flex-col">
+        <div className="w-[350px] shrink-0 self-stretch max-lg:w-full">
           <VisualizeMediaCard
             label="Create Image"
             src={VISUAL_ASSETS.createImage}
             media="img"
-            className="min-h-75 h-full lg:min-h-[calc(430px+430px+1rem)]"
+            className="h-full min-h-[580px] max-lg:min-h-70"
           />
         </div>
-        <div className="flex min-w-0 flex-1 flex-col gap-4">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-stretch">
-            <div className="w-full shrink-0 lg:w-[min(440px,34vw)] lg:max-w-110">
-              <VisualizeMediaCard
-                label="Upscale"
-                src={VISUAL_ASSETS.upscale}
-                media="img"
-                className="min-h-70 h-full lg:min-h-107.5"
-              />
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-[20px]">
+          <div className="flex gap-[20px] max-md:flex-col">
+            <div className="h-[280px] w-[280px] shrink-0 max-md:w-full">
+              <VisualizeMediaCard label="Upscale" src={VISUAL_ASSETS.upscale} media="img" className="h-full" />
             </div>
-            <div className="min-h-70 min-w-0 flex-1 lg:min-h-107.5">
+            <div className="h-[280px] min-h-0 min-w-0 flex-1 max-md:h-[280px]">
               <VisualizeMediaCard
                 label="Motion Control"
                 src={VISUAL_ASSETS.motion}
                 media="video"
-                centerPlay
-                className="h-full min-h-70 lg:min-h-107.5"
+                className="h-full"
               />
             </div>
           </div>
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-stretch">
-            <div className="min-h-70 min-w-0 flex-1 lg:min-h-107.5">
+          <div className="flex gap-[20px] max-md:flex-col">
+            <div className="h-[280px] min-h-0 min-w-0 flex-1 max-md:h-[280px]">
               <VisualizeMediaCard
-                label="Create"
+                label="Create Video"
                 src={VISUAL_ASSETS.createVideo}
                 media="video"
-                className="h-full min-h-70 lg:min-h-107.5"
+                className="h-full"
               />
             </div>
-            <div className="w-full shrink-0 lg:w-[min(440px,34vw)] lg:max-w-110">
-              <VisualizeMediaCard
-                label="Mixed Media"
-                src={VISUAL_ASSETS.mixed}
-                media="video"
-                centerPlay
-                className="min-h-70 h-full lg:min-h-107.5"
-              />
+            <div className="h-[280px] w-[280px] shrink-0 max-md:w-full">
+              <VisualizeMediaCard label="Mixed Media" src={VISUAL_ASSETS.mixed} media="video" className="h-full" />
             </div>
           </div>
         </div>
       </div>
 
-      <div
-        className="relative mt-4 w-full overflow-hidden rounded-xl bg-black"
-        style={visualCardFrameStyle}
-      >
+      {/* Coming Soon — Video Studio (Figma 2316:23706, 1412×720) */}
+      <div className="relative h-[720px] w-full overflow-hidden rounded-[16px] bg-black max-lg:h-auto">
         <img
           src={VISUAL_ASSETS.comingSoon}
           alt="Video Studio — Coming soon"
-          className="block h-auto w-full object-cover"
+          className="block h-full w-full object-cover max-lg:h-auto"
         />
       </div>
     </div>

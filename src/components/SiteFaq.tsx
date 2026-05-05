@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { faqHeadlineStyle } from './visualizeConstants';
 
 const faqs: [string, string][] = [
   ['Do I need a subscription?', 'No. You can use SheldonMind with pay-as-you-go credits. Top up any amount from $1 to $1,000 USD and use any feature. Optional plans available for extra perks.'],
@@ -8,46 +9,67 @@ const faqs: [string, string][] = [
   ['How are credits deducted?', 'Chat deducts by model and token count. Image and video deduct per generation based on model, resolution, and duration.'],
 ];
 
+/** Figma Section 5 — FAQ 2316:23814; desktop container 1412 with content 555 + 35 + 822. */
 export default function SiteFaq() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="w-full bg-black px-4 py-55 md:px-6 lg:px-8 xl:px-10.5 max-md:py-20">
-      <div className="w-full">
-        <div className="mx-auto mb-80 max-w-300 text-center max-md:mb-20">
-          <h2
-            className="m-0 font-['Figtree',sans-serif] text-[clamp(60px,9vw,128px)] font-medium leading-none"
-            style={{
-              background:
-                'radial-gradient(50% 50% at 57% 38%, #0472EF 0%, #7EBDEA 41%, #D3F2E7 100%)',
-              WebkitBackgroundClip: 'text',
-              backgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              color: 'transparent',
-            }}
+    <section
+      id="faq"
+      className="box-border w-full min-w-0 bg-black py-[100px] max-md:py-20"
+      data-node-id="2316:23814"
+      data-name="Section 5 - FQA"
+    >
+      <div className="mx-auto w-full max-w-[1412px] px-[calc(1rem+10px)] md:px-[calc(2rem+10px)] lg:px-0 max-[220px]:px-2">
+        <div className="mb-16 flex w-full flex-col items-center max-md:mb-12" data-node-id="2316:23815">
+          <div
+            className="relative flex w-full flex-col items-center overflow-x-clip overflow-y-visible max-[220px]:overflow-visible lg:min-h-[250px]"
+            data-node-id="2316:23816"
           >
-            Frequently asked
-            <br />
-            questions.
-          </h2>
+            <h2
+              className="m-0 w-full max-w-[693px] text-center font-['Figtree',sans-serif] text-[clamp(40px,7vw,72px)] font-medium leading-none tracking-normal max-md:text-[36px] max-[220px]:text-[clamp(28px,11vw,36px)]"
+              style={faqHeadlineStyle}
+              data-node-id="2316:23817"
+            >
+              <span data-nowrap-safe="true" className="block">
+                Frequently asked
+              </span>
+              <span data-nowrap-safe="true" className="block">
+                questions.
+              </span>
+            </h2>
+          </div>
         </div>
 
-        <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-[42fr_58fr] md:gap-[35px]">
-          <aside className="relative overflow-hidden rounded-2xl border border-white/30 p-2">
-            <img src="/FAQ.png" alt="" className="absolute inset-0 h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-black/20" />
-            <div className="relative z-10 flex min-h-150 flex-col items-center justify-center gap-4 px-6 text-center">
-              <div className="mt-47.5 flex flex-col items-center gap-4">
-                <p className="m-0 font-['Figtree',sans-serif] text-[clamp(2.9rem,5.6vw,4.1rem)] font-medium leading-none text-white">
-                  Need more help?
-                </p>
-                <p className="m-0 max-w-95 font-['Figtree',sans-serif] text-[22px] leading-[1.4] text-greygrey-800">
+        <div className="grid w-full grid-cols-1 items-stretch gap-8 md:grid-cols-[555px_minmax(0,822px)] md:gap-x-[35px]" data-node-id="2316:23819">
+          <aside
+            className="relative box-border mx-auto flex aspect-square w-full max-w-[555px] flex-col items-center justify-center gap-4 rounded-[16px] border border-solid border-[#6C6C6C] p-[10px] md:mx-0 md:h-[555px] md:w-[555px] md:max-w-[555px]"
+            aria-label="Contact support"
+            data-node-id="2316:23820"
+          >
+            <img src="/FAQ.png" alt="" className="pointer-events-none absolute inset-0 size-full rounded-[16px] object-cover" />
+            <div className="pointer-events-none absolute inset-0 rounded-[16px] bg-black/20" />
+            <div className="relative z-10 flex w-full flex-col items-center justify-center gap-4 px-2 text-center" data-node-id="2316:23821">
+              <p
+                data-nowrap-safe="true"
+                className="m-0 font-['Figtree',sans-serif] text-[48px] font-medium leading-none text-white max-md:text-[36px] max-[220px]:text-[28px]"
+                data-node-id="2316:23822"
+              >
+                Need more help?
+              </p>
+              <div className="m-0 max-w-[257px] px-2">
+                <p
+                  data-nowrap-safe="true"
+                  className="m-0 text-center font-['Figtree',sans-serif] text-base font-normal leading-[1.4] text-absolutewhite max-[220px]:text-sm"
+                >
                   Contact the SheldonMind team via email or support page.
                 </p>
               </div>
               <a
                 href="mailto:support@sheldonmind.com"
-                className="absolute left-1/2 top-[calc(86%+8px)] z-20 inline-flex w-fit -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center gap-1 overflow-hidden whitespace-nowrap rounded-xl bg-black/0 px-5 py-[11px] font-['Figtree',sans-serif] text-base font-medium leading-[1.4] text-white"
+                data-nowrap-safe="true"
+                data-node-id="2316:23824"
+                className="relative z-20 mt-1 inline-flex w-fit shrink-0 cursor-pointer items-center justify-center gap-0.5 overflow-hidden rounded-xl px-3.5 py-2 font-['Figtree',sans-serif] text-[14px] font-medium leading-[1.4] text-white max-[220px]:text-[12px]"
                 style={{
                   boxShadow:
                     'inset 0 0.5px 0 0 rgba(255,255,255,0.22), inset 0.5px 0 0 0 rgba(160,186,210,0.18), inset -2px -1px 1px 0 rgba(50,238,255,1)',
@@ -66,39 +88,51 @@ export default function SiteFaq() {
                   />
                 </span>
                 <span className="relative z-10">Contact</span>
-                <svg className="relative z-10" width={22} height={22} viewBox="0 0 24 24" fill="none" aria-hidden>
+                <svg className="relative z-10 shrink-0" width={20} height={20} viewBox="0 0 24 24" fill="none" aria-hidden>
                   <path d="M7 17L17 7M17 7H7M17 7V17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </a>
             </div>
           </aside>
 
-          <div className="space-y-2">
+          <div className="flex min-w-0 w-full max-w-[822px] flex-col gap-2 md:gap-2" data-node-id="2316:23825">
             {faqs.map(([q, a], idx) => {
               const expanded = openFaq === idx;
               return (
-                <div key={q} className="min-h-37.5 overflow-hidden rounded-xl border border-white/30 bg-black">
+                <div
+                  key={q}
+                  className="flex flex-col gap-4 overflow-hidden rounded-[12px] border border-solid border-[#6C6C6C] bg-black p-[30px] max-md:p-6"
+                  data-node-id={`2316:238${26 + idx}`}
+                >
                   <button
                     type="button"
                     onClick={() => setOpenFaq(expanded ? null : idx)}
-                    className="flex h-37.5 w-full cursor-pointer items-center justify-between px-6 text-left"
+                    className="flex w-full cursor-pointer items-start justify-between gap-4 text-left font-['Figtree',sans-serif] text-white"
                   >
-                    <span className="font-['Figtree',sans-serif] text-2xl font-medium leading-[1.2] text-white">{q}</span>
+                    <span
+                      data-nowrap-safe="true"
+                      className="font-['Figtree',sans-serif] text-xl font-medium leading-[1.2] text-absolutewhite sm:text-[24px] max-[220px]:text-[18px]"
+                    >
+                      {q}
+                    </span>
                     <svg
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
                       fill="none"
-                      className={`shrink-0 text-white transition-transform ${expanded ? '' : 'rotate-180'}`}
+                      className={`mt-px shrink-0 text-absolutewhite transition-transform ${expanded ? '' : 'rotate-180'}`}
                       aria-hidden
                     >
                       <path d="M6 15L12 9L18 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </button>
                   {expanded && (
-                    <div className="px-6 pb-6 font-['Figtree',sans-serif] text-base font-normal leading-[1.4] text-white">
+                    <p
+                      data-nowrap-safe="true"
+                      className="m-0 font-['Figtree',sans-serif] text-base font-normal leading-[1.4] text-absolutewhite max-[220px]:text-sm"
+                    >
                       {a}
-                    </div>
+                    </p>
                   )}
                 </div>
               );

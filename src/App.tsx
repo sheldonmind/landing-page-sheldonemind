@@ -10,7 +10,7 @@ import SiteFooter from './components/SiteFooter';
 
 function App() {
   return (
-    <div className="flex flex-col items-center bg-black min-h-screen overflow-hidden font-sans text-white">
+    <div className="flex min-h-screen w-full flex-col items-stretch bg-black overflow-hidden font-sans text-white">
       <SiteNav />
 
       <main className="w-full overflow-x-hidden">

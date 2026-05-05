@@ -1,57 +1,44 @@
-/** Explore stunning AI art (Figma 2316:23781) */
+/**
+ * Section 3 — Explore stunning AI art (Figma 2316:23781).
+ * Content node 2316:23790 — section dùng margin ngang + width calc (lề ~60px desktop @16px root).
+ */
+import { FigmaPrimaryCtaLink } from './FigmaPrimaryCta';
+import { galleryHeadlineStyle } from './visualizeConstants';
+
 export default function GallerySection() {
   return (
-    <section id="gallery" className="w-full bg-black px-4 py-55 md:px-6 lg:px-8 xl:px-10.5 max-md:py-20">
-      <div className="mx-auto mb-16 flex w-full max-w-275 flex-col items-center gap-8 text-center max-md:mb-10">
-        <h2
-          className="m-0 font-['Figtree',sans-serif] text-[clamp(34px,9vw,128px)] font-medium leading-none"
-          style={{
-            background:
-              'radial-gradient(50% 50% at 57% 38%, #0472EF 0%, #7EBDEA 41%, #D3F2E7 100%)',
-            WebkitBackgroundClip: 'text',
-            backgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            color: 'transparent',
-          }}
-        >
-          Explore <span className="text-white">stunning</span>
-          <br />
-          AI art.
-        </h2>
-        <p className="m-0 max-w-175 font-['Figtree',sans-serif] text-[28px] font-normal leading-[1.4] text-greygrey-800">
-          Choose model per conversation, token-by-token streaming, credit deduction by model and token
-        </p>
-        <a
-          href="https://app.sheldonmind.com/"
-          className="relative mt-12 inline-flex w-fit cursor-pointer items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-3xl px-9 py-6 font-['Figtree',sans-serif] text-[26px] font-medium text-white transition-opacity hover:opacity-95 max-md:mt-4"
-          style={{
-            boxShadow:
-              'inset 0 0.5px 0 0 rgba(255,255,255,0.22), inset 0.5px 0 0 0 rgba(160,186,210,0.18), inset -2px -1px 1px 0 rgba(50,238,255,1)',
-          }}
-        >
-          <span
-            aria-hidden
-            className="pointer-events-none absolute left-[442.24px] top-[126.86px] h-72 w-72 origin-top-left rotate-[145.14deg] rounded-full blur-3xl"
-            style={{
-              background:
-                'radial-gradient(ellipse 44.88% 44.88% at 50.29% 57.43%, #0472EF 0%, #7EBDEA 73%, #D3F2E7 100%)',
-              mixBlendMode: 'hard-light',
-            }}
-          />
-          <span className="relative z-10">Explore Now</span>
-          <svg className="relative z-10" width={32} height={32} viewBox="0 0 24 24" fill="none" aria-hidden>
-            <path
-              d="M7 17L17 7M17 7H7M17 7V17"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </a>
-      </div>
+    <section
+      id="gallery"
+      className="box-border mx-[50px] w-[calc(100%-100px)] max-w-full bg-black pb-25 pt-12.5 max-lg:mx-[calc(2rem+10px)] max-lg:w-[calc(100%-2*((2rem+10px)))] max-md:mx-[calc(1rem+10px)] max-md:w-[calc(100%-2*((1rem+10px)))] max-md:py-16 max-[220px]:mx-2 max-[220px]:w-[calc(100%-16px)]"
+    >
+      <div className="flex w-full flex-col gap-[50px]">
+        <div className="flex w-full flex-col items-center gap-16">
+          <div className="flex w-full flex-col items-center gap-8">
+            <h2 className="m-0 text-center font-['Figtree',sans-serif] text-[clamp(2.125rem,5.5vw,4.5rem)] font-medium leading-none tracking-normal" style={galleryHeadlineStyle}>
+              <span className="block">Explore stunning</span>
+              <span className="block">AI art.</span>
+            </h2>
+            <p className="m-0 w-full max-w-[474px] text-center font-['Figtree',sans-serif] text-base font-normal leading-[1.2] text-greygrey-800 md:text-lg lg:text-[18px]">
+              Choose model per conversation, token-by-token streaming, credit deduction by model and token
+            </p>
+          </div>
 
-      <img src="/Content.png" alt="Explore stunning AI art content" className="block h-auto w-full" />
+          <FigmaPrimaryCtaLink text="Explore Now" />
+        </div>
+
+        {/* Node 2316:23790 — trong cùng lề section để đều với các section khác */}
+        <div className="relative w-full overflow-hidden">
+          <img
+            src="/Content.png"
+            alt="Explore stunning AI art — gallery preview"
+            className="block h-auto w-full object-cover"
+            width={1412}
+            height={794}
+            sizes="(min-width: 1512px) 1412px, calc(100vw - (3.125rem + 10px) * 2)"
+            decoding="async"
+          />
+        </div>
+      </div>
     </section>
   );
 }

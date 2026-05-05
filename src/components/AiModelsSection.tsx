@@ -1,20 +1,7 @@
 /**
  * Figma card 2316:23776 + Logo Slider — Warp 2316:23780.
  */
-
-const TITLE_GRADIENT = `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 364 80" preserveAspectRatio="none"><defs><radialGradient id="ai" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="10" gradientTransform="matrix(28.712 1.6416 -26.091 10.403 76.881 63.584)"><stop stop-color="rgba(255,255,255,0.4)" offset="0"/><stop stop-color="rgba(255,255,255,0.64519)" offset="0.40865"/><stop stop-color="rgba(255,255,255,1)" offset="1"/></radialGradient></defs><rect width="100%" height="100%" fill="url(#ai)"/></svg>',
-)}")`;
-
-const headlineStyle = {
-  backgroundImage: TITLE_GRADIENT,
-  backgroundSize: '100% 100%',
-  backgroundRepeat: 'no-repeat' as const,
-  WebkitBackgroundClip: 'text' as const,
-  backgroundClip: 'text' as const,
-  WebkitTextFillColor: 'transparent' as const,
-  color: 'transparent' as const,
-};
+import { aiModelsHeadlineStyle } from './visualizeConstants';
 
 const WARP_ROW1 = [
   '/Nano%20Banana-%20Warp.png',
@@ -32,13 +19,13 @@ const WARP_ROW2 = [
 ] as const;
 
 const warpImgClass =
-  'h-auto max-h-[3.5rem] w-auto shrink-0 sm:max-h-16 md:max-h-[4.25rem] lg:max-h-20';
+  'h-auto max-h-12 w-auto shrink-0 md:max-h-14 lg:max-h-[3.5rem]';
 
 export default function AiModelsSection() {
   return (
-    <section className="w-full bg-black px-4 pb-16 pt-0 md:px-6 md:pb-20 lg:px-8 xl:px-10.5 xl:pb-25">
+    <section className="box-border mx-[50px] w-[calc(100%-100px)] max-w-full bg-black pb-16 pt-0 md:mx-[50px] md:w-[calc(100%-100px)] md:pb-20 lg:mx-[50px] lg:w-[calc(100%-100px)] xl:mx-[50px] xl:w-[calc(100%-100px)] xl:pb-12 max-md:mx-[calc(1rem+10px)] max-md:w-[calc(100%-2*((1rem+10px)))] max-[220px]:mx-2 max-[220px]:w-[calc(100%-16px)]">
       <div
-        className="flex w-full flex-col gap-14 rounded-3xl p-10 md:p-12 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:py-14 lg:pl-14 lg:pr-0 xl:gap-16 xl:pb-[5.25rem] xl:pl-[5.25rem] xl:pr-0 xl:pt-[5.25rem]"
+        className="flex w-full flex-col gap-14 rounded-3xl p-10 md:p-12 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:py-10 lg:pl-14 lg:pr-10 xl:gap-12 xl:pb-12 xl:pl-[5.25rem] xl:pr-12 xl:pt-8"
         style={{
           border: '2px solid transparent',
           backgroundImage:
@@ -47,38 +34,34 @@ export default function AiModelsSection() {
           backgroundClip: 'padding-box, border-box',
         }}
       >
-        <div className="flex w-full max-w-[min(100%,34rem)] shrink-0 flex-col gap-8 md:gap-10 lg:max-w-[min(100%,30rem)]">
+        <div className="flex w-full shrink-0 flex-col gap-6 lg:w-[364px] lg:max-w-[364px]">
           <h2
-            className="m-0 font-['Figtree',sans-serif] text-[clamp(2.125rem,5vw,3rem)] font-medium leading-[1.08] tracking-tight md:text-[clamp(2.25rem,4.5vw,3.25rem)]"
-            style={headlineStyle}
+            className="m-0 font-['Figtree',sans-serif] text-[36px] font-medium leading-[1.1] tracking-tight max-md:text-[32px] max-[220px]:text-[26px]"
+            style={aiModelsHeadlineStyle}
           >
             Feature with the
             <br />
             best AI models.
           </h2>
-          <p className="m-0 font-['Figtree',sans-serif] text-lg font-normal leading-[1.5] text-greygrey-800 md:text-xl lg:text-2xl">
+          <p className="m-0 font-['Figtree',sans-serif] text-[16px] font-normal leading-[1.4] text-greygrey-800">
             Access the latest AI models for chat, image &amp; video — all in one platform
           </p>
         </div>
 
         <div
-          className="flex min-w-0 w-full flex-1 flex-col gap-3 self-stretch lg:min-h-0 lg:min-w-0 lg:justify-center"
+          className="flex min-w-0 flex-1 flex-col items-center gap-3 lg:items-end"
           data-node-id="2316:23780"
           data-name="Logo Slider - Warp"
         >
-          <div className="flex w-full min-w-0 justify-start overflow-x-auto scrollbar-hide md:justify-end md:overflow-x-hidden">
-            <div className="flex w-max shrink-0 flex-nowrap items-center gap-4 md:translate-x-[65px]">
-              {WARP_ROW1.map((src) => (
-                <img key={src} src={src} alt="" className={warpImgClass} decoding="async" />
-              ))}
-            </div>
+          <div className="flex flex-wrap items-center justify-center gap-4 lg:flex-nowrap lg:justify-end">
+            {WARP_ROW1.map((src) => (
+              <img key={src} src={src} alt="" className={warpImgClass} decoding="async" />
+            ))}
           </div>
-          <div className="flex w-full min-w-0 justify-start overflow-x-auto scrollbar-hide pl-0 md:-translate-x-[100px] md:justify-end md:pl-[clamp(2.5rem,12vw,10rem)] xl:pl-[clamp(3rem,11vw,11rem)]">
-            <div className="flex w-max shrink-0 flex-nowrap items-center gap-3">
-              {WARP_ROW2.map((src) => (
-                <img key={src} src={src} alt="" className={warpImgClass} decoding="async" />
-              ))}
-            </div>
+          <div className="flex flex-wrap items-center justify-center gap-3 lg:flex-nowrap lg:justify-end">
+            {WARP_ROW2.map((src) => (
+              <img key={src} src={src} alt="" className={warpImgClass} decoding="async" />
+            ))}
           </div>
         </div>
       </div>

@@ -24,10 +24,14 @@ export default function SiteNav({ navItems = defaultItems }: Props) {
 
   return (
     <header className="z-30 w-full bg-black">
-      <div className="flex w-full items-center gap-1 px-[100px] py-5 max-lg:px-[50px] max-md:px-4">
-        <a href="/" className="flex flex-1 cursor-pointer items-center gap-3 rounded-lg">
-          <div className="flex items-center gap-3">
-            <div className="h-[80px] w-[80px] shrink-0">
+      <div className="site-header-bar box-border mx-[50px] flex w-[calc(100%-100px)] max-w-full items-center gap-1 py-4 max-md:mx-[calc(1rem+10px)] max-md:w-[calc(100%-2*((1rem+10px)))] max-[220px]:mx-2 max-[220px]:w-[calc(100%-16px)]">
+        <a
+          href="/"
+          className="site-nav-logo-link flex min-w-0 flex-1 cursor-pointer items-center gap-3 rounded-lg"
+          aria-label="Sheldonmind — Trang chủ"
+        >
+          <div className="site-nav-logo-row flex min-w-0 items-center gap-3 max-[220px]:gap-2">
+            <div className="h-12.5 w-12.5 shrink-0 max-[220px]:h-10 max-[220px]:w-10">
               <svg width="100%" height="100%" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <mask id="sn-mL" style={{ maskType: 'luminance' }} maskUnits="userSpaceOnUse" x="0" y="0" width="34" height="34">
                   <path d="M16.6667 33.3333C25.8714 33.3333 33.3333 25.8714 33.3333 16.6667C33.3333 7.46192 25.8714 0 16.6667 0C7.46192 0 0 7.46192 0 16.6667C0 25.8714 7.46192 33.3333 16.6667 33.3333Z" fill="white" />
@@ -45,7 +49,12 @@ export default function SiteNav({ navItems = defaultItems }: Props) {
                 </g>
               </svg>
             </div>
-            <span className="font-productSans text-[30px] font-medium text-white">Sheldonmind</span>
+            <span
+              data-nowrap-safe="true"
+              className="min-w-0 truncate font-['Figtree',sans-serif] text-[28px] font-medium leading-none text-white whitespace-nowrap max-[220px]:hidden"
+            >
+              Sheldonmind
+            </span>
           </div>
         </a>
 
@@ -54,14 +63,14 @@ export default function SiteNav({ navItems = defaultItems }: Props) {
             <a
               key={label}
               href={href}
-              className="flex cursor-pointer items-center justify-center whitespace-nowrap rounded-2xl border border-white/15 px-[30px] py-3 font-productSans text-lg font-medium text-white transition-all hover:bg-white/5"
+              className="flex cursor-pointer items-center justify-center whitespace-nowrap rounded-2xl border border-white/20 px-7.5 py-3 font-['Figtree',sans-serif] text-[16px] font-medium leading-[1.4] text-white transition-all hover:bg-white/5"
             >
               {label}
             </a>
           ))}
           <a
             href="https://app.sheldonmind.com/"
-            className="relative flex cursor-pointer items-center justify-center gap-1 overflow-hidden whitespace-nowrap rounded-2xl bg-black px-6 py-3 font-productSans text-lg font-medium text-white"
+            className="relative flex cursor-pointer items-center justify-center gap-1 overflow-hidden whitespace-nowrap rounded-2xl bg-black px-4 py-3 font-['Figtree',sans-serif] text-[16px] font-medium leading-[1.4] text-white"
             style={{
               boxShadow:
                 'inset 0 0.5px 0 0 rgba(255,255,255,0.22), inset 0.5px 0 0 0 rgba(160,186,210,0.18), inset -2px -1px 1px 0 #32EEFF',
@@ -82,20 +91,25 @@ export default function SiteNav({ navItems = defaultItems }: Props) {
               }}
             />
             <span className="relative z-10">Sign Up</span>
-            <svg className="relative z-10" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg className="relative z-10" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M7 17L17 7M17 7H7M17 7V17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </a>
         </div>
 
-        <button type="button" onClick={() => setMobileOpen((o) => !o)} className="ml-auto flex cursor-pointer flex-col gap-1 p-2 md:hidden">
+        <button
+          type="button"
+          onClick={() => setMobileOpen((o) => !o)}
+          className="site-nav-menu-btn ml-auto flex shrink-0 cursor-pointer flex-col gap-1 p-2 md:hidden"
+          aria-label={mobileOpen ? 'Đóng menu' : 'Mở menu'}
+        >
           <span className="h-0.5 w-5 rounded-full bg-white" />
           <span className="h-0.5 w-5 rounded-full bg-white" />
           <span className="h-0.5 w-5 rounded-full bg-white" />
         </button>
       </div>
       {mobileOpen && (
-        <div className="border-t border-white/10 bg-black/98 md:hidden px-6 py-4 flex flex-col gap-3">
+        <div className="border-t border-white/10 bg-black/98 px-6 py-4 flex flex-col gap-3 md:hidden max-[220px]:px-2">
           {navItems.map(([label, href]) => (
             <a key={label} href={href} className="cursor-pointer py-1 text-white/80 hover:text-white" onClick={() => setMobileOpen(false)}>
               {label}

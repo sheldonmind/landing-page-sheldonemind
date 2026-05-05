@@ -1,51 +1,61 @@
-/** Pricing teaser + link to full pricing page (Figma 2316:23808) */
+/**
+ * Section 4 — Find your perfect plan (Figma 2316:23808).
+ * Frame: inset 50 / py 100; Title + Content mỗi khối 706×340; không gap ngang giữa hai cột.
+ * Asset Section4.png 1412×680 = đúng 2× khung Content → aspect 706:340.
+ */
+import { FigmaPrimaryCtaLink } from './FigmaPrimaryCta';
+import { pricingHeadlineStyle } from './visualizeConstants';
+
+/** Khung Content 2316:23813 — chỉ bo góc, không viền CSS (PNG đã có khung trong). */
+const MEDIA_FRAME_CLASSES =
+  'relative w-full shrink-0 overflow-hidden rounded-[16px]';
+
+/** Figma headline text 674.682×144 hai dòng → max ~675px chiều ngang typography */
 export default function PricingTeaserSection() {
   return (
-    <section id="pricing" className="w-full bg-black px-4 py-55 md:px-6 lg:px-8 xl:px-10.5 max-md:py-16">
-      <div className="flex w-full flex-col gap-8 text-center lg:flex-row lg:items-center lg:justify-between lg:text-left">
-        <div className="flex w-full max-w-225 flex-col gap-6 md:gap-8">
+    <section
+      id="pricing"
+      className="box-border mx-[50px] w-[calc(100%-100px)] max-w-full bg-black py-25 max-lg:mx-[calc(2rem+10px)] max-lg:w-[calc(100%-2*((2rem+10px)))] max-md:mx-[calc(1rem+10px)] max-md:w-[calc(100%-2*((1rem+10px)))] max-md:py-16 max-[220px]:mx-2 max-[220px]:w-[calc(100%-16px)]"
+    >
+      <div className="grid w-full grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-0">
+        <div className="flex min-w-0 flex-col items-start gap-16">
           <h2
-            className="m-0 font-['Figtree',sans-serif] text-[clamp(34px,9vw,128px)] font-medium leading-none"
-            style={{
-              background:
-                'radial-gradient(50% 50% at 57% 38%, #0472EF 0%, #7EBDEA 41%, #D3F2E7 100%)',
-              WebkitBackgroundClip: 'text',
-              backgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              color: 'transparent',
-            }}
+            className="m-0 w-full max-w-[675px] pb-[15px] font-['Figtree',sans-serif] text-[clamp(3rem,8vw,5.875rem)] font-medium leading-none tracking-normal max-[220px]:text-[clamp(1.65rem,12vw,2.2rem)]"
+            style={pricingHeadlineStyle}
           >
-            Find your perfect plan.
+            <span data-nowrap-safe="true" className="block">
+              Find your
+            </span>
+            <span data-nowrap-safe="true" className="block">
+              perfect plan.
+            </span>
           </h2>
-          <a
+          <FigmaPrimaryCtaLink
             href="/pricing.html"
-            className="relative inline-flex w-fit cursor-pointer items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-3xl bg-black/0 px-9 py-6 font-['Figtree',sans-serif] text-[26px] font-medium leading-tight text-white transition-opacity hover:opacity-95 max-md:self-center max-md:rounded-[20px] max-md:px-6 max-md:py-4 max-md:text-[18px]"
-            style={{
-              boxShadow:
-                'inset 0 0.5px 0 0 rgba(255,255,255,0.22), inset 0.5px 0 0 0 rgba(160,186,210,0.18), inset -2px -1px 1px 0 rgba(50,238,255,1)',
-            }}
-          >
-            <span
-              aria-hidden
-              className="pointer-events-none absolute left-[442.24px] top-[126.86px] h-72 w-72 origin-top-left rotate-[145.14deg] rounded-full blur-3xl"
-              style={{
-                background:
-                  'radial-gradient(ellipse 44.88% 44.88% at 50.29% 57.43%, #0472EF 0%, #7EBDEA 73%, #D3F2E7 100%)',
-                mixBlendMode: 'hard-light',
-              }}
-            />
-            <span className="relative z-10">See Plans</span>
-            <svg className="relative z-10" width={32} height={32} viewBox="0 0 24 24" fill="none" aria-hidden>
-              <path d="M7 17L17 7M17 7H7M17 7V17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
+            text="See Plans"
+            className="gap-2 px-4 py-3 text-base md:px-6 md:py-5 md:text-[22px] max-[220px]:px-2.5 max-[220px]:py-2 max-[220px]:text-[12px]"
+          />
         </div>
 
-        <img
-          src="/Section4.png"
-          alt="Find your perfect plan"
-          className="block h-auto w-full max-w-140 self-center rounded-2xl lg:max-w-[58%] lg:self-auto lg:rounded-none"
-        />
+        <div
+          className={`${MEDIA_FRAME_CLASSES} aspect-[706/340]`}
+          data-node-id="2316:23813"
+          data-name="Content"
+        >
+          <img
+            src="/Section4.png"
+            alt="Sheldonmind pricing — cinematic city scene."
+            className="absolute inset-0 size-full object-cover"
+            sizes="(min-width: 1024px) 706px, calc(100vw - (1rem + 10px) * 2)"
+            width={1412}
+            height={680}
+            decoding="async"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 rounded-[inherit] bg-black/20"
+          />
+        </div>
       </div>
     </section>
   );

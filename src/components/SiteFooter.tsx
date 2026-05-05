@@ -36,7 +36,7 @@ export default function SiteFooter({ hashPrefix = '' }: Props) {
 
   return (
     <footer
-      className="relative flex w-full flex-col items-stretch gap-37.5 overflow-hidden p-12.5 text-white max-md:gap-16 max-md:p-6"
+      className="relative flex w-full flex-col items-stretch gap-37.5 overflow-hidden p-12.5 text-white max-md:gap-16 max-md:p-6 max-[220px]:p-2"
       aria-label="Footer"
     >
       <div
@@ -56,7 +56,7 @@ export default function SiteFooter({ hashPrefix = '' }: Props) {
         <div className="relative flex w-full flex-col items-start justify-between gap-10 md:flex-row">
           <div className="relative inline-flex flex-[0_0_auto] flex-col items-start gap-5 self-stretch">
             <img className="h-17.5 w-17.5" alt="Sheldonmind icon" src="/Frame 880.png" />
-            <span className="font-['Figtree'] text-[20px] font-medium leading-[1.4] text-white">
+            <span className="font-['Figtree'] text-[20px] font-medium leading-[1.4] text-white max-[220px]:text-[16px]">
               Sheldonmind © {year}
             </span>
           </div>
@@ -67,7 +67,7 @@ export default function SiteFooter({ hashPrefix = '' }: Props) {
                 className={`relative flex w-full flex-col items-start gap-3 ${section.widthClass} ${section.title === 'Company' ? 'md:self-stretch' : ''}`}
               >
                 <h2
-                  className={`relative -mt-px flex items-center whitespace-nowrap font-['Figtree'] text-[22px] font-medium leading-[1.3] text-white ${section.title !== 'Company' ? 'self-stretch' : ''}`}
+                  className={`relative -mt-px flex min-w-0 items-center font-['Figtree'] text-[22px] font-medium leading-[1.3] text-white max-[220px]:text-[18px] ${section.title !== 'Company' ? 'self-stretch' : ''}`}
                 >
                   {section.title}
                 </h2>
@@ -76,7 +76,7 @@ export default function SiteFooter({ hashPrefix = '' }: Props) {
                     <li key={label} className="list-none">
                       <a
                         href={href}
-                        className={`relative flex w-fit cursor-pointer items-center whitespace-nowrap font-['Figtree'] text-[20px] font-normal leading-[1.4] text-greygrey-800 transition-colors hover:text-white ${index === 0 ? '-mt-px' : ''}`}
+                        className={`relative flex min-w-0 max-w-full cursor-pointer items-center font-['Figtree'] text-[20px] font-normal leading-[1.4] text-greygrey-800 transition-colors hover:text-white max-[220px]:text-[16px] ${index === 0 ? '-mt-px' : ''}`}
                       >
                         {label}
                       </a>

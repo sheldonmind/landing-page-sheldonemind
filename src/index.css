@@ -134,6 +134,10 @@ body {
   min-height: 100vh;
 }
 
+#root {
+  overflow-x: hidden;
+}
+
 /* Hide scrollbar but keep scroll functionality */
 .scrollbar-hide {
   -ms-overflow-style: none;
@@ -141,6 +145,30 @@ body {
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* Hero card outer frame — Figma 1512×875 (ratio 1.728); ở mobile portrait
+   bỏ aspect-ratio, dùng min-height để có chỗ cho text. */
+.hero-card-frame {
+  aspect-ratio: 1512 / 875;
+  min-height: 360px;
+}
+/* Tablet/intermediate (≤1100px): bỏ aspect-ratio, dùng min-height đủ cho text + search panel */
+@media (max-width: 1100px) {
+  .hero-card-frame {
+    aspect-ratio: auto;
+    min-height: 600px;
+  }
+}
+@media (max-width: 768px) {
+  .hero-card-frame {
+    min-height: 560px;
+  }
+}
+@media (max-width: 480px) {
+  .hero-card-frame {
+    min-height: 520px;
+  }
 }
 
 /* Hero media frame: tái tạo y chang shape của unsplash_FeBoOVQv0sQ.png
@@ -164,4 +192,89 @@ body {
 @keyframes marquee-reverse {
   0% { transform: translateX(-33.333%); }
   100% { transform: translateX(0); }
+}
+
+/* Ultra-small viewport hardening (e.g. 154-177px QA checks) */
+@media (max-width: 220px) {
+  * {
+    min-width: 0;
+  }
+
+  /* Brand + CTA must stay on one logical line — global wrap rule breaks every character on spans */
+  :is(h1, h2, h3, h4, h5, h6, p, span, a, button, li):not([data-nowrap-safe='true']) {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .site-header-bar {
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  .site-nav-logo-link {
+    flex: 1 1 0%;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .site-nav-logo-row {
+    flex-wrap: nowrap;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .site-nav-menu-btn {
+    flex-shrink: 0;
+  }
+
+  [class*='whitespace-nowrap']:not([data-nowrap-safe='true']) {
+    white-space: normal !important;
+  }
+
+  .multi-ai-chat-inner {
+    gap: 18px !important;
+    padding: 12px !important;
+  }
+
+  .multi-ai-model-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 10px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .multi-ai-model-card {
+    aspect-ratio: auto !important;
+    width: 100% !important;
+    gap: 8px !important;
+    padding: 12px !important;
+    border-radius: 12px !important;
+  }
+
+  .multi-ai-model-card-header {
+    gap: 8px !important;
+  }
+
+  .multi-ai-model-icon {
+    padding: 6px !important;
+  }
+
+  .multi-ai-model-icon-img {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .multi-ai-model-name {
+    font-size: 13px !important;
+  }
+
+  .multi-ai-copy h3 {
+    font-size: 18px !important;
+    line-height: 1.15 !important;
+  }
+
+  .multi-ai-copy p {
+    font-size: 13px !important;
+    line-height: 1.25 !important;
+  }
 }
