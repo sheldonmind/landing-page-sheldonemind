@@ -1,6 +1,3 @@
-const FIGMA_PRIMARY_BUTTON_GLOW =
-  'https://www.figma.com/api/mcp/asset/178a5f74-2e7d-41d3-916b-8b6c36c313d5';
-
 /** Figma Button/XLarge/Primary (2288:14417): radius 16, px 20 py 16, Figtree Medium 18, arrow 24. */
 export function FigmaPrimaryCtaLink({
   href = 'https://app.sheldonmind.com/',
@@ -19,18 +16,21 @@ export function FigmaPrimaryCtaLink({
       data-nowrap-safe="true"
       className={`figma-primary-cta relative inline-flex w-fit max-w-full shrink-0 flex-nowrap cursor-pointer items-center justify-center gap-1 overflow-hidden rounded-2xl px-5 py-4 font-['Figtree',sans-serif] text-[18px] font-medium whitespace-nowrap text-white transition-opacity hover:opacity-95 max-[220px]:gap-1 max-[220px]:px-2.5 max-[220px]:py-2 max-[220px]:text-[12px] ${wide ? 'w-full max-w-full whitespace-normal' : ''} ${className}`.trim()}
     >
-      <span aria-hidden className="pointer-events-none absolute inset-0 rounded-2xl bg-transparent" />
-      <span
-        aria-hidden
-        className="pointer-events-none absolute left-7.5 -top-29 flex h-[412.185px] w-[412.243px] items-center justify-center mix-blend-hard-light"
-      >
-        <span className="flex-none rotate-[145.14deg]">
-          <span className="relative block h-[295.984px] w-[296.216px]">
-            <span className="absolute inset-[-40.54%_-40.51%]">
-              <img alt="" src={FIGMA_PRIMARY_BUTTON_GLOW} className="block h-full w-full max-w-none" />
-            </span>
-          </span>
-        </span>
+      <span aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
+        <span
+          className="absolute rounded-full blur-3xl"
+          style={{
+            width: 288,
+            height: 288,
+            left: '440px',
+            top: '126.86px',
+            transformOrigin: 'top left',
+            transform: 'rotate(145.14deg)',
+            mixBlendMode: 'hard-light',
+            background:
+              'radial-gradient(ellipse 44.88% 44.88% at 50.29% 57.43%, #0472EF 0%, #7EBDEA 73%, #D3F2E7 100%)',
+          }}
+        />
       </span>
       <span
         aria-hidden
