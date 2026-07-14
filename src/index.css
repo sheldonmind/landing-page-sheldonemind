@@ -7,6 +7,8 @@
   --font-product-sans: "DM Sans", "Inter", "system-ui", "sans-serif";
   /* Figma node 2316-23681 headline */
   --font-figtree: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  /* Editorial serif for section displays — substitute for the reference's proprietary face */
+  --font-serif-display: "Source Serif 4", "Playfair Display", Georgia, serif;
   --color-background: #0a0a0a;
   --color-surface: #111111;
   --color-surface-elevated: #111827;
@@ -278,3 +280,68 @@ body {
     line-height: 1.25 !important;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Artlist-inspired landing: display type + motion
+   ───────────────────────────────────────────────────────────── */
+
+/* Serif display. Reference measures 5.14vw / lh .88 / ls -.022em at 1512. */
+.serif-display {
+  font-family: var(--font-serif-display);
+  font-weight: 400;
+  font-size: clamp(38px, 5.14vw, 82px);
+  line-height: 0.88;
+  letter-spacing: -0.022em;
+}
+
+/* The one sans break (Video Studio). Reference: 80px / w400 / ls -.04em. */
+.sans-display {
+  font-family: var(--font-figtree);
+  font-weight: 500;
+  font-size: clamp(38px, 5.3vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.section-eyebrow {
+  font-family: var(--font-figtree);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* Container: reference caps at 1440. */
+.al-container {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+@media (min-width: 768px) {
+  .al-container { padding-inline: 40px; }
+}
+
+/* Vertical rhythm between sections. */
+.al-section { padding-block: clamp(64px, 8.5vw, 128px); }
+
+/* Horizontal scrollers bleed off the right edge, snap on touch. */
+.al-scroller {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+.al-scroller > * { scroll-snap-align: start; }
+
+@media (prefers-reduced-motion: reduce) {
+  .al-marquee { animation: none !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Fixed nav clears anchored sections. */
+section[id] { scroll-margin-top: 96px; }

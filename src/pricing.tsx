@@ -12,13 +12,15 @@ export function PricingPage() {
       <SiteNav
         navItems={[
           ['Feature', '/#features'],
+          ['Models', '/#models'],
+          ['Studio', '/#studio'],
           ['Gallery', '/#gallery'],
           ['Pricing', '/pricing.html'],
-          ['FQA', '/#faq'],
-          ['Contact', '/#contact'],
+          ['FAQ', '/#faq'],
         ]}
       />
-      <main className="w-full overflow-x-hidden">
+      {/* Nav is fixed, so the page needs to clear its 80px band. */}
+      <main className="w-full overflow-x-hidden pt-20">
         <PricingCards />
         <SiteFaq />
       </main>
