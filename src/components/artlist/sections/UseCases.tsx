@@ -5,32 +5,57 @@ import { MEDIA } from '../tokens';
 const CARDS = [
   {
     label: 'Create Image',
-    caption: 'High-end visuals from a prompt or a reference',
+    caption: 'Studio-quality images from a prompt or reference',
     src: MEDIA.createImage,
     kind: 'img' as const,
   },
   {
+    label: 'Imagine Studio',
+    caption: 'From a spark of an idea to finished art',
+    src: MEDIA.imagine,
+    kind: 'img' as const,
+  },
+  {
     label: 'Create Video',
-    caption: 'Text, image, or video in — cinematic clip out',
+    caption: 'Text or image in, cinematic clip out',
     src: MEDIA.create,
     kind: 'video' as const,
   },
   {
     label: 'Motion Control',
-    caption: 'Direct the camera and the subject, shot by shot',
+    caption: 'Direct camera and subject, shot by shot',
     src: MEDIA.motion,
     kind: 'video' as const,
   },
   {
-    label: 'Mixed Media',
-    caption: 'Blend footage, stills, and generations in one pass',
-    src: MEDIA.mixed,
+    label: 'Drama Studio',
+    caption: 'Turn a script into a film, scene by scene',
+    src: MEDIA.drama,
     kind: 'video' as const,
   },
   {
     label: 'Upscale',
-    caption: 'Push any asset to a sharper, cleaner resolution',
+    caption: 'Sharpen any asset to a cleaner, higher resolution',
     src: MEDIA.upscale,
+    kind: 'img' as const,
+  },
+  {
+    label: 'Inpaint',
+    // TODO: swap for a before/after inpaint visual — using Mixed media as a placeholder.
+    caption: 'Repaint any masked area from a prompt',
+    src: MEDIA.mixed,
+    kind: 'video' as const,
+  },
+  {
+    label: 'Outpaint',
+    caption: 'Extend the frame beyond its edges',
+    src: MEDIA.snowboard,
+    kind: 'img' as const,
+  },
+  {
+    label: 'Relight',
+    caption: 'Relight a scene with new light and mood',
+    src: MEDIA.prism,
     kind: 'img' as const,
   },
 ];
@@ -44,16 +69,9 @@ export default function UseCases() {
           <div>
             <h2 className="section-eyebrow m-0 text-white">Explore what you can build</h2>
             <p className="mt-2 max-w-[58ch] font-['Figtree',sans-serif] text-[16px] leading-snug text-greygrey-800">
-              Chat, image, and video generation in a single workspace — no tab-switching.
+              Chat, image, and video generation.
             </p>
           </div>
-          <a
-            href="#gallery"
-            className="hidden shrink-0 items-center gap-1.5 font-['Figtree',sans-serif] text-[15px] font-medium text-white underline underline-offset-4 hover:text-white/80 sm:flex"
-          >
-            See all
-            <span aria-hidden>→</span>
-          </a>
         </div>
       </div>
 

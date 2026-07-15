@@ -16,7 +16,7 @@ export function SecondaryCtaLink({
   size?: 'sm' | 'md';
   className?: string;
 }) {
-  const sizing = size === 'sm' ? 'px-3.5 py-2 text-[14px]' : 'px-5 py-4 text-[18px]';
+  const sizing = size === 'sm' ? 'px-4 py-2.5 text-[15px]' : 'px-5 py-4 text-[18px]';
   return (
     <a
       href={href}

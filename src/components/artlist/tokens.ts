@@ -42,10 +42,15 @@ export const MEDIA = {
   motion: '/Motion%20control.mp4',
   mixed: '/Mixed%20media.mp4',
   createImage: '/Create%20Img.png',
+  imagine: '/Imagine.png',
+  drama: '/Drama%20studio.mp4',
   upscale: '/Upscale.png',
   comingSoon: '/Coming%20soon.png',
   content: '/Content.png',
   section4: '/Section4.png',
+  prism: '/Prism%20stairs.png',
+  snowboard: '/unsplash_FeBoOVQv0sQ.png',
+  toolkitBg: '/Toolkit%20bg.png',
   faq: '/FAQ.png',
 } as const;
 
@@ -57,15 +62,27 @@ export const MEDIA = {
  * fill — which cannot go inside a single glass bar without nesting frames.
  */
 export const GEN_MODELS = [
-  { name: 'Sora', img: '/model-icons/sora.png' },
   { name: 'Veo', img: '/model-icons/veo.png' },
   { name: 'Nano Banana', img: '/model-icons/nano-banana.png' },
   { name: 'Kling', img: '/model-icons/kling.png' },
   { name: 'Seedance', img: '/model-icons/seedance.png' },
   { name: 'Flux', img: '/model-icons/flux.png' },
   { name: 'Luma', img: '/model-icons/luma.png' },
-  { name: 'Lyria', img: '/model-icons/lyria.png' },
   { name: 'ElevenLabs', img: '/model-icons/elevenlabs.png' },
+  { name: 'GPT Image', img: '/model-icons/gpt-image.png' },
+  { name: 'Imagen', img: '/model-icons/imagen.png' },
+  { name: 'Seedream', img: '/model-icons/seedream.png' },
+  { name: 'Hailuo', img: '/model-icons/hailuo.png' },
+  { name: 'Qwen Image', img: '/model-icons/qwen-image.png' },
+  { name: 'Wan', img: '/model-icons/wan.png' },
+  { name: 'Stability', img: '/model-icons/stability.png' },
+  { name: 'Grok Imagine', img: '/model-icons/grok-imagine.png' },
+  { name: 'Pika', img: '/model-icons/pika.png' },
+  { name: 'Vidu', img: '/model-icons/vidu.png' },
+  { name: 'Recraft', img: '/model-icons/recraft.png' },
+  { name: 'Topaz', img: '/model-icons/topaz.png' },
+  { name: 'Leonardo', img: '/model-icons/leonardo.png' },
+  { name: 'PixVerse', img: '/model-icons/pixverse.png' },
 ] as const;
 
 /**
@@ -81,7 +98,7 @@ export const CHAT_MODELS = [
   { name: 'Gemini', icon: '/model-icons/chat-gemini.png' },
   { name: 'Grok', icon: '/model-icons/chat-grok.png' },
   { name: 'DeepSeek', icon: '/model-icons/chat-deepseek.png' },
-  { name: 'Mistral AI', icon: '/model-icons/chat-mistral.png' },
+  { name: 'Llama', icon: '/model-icons/chat-llama.png' },
   { name: 'Qwen', icon: '/model-icons/chat-qwen.png' },
   { name: 'Perplexity', icon: '/model-icons/chat-perplexity.png' },
   { name: 'MiniMax', icon: '/model-icons/chat-minimax.png' },

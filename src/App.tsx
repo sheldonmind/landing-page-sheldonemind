@@ -6,10 +6,10 @@ import Hero from './components/artlist/sections/Hero';
 import UseCases from './components/artlist/sections/UseCases';
 import LogoStrip from './components/artlist/sections/LogoStrip';
 import Toolkit from './components/artlist/sections/Toolkit';
-import Models from './components/artlist/sections/Models';
+import MultiChat from './components/artlist/sections/MultiChat';
+import DramaStudio from './components/artlist/sections/DramaStudio';
 import Studio from './components/artlist/sections/Studio';
 import WhyUs from './components/artlist/sections/WhyUs';
-import Gallery from './components/artlist/sections/Gallery';
 import Pricing from './components/artlist/sections/Pricing';
 import CtaBand from './components/artlist/sections/CtaBand';
 
@@ -23,10 +23,10 @@ function App() {
         <UseCases />
         <LogoStrip />
         <Toolkit />
-        <Models />
+        <MultiChat />
+        <DramaStudio />
         <Studio />
         <WhyUs />
-        <Gallery />
         <Pricing />
         <CtaBand />
         <SiteFaq />

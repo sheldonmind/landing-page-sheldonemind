@@ -14,7 +14,6 @@ export function PricingPage() {
           ['Feature', '/#features'],
           ['Models', '/#models'],
           ['Studio', '/#studio'],
-          ['Gallery', '/#gallery'],
           ['Pricing', '/pricing.html'],
           ['FAQ', '/#faq'],
         ]}

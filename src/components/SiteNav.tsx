@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Logo from './artlist/Logo';
 import { APP_URL } from './artlist/tokens';
 
@@ -16,7 +16,6 @@ const defaultItems: NavItem[] = [
   ['Feature', '#features'],
   ['Models', '#models'],
   ['Studio', '#studio'],
-  ['Gallery', '#gallery'],
   ['Pricing', '#pricing'],
   ['FAQ', '#faq'],
 ];
@@ -58,22 +57,12 @@ function SignUpCta({ onClick }: { onClick?: () => void }) {
 
 export default function SiteNav({ navItems = defaultItems }: Props) {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
 
-  // Transparent over the hero video, solid once the page moves under it.
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
+  // Matches the reference (artlist.io): the header stays fully transparent while
+  // scrolling — it never gains a background/blur. Works because the page is a
+  // uniform near-black canvas, so the nav reads over any section beneath it.
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        scrolled ? 'border-b border-white/10 bg-black/70 backdrop-blur-xl' : 'border-b border-transparent bg-transparent'
-      }`}
-    >
+    <header className="fixed inset-x-0 top-0 z-50 bg-transparent">
       <div className="al-container flex h-20 items-center gap-8 max-md:h-16">
         <a href="/" className="flex shrink-0 items-center gap-2.5" aria-label="Sheldonmind — home">
           <Logo className="size-9 text-white" />

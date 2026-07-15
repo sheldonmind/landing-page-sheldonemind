@@ -55,22 +55,47 @@ export default function Hero() {
           <FigmaPrimaryCtaLink text="Try Free Now" />
         </div>
 
-        <GlassBar className="mx-auto mt-16 w-full max-w-[360px] md:w-fit md:max-w-full max-md:mt-12">
-          {GEN_MODELS.map(({ name, img }) => (
-            <div key={name} className="flex shrink-0 items-center gap-2">
-              <img
-                src={img}
-                alt=""
-                aria-hidden
-                className="h-5 w-auto shrink-0 object-contain max-md:h-[18px]"
-                loading="lazy"
-                decoding="async"
-              />
-              <span className="font-['Figtree',sans-serif] text-[16px] leading-none font-normal whitespace-nowrap text-white max-md:text-[14px]">
-                {name}
-              </span>
-            </div>
-          ))}
+        <GlassBar className="mx-auto mt-16 w-full max-w-[360px] md:max-w-[1140px] max-md:mt-12">
+          {/* Marquee inside the pill: the glyph row scrolls so any number of models
+              fits the fixed-width bar. Tripled for a seamless loop; edges are feathered
+              with a transparent mask (not a solid color) so the glass stays see-through.
+              Pauses on hover; halts entirely under prefers-reduced-motion via .al-marquee. */}
+          <div
+            className="group relative w-full overflow-hidden"
+            style={{
+              WebkitMaskImage:
+                'linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)',
+              maskImage:
+                'linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)',
+            }}
+          >
+            <ul
+              className="al-marquee m-0 flex w-max list-none items-center gap-8 p-0 group-hover:[animation-play-state:paused] max-md:gap-6"
+              style={{ animation: 'marquee 32s linear infinite' }}
+            >
+              {[...GEN_MODELS, ...GEN_MODELS, ...GEN_MODELS].map(({ name, img }, i) => (
+                <li
+                  key={`${name}-${i}`}
+                  aria-hidden={i >= GEN_MODELS.length}
+                  className="flex shrink-0 items-center gap-2"
+                >
+                  {img && (
+                    <img
+                      src={img}
+                      alt=""
+                      aria-hidden
+                      className="h-5 w-auto shrink-0 object-contain max-md:h-[18px]"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )}
+                  <span className="font-['Figtree',sans-serif] text-[16px] leading-none font-normal whitespace-nowrap text-white max-md:text-[14px]">
+                    {name}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </GlassBar>
       </div>
     </section>

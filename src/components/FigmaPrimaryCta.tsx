@@ -3,18 +3,22 @@ export function FigmaPrimaryCtaLink({
   href = 'https://app.sheldonmind.com/',
   text,
   wide = false,
+  size = 'md',
   className = '',
 }: {
   href?: string;
   text: string;
   wide?: boolean;
+  size?: 'sm' | 'md';
   className?: string;
 }) {
+  const sizing = size === 'sm' ? 'px-[18px] py-3 text-[16px]' : 'px-5 py-4 text-[18px]';
+  const arrowSize = size === 'sm' ? 'size-5' : 'size-6';
   return (
     <a
       href={href}
       data-nowrap-safe="true"
-      className={`figma-primary-cta relative inline-flex w-fit max-w-full shrink-0 flex-nowrap cursor-pointer items-center justify-center gap-1 overflow-hidden rounded-2xl px-5 py-4 font-['Figtree',sans-serif] text-[18px] font-medium whitespace-nowrap text-white transition-opacity hover:opacity-95 max-[220px]:gap-1 max-[220px]:px-2.5 max-[220px]:py-2 max-[220px]:text-[12px] ${wide ? 'w-full max-w-full whitespace-normal' : ''} ${className}`.trim()}
+      className={`figma-primary-cta relative inline-flex w-fit max-w-full shrink-0 flex-nowrap cursor-pointer items-center justify-center gap-1 overflow-hidden rounded-2xl ${sizing} font-['Figtree',sans-serif] font-medium whitespace-nowrap text-white transition-opacity hover:opacity-95 max-[220px]:gap-1 max-[220px]:px-2.5 max-[220px]:py-2 max-[220px]:text-[12px] ${wide ? 'w-full max-w-full whitespace-normal' : ''} ${className}`.trim()}
     >
       <span aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
         <span
@@ -40,7 +44,7 @@ export function FigmaPrimaryCtaLink({
         {text}
       </span>
       <svg
-        className="relative z-10 size-6 shrink-0 max-[220px]:size-4"
+        className={`relative z-10 shrink-0 ${arrowSize} max-[220px]:size-4`}
         width={24}
         height={24}
         viewBox="0 0 24 24"
