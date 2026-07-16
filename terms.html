@@ -44,9 +44,9 @@
         align-items: center;
         justify-content: space-between;
       }
-      .logo { display: flex; align-items: center; gap: 0.5rem; color: #e2e8f0; }
-      .logo img { width: 20px; height: 20px; }
-      .logo span { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; }
+      .logo { display: flex; align-items: center; gap: 0.625rem; color: #ffffff; }
+      .logo svg { width: 28px; height: 28px; }
+      .logo span { font-family: 'Inter', system-ui, sans-serif; font-weight: 500; font-size: 1.375rem; }
       .back-link { color: #94a3b8; font-size: 0.875rem; }
       .back-link:hover { color: #e2e8f0; text-decoration: none; }
       main {
@@ -105,8 +105,23 @@
     <header>
       <div class="header-inner">
         <a href="/" class="logo">
-          <img src="/logoWhite.svg" alt="SheldonMind" />
-          <span>SheldonMind</span>
+          <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <mask id="sm-logo-mask" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="34" height="34">
+              <path d="M16.6667 33.3333C25.8714 33.3333 33.3333 25.8714 33.3333 16.6667C33.3333 7.46192 25.8714 0 16.6667 0C7.46192 0 0 7.46192 0 16.6667C0 25.8714 7.46192 33.3333 16.6667 33.3333Z" fill="white" />
+            </mask>
+            <g mask="url(#sm-logo-mask)">
+              <path d="M-11.046 12.521V4.82065L6.78769 9.27875C10.1436 10.1176 12.4976 13.1331 12.4976 16.5925L-11.046 12.521Z" fill="currentColor" />
+              <path d="M-2.42644 20.6635V28.3638L7.02287 24.6373C10.3268 23.3341 12.4984 20.1439 12.4984 16.592L-2.42644 20.6635Z" fill="currentColor" />
+              <path d="M20.9879 -10.4149H28.6883L24.2302 7.41878C23.3913 10.7747 20.3758 13.1287 16.9164 13.1287L20.9879 -10.4149Z" fill="currentColor" />
+              <path d="M12.846 -1.79567H5.14561L8.87215 7.65364C10.1753 10.9576 13.3656 13.1291 16.9174 13.1291L12.846 -1.79567Z" fill="currentColor" />
+              <path d="M44.3876 21.109V28.8093L26.5539 24.3512C23.1979 23.5124 20.844 20.4969 20.844 17.0375L44.3876 21.109Z" fill="currentColor" />
+              <path d="M35.7687 12.9662V5.26588L26.3194 8.99242C23.0155 10.2956 20.844 13.4858 20.844 17.0377L35.7687 12.9662Z" fill="currentColor" />
+              <path d="M20.8707 43.7476H28.5711L24.113 25.9139C23.2741 22.5579 20.2586 20.204 16.7993 20.204L20.8707 43.7476Z" fill="currentColor" />
+              <path d="M12.7288 35.1287H5.02842L8.75496 25.6794C10.0582 22.3755 13.2484 20.204 16.8002 20.204L12.7288 35.1287Z" fill="currentColor" />
+              <path d="M21.0639 16.4755C21.0639 18.4011 21.5418 20.5553 22.8052 22.0756C21.1429 20.3896 19.1724 19.4288 16.9193 19.4288C14.5132 19.4288 12.377 20.0242 10.6621 21.9228C11.9126 20.4083 12.3661 18.5065 12.3661 16.5924C12.3661 14.6784 11.8921 13.2153 10.6807 11.7181C12.3295 13.3502 14.4927 14.3168 16.7067 14.3168C19.0703 14.3168 21.2399 13.2153 22.9407 11.3777C21.7486 12.8665 21.0633 14.6116 21.0633 16.4762L21.0639 16.4755Z" fill="currentColor" />
+            </g>
+          </svg>
+          <span>Sheldonmind</span>
         </a>
         <a href="/" class="back-link">← Back to home</a>
       </div>
@@ -183,7 +198,7 @@
         <section>
           <h2>8. Third-Party Services</h2>
           <div>
-            The Service integrates with third-party providers (OpenAI, Anthropic, Google AI, Mistral, Groq, Meta, Lemon Squeezy, AWS S3, etc.). Your use of those services is also governed by their respective terms of service.
+            The Service integrates with third-party providers (OpenAI, Anthropic, Google AI, xAI, Perplexity, Meta, Lemon Squeezy, AWS S3, etc.). Your use of those services is also governed by their respective terms of service.
           </div>
         </section>
 

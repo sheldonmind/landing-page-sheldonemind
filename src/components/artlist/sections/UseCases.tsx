@@ -1,5 +1,7 @@
 import CardScroller from '../CardScroller';
 import HoverVideoCard from '../HoverVideoCard';
+import MotionControlCard from '../MotionControlCard';
+import UpscaleCard from '../UpscaleCard';
 import { MEDIA } from '../tokens';
 
 const CARDS = [
@@ -79,13 +81,20 @@ export default function UseCases() {
       <div>
         <div className="mx-auto w-full max-w-[1440px] pl-6 md:pl-10">
           <CardScroller>
-            {CARDS.map((card) => (
-              <HoverVideoCard
-                key={card.label}
-                {...card}
-                className="h-[260px] w-[260px] md:h-[290px] md:w-[290px]"
-              />
-            ))}
+            {CARDS.map((card) => {
+              const size = 'h-[260px] w-[260px] md:h-[290px] md:w-[290px]';
+              if (card.label === 'Motion Control') {
+                return (
+                  <MotionControlCard key={card.label} label={card.label} caption={card.caption} className={size} />
+                );
+              }
+              if (card.label === 'Upscale') {
+                return (
+                  <UpscaleCard key={card.label} label={card.label} caption={card.caption} className={size} />
+                );
+              }
+              return <HoverVideoCard key={card.label} {...card} className={size} />;
+            })}
             <div aria-hidden className="w-6 shrink-0 md:w-10" />
           </CardScroller>
         </div>

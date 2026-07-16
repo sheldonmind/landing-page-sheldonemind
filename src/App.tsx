@@ -8,7 +8,7 @@ import LogoStrip from './components/artlist/sections/LogoStrip';
 import Toolkit from './components/artlist/sections/Toolkit';
 import MultiChat from './components/artlist/sections/MultiChat';
 import DramaStudio from './components/artlist/sections/DramaStudio';
-import Studio from './components/artlist/sections/Studio';
+import ImagineStudio from './components/artlist/sections/ImagineStudio';
 import WhyUs from './components/artlist/sections/WhyUs';
 import Pricing from './components/artlist/sections/Pricing';
 import CtaBand from './components/artlist/sections/CtaBand';
@@ -25,7 +25,7 @@ function App() {
         <Toolkit />
         <MultiChat />
         <DramaStudio />
-        <Studio />
+        <ImagineStudio />
         <WhyUs />
         <Pricing />
         <CtaBand />

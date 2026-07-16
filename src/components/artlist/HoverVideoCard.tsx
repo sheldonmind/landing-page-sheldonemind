@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import TryNowButton from './TryNowButton';
 
 /**
  * Media card that plays its clip on pointer-enter and rewinds on leave.
@@ -49,6 +50,7 @@ export default function HoverVideoCard({
       onPointerLeave={stop}
       className={`group/card relative shrink-0 overflow-hidden rounded-xl bg-greygrey-50 ${className}`}
     >
+      <TryNowButton />
       {kind === 'video' ? (
         <video
           ref={video}

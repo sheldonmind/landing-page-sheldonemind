@@ -1,5 +1,9 @@
 import type { ReactNode } from 'react';
 import MultiAiChatCard from '../../MultiAiChatCard';
+import OrbitSync from '../OrbitSync';
+import SupportChat from '../SupportChat';
+import MemoryGraph3D from '../MemoryGraph3D';
+import SearchCanvas from '../../SearchCanvas';
 import { FigmaPrimaryCtaLink } from '../../FigmaPrimaryCta';
 
 /**
@@ -22,7 +26,7 @@ const aiTools = [
   { name: 'Claude', img: '/Logo Fullname-Claude.png' },
   { name: 'DeepSeek', img: '/Logo Fullname-Deep Seek.png' },
   { name: 'Grok', img: '/Logo Fullname-Grok.png' },
-  { name: 'Mistral AI', img: '/Logo Fullname-Mistral AI.png' },
+  { name: 'Llama', img: '/Logo Fullname-Llama.png' },
   { name: 'Qwen', img: '/Logo Fullname-Qwen.png' },
   { name: 'Perplexity', img: '/Logo Fullname-Perplexity.png' },
   { name: 'MiniMax', img: '/Logo Fullname-MiniMax.png' },
@@ -38,16 +42,7 @@ function FeatureCard({
   children: ReactNode;
 }) {
   return (
-    <div
-      className="flex h-[320px] flex-col gap-2.5 overflow-hidden rounded-2xl bg-black p-4 max-lg:h-auto"
-      style={{
-        border: '1px solid transparent',
-        backgroundImage:
-          'linear-gradient(#000, #000), linear-gradient(to right, rgba(255,255,255,0.3), rgba(255,255,255,0.15))',
-        backgroundOrigin: 'border-box',
-        backgroundClip: 'padding-box, border-box',
-      }}
-    >
+    <div className="flex h-[320px] flex-col gap-2.5 overflow-hidden rounded-2xl p-4 max-lg:h-auto">
       <div className="relative flex flex-1 items-center justify-center overflow-hidden">{children}</div>
       <div className="flex flex-col gap-2">
         <h3 className="font-['Figtree',sans-serif] text-[19px] font-medium leading-[1.2] text-white max-md:text-[17px]">{title}</h3>
@@ -59,7 +54,7 @@ function FeatureCard({
 
 export default function MultiChat() {
   return (
-    <section id="models" className="al-section w-full overflow-hidden">
+    <section id="chat" className="al-section w-full overflow-hidden">
       <div className="al-container flex flex-col gap-4">
         {/* Headline + logo marquee — glow is unclipped so it fades into the background */}
         <div className="relative pb-16 max-md:pb-10">
@@ -109,28 +104,28 @@ export default function MultiChat() {
             title="Cross-Platform Synchronisation"
             description="Easily integrate your AI Agent with various platforms and channels, including website chat, WhatsApp, Slack, and email."
           >
-            <img src="/Cross-Platform Synchronisation.png" alt="Cross-platform sync — logos and connection flow." className="h-full w-full object-contain" />
+            <OrbitSync />
           </FeatureCard>
 
           <FeatureCard
             title="Personalized Customer Experience"
             description="Your agent knows the logged in user and can retrieve their information for resolution-focused, 24/7 customer support."
           >
-            <img src="/Personalized Customer Experience.png" alt="Personalized chat experience." className="h-full w-full object-contain" />
+            <SupportChat />
           </FeatureCard>
 
           <FeatureCard
             title="Deep Memory, Smart Nodes"
             description="Store, retrieve, and visualize your information through a neural-inspired graph architecture designed for lifelong learning."
           >
-            <img src="/Frame 259.png" alt="Deep memory — neural graph and connected nodes." className="h-full w-full object-contain" />
+            <MemoryGraph3D />
           </FeatureCard>
 
           <FeatureCard
             title="Search Without Limits"
             description="Instantly access your entire library of links, files, and multimedia. Our AI categorizes and retrieves your web content the moment you need it."
           >
-            <img src="/Search Without Limits.png" alt="Unlimited search — hub and categories." className="h-full w-full object-contain" />
+            <SearchCanvas />
           </FeatureCard>
         </div>
       </div>

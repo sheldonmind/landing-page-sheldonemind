@@ -41,7 +41,7 @@ export const MEDIA = {
   create: '/Create.mp4',
   motion: '/Motion%20control.mp4',
   mixed: '/Mixed%20media.mp4',
-  createImage: '/Create%20Img.png',
+  createImage: '/create-image.jpg',
   imagine: '/Imagine.png',
   drama: '/Drama%20studio.mp4',
   upscale: '/Upscale.png',
@@ -51,6 +51,7 @@ export const MEDIA = {
   prism: '/Prism%20stairs.png',
   snowboard: '/unsplash_FeBoOVQv0sQ.png',
   toolkitBg: '/Toolkit%20bg.png',
+  pricing: '/Pricing.png',
   faq: '/FAQ.png',
 } as const;
 

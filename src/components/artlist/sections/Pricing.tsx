@@ -52,12 +52,18 @@ export default function Pricing() {
           {/* RIGHT — fixed-size image, square corners, flush to the right edge */}
           <div className="relative hidden shrink-0 lg:block w-[clamp(21.875rem,21.875rem+(100vw-1024px)*0.1580357143,30.725rem)] h-[clamp(27.816rem,27.816rem+(100vw-1024px)*0.1930178571,38.625rem)]">
             <img
-              src={MEDIA.section4}
+              src={MEDIA.pricing}
               alt=""
               aria-hidden
               loading="lazy"
               decoding="async"
-              className="h-full w-full object-cover"
+              className="block h-full w-full object-cover"
+            />
+            {/* Feathers all four edges into the app background so no hard border shows. */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0"
+              style={{ boxShadow: 'inset 0 0 46px 26px #0a0a0a' }}
             />
           </div>
         </div>

@@ -15,7 +15,9 @@ type Props = {
 const defaultItems: NavItem[] = [
   ['Feature', '#features'],
   ['Models', '#models'],
-  ['Studio', '#studio'],
+  ['Chat', '#chat'],
+  ['Imagine Studio', '#studio'],
+  ['Drama Studio', '#drama-studio'],
   ['Pricing', '#pricing'],
   ['FAQ', '#faq'],
 ];
@@ -58,11 +60,17 @@ function SignUpCta({ onClick }: { onClick?: () => void }) {
 export default function SiteNav({ navItems = defaultItems }: Props) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Matches the reference (artlist.io): the header stays fully transparent while
-  // scrolling — it never gains a background/blur. Works because the page is a
-  // uniform near-black canvas, so the nav reads over any section beneath it.
+  // The header uses a frosted-glass effect: a translucent dark backdrop with a
+  // blur so content scrolling beneath it is softened rather than fully visible,
+  // keeping the nav legible over any section.
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-transparent">
+    <header
+      className="fixed inset-x-0 top-0 z-50 bg-black/30 backdrop-blur-xl"
+      style={{
+        maskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
+      }}
+    >
       <div className="al-container flex h-20 items-center gap-8 max-md:h-16">
         <a href="/" className="flex shrink-0 items-center gap-2.5" aria-label="Sheldonmind — home">
           <Logo className="size-9 text-white" />
@@ -74,7 +82,7 @@ export default function SiteNav({ navItems = defaultItems }: Props) {
           </span>
         </a>
 
-        <nav className="hidden flex-1 items-center gap-7 lg:flex">
+        <nav className="hidden flex-1 items-center gap-5 lg:flex xl:gap-7">
           {navItems.map(([label, href]) => (
             <a
               key={label}
