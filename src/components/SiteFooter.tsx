@@ -1,3 +1,6 @@
+import Logo from './artlist/Logo';
+import { CHAT_MODELS } from './artlist/tokens';
+
 type Props = {
   /**
    * On non-landing pages (e.g. /pricing.html) hash-only links don't navigate
@@ -7,19 +10,49 @@ type Props = {
   hashPrefix?: string;
 };
 
+const SOCIAL_URLS = {
+  facebook: 'https://www.facebook.com/profile.php?id=61562936281216',
+  instagram: 'https://www.instagram.com/mind.sheldon/',
+  linkedin: 'https://www.linkedin.com/company/114384569/',
+  x: 'https://x.com/sheldonmin62932',
+} as const;
+
+const SOCIALS: { label: string; href: string; path: string }[] = [
+  { label: 'Instagram', href: SOCIAL_URLS.instagram, path: 'M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Zm5 5.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm5.2-1.2h.01' },
+  { label: 'Facebook', href: SOCIAL_URLS.facebook, path: 'M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.5-1.5H16.7V3.9c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.7v8h3Z' },
+  { label: 'X', href: SOCIAL_URLS.x, path: 'M4 3.5l6.4 8.3L4.3 20.5M20 3.5l-6.3 8.3 6.1 8.7M4 3.5h3.9l12.1 17h-3.9L4 3.5Z' },
+  { label: 'LinkedIn', href: SOCIAL_URLS.linkedin, path: 'M6.5 9.5v10M6.5 5.6v.01M11.5 19.5v-5.6a2.8 2.8 0 0 1 5.6 0v5.6M11.5 9.5v10' },
+];
+
 export default function SiteFooter({ hashPrefix = '' }: Props) {
   const year = new Date().getFullYear();
   const h = (hash: string) => `${hashPrefix}${hash}`;
 
-  const sections = [
+  const columns = [
     {
       title: 'Product',
-      widthClass: 'md:w-59.75',
-      items: ['AI Chat', 'Create Image', 'Create Video', 'Upscale', 'Motion Control', 'Mixed Media', 'Video Studio'].map((label) => ({ label, href: h('#features') })),
+      // AI Chat lives in its own section; the rest are cards in the #features rail.
+      // Imagine Studio owns the #studio anchor; Drama Studio has its own.
+      items: [
+        { label: 'AI Chat', href: h('#chat') },
+        { label: 'Create Image', href: h('#features') },
+        { label: 'Create Video', href: h('#features') },
+        { label: 'Upscale', href: h('#features') },
+        { label: 'Motion Control', href: h('#features') },
+        { label: 'Drama Studio', href: h('#drama-studio') },
+        { label: 'Imagine Studio', href: h('#studio') },
+      ],
+    },
+    {
+      title: 'Models',
+      // Driven off the same source as the #models marquee so the two can't drift.
+      items: CHAT_MODELS.map(({ name }) => ({
+        label: name,
+        href: h('#models'),
+      })),
     },
     {
       title: 'Company',
-      widthClass: 'md:w-59.5',
       items: [
         { label: 'Contact Us', href: h('#contact') },
         { label: 'Pricing', href: hashPrefix ? '/pricing.html' : '#pricing' },
@@ -29,63 +62,83 @@ export default function SiteFooter({ hashPrefix = '' }: Props) {
     },
     {
       title: 'Get in Touch',
-      widthClass: 'md:w-54.75',
-      items: ['Customer Support', 'Instagram', 'Facebook', 'X', 'LinkedIn'].map((label) => ({ label, href: h('#contact') })),
+      items: [
+        { label: 'Customer Support', href: 'mailto:support@sheldonmind.com' },
+        { label: 'Instagram', href: SOCIAL_URLS.instagram },
+        { label: 'Facebook', href: SOCIAL_URLS.facebook },
+        { label: 'LinkedIn', href: SOCIAL_URLS.linkedin },
+      ],
     },
   ];
 
   return (
-    <footer
-      className="relative flex w-full flex-col items-stretch gap-37.5 overflow-hidden p-12.5 text-white max-md:gap-16 max-md:p-6 max-[220px]:p-2"
-      aria-label="Footer"
-    >
+    <footer className="relative w-full overflow-hidden border-t border-white/10 pt-20 pb-10 text-white max-md:pt-14" aria-label="Footer">
       <div
-        aria-hidden="true"
-        className="absolute -left-11.25 -top-258.25 h-818.25 w-376 rotate-60 blur-[150px]"
-      >
-        <div className="absolute left-38 top-487.75 h-330.5 w-174 rounded-[1568.56px] bg-[#FFD96B]" />
-        <div className="absolute left-116.25 top-21.25 h-330.5 w-174 rotate-[-30deg] rounded-[1568.56px] bg-[#73ffd5]" />
-        <div className="absolute left-px top-53 h-509.75 w-330.5 rounded-[1568.56px] bg-[#1E5BB8]" />
-        <div className="absolute left-116.25 top-405.25 h-330.5 w-174 rounded-[1568.56px] bg-[#31edff]" />
-      </div>
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-75 -top-125 h-500 w-375 rounded-full bg-[#2E81FF] opacity-90 blur-[200px]"
+        aria-hidden
+        className="pointer-events-none absolute -top-64 left-1/2 -z-10 h-[600px] w-[900px] -translate-x-1/2 rounded-full blur-[180px]"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(4,114,239,0.35) 0%, transparent 70%)',
+        }}
       />
-      <div className="relative flex w-full flex-col items-start self-stretch md:h-137.5">
-        <div className="relative flex w-full flex-col items-start justify-between gap-10 md:flex-row">
-          <div className="relative inline-flex flex-[0_0_auto] flex-col items-start gap-5 self-stretch">
-            <img className="h-17.5 w-17.5" alt="Sheldonmind icon" src="/Frame 880.png" />
-            <span className="font-['Figtree'] text-[20px] font-medium leading-[1.4] text-white max-[220px]:text-[16px]">
-              Sheldonmind © {year}
-            </span>
+
+      <div className="al-container">
+        <div className="grid grid-cols-[1.4fr_repeat(4,1fr)] gap-10 max-lg:grid-cols-2 max-sm:grid-cols-1">
+          <div className="flex flex-col items-start gap-4">
+            <Logo className="size-11 text-white" />
+            <p className="m-0 max-w-[32ch] font-['Figtree',sans-serif] text-[15px] leading-snug text-greygrey-800">
+              Multi-AI chat, image and video generation. Pay as you go — no subscription required.
+            </p>
           </div>
-          <nav className="relative grid w-full grid-cols-1 items-start gap-8 sm:grid-cols-3 md:flex md:w-174 md:gap-0" aria-label="Footer navigation">
-            {sections.map((section) => (
-              <section
-                key={section.title}
-                className={`relative flex w-full flex-col items-start gap-3 ${section.widthClass} ${section.title === 'Company' ? 'md:self-stretch' : ''}`}
+
+          {columns.map((col) => (
+            <nav key={col.title} aria-label={col.title} className="flex flex-col gap-3.5">
+              <h2 className="m-0 font-['Figtree',sans-serif] text-[15px] font-semibold leading-none text-white">
+                {col.title}
+              </h2>
+              <ul className="m-0 flex list-none flex-col gap-2.5 p-0">
+                {col.items.map(({ label, href }) => (
+                  <li key={label}>
+                    <a
+                      href={href}
+                      {...(href.startsWith('http') ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
+                      className="font-['Figtree',sans-serif] text-[15px] font-normal text-greygrey-800 transition-colors hover:text-white"
+                    >
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))}
+        </div>
+
+        <div className="mt-20 flex items-center justify-between gap-6 border-t border-white/10 pt-8 max-md:mt-12 max-md:flex-col max-md:items-start">
+          <div className="flex items-center gap-5">
+            {SOCIALS.map(({ label, href, path }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label={label}
+                className="text-white/55 transition-colors hover:text-white"
               >
-                <h2
-                  className={`relative -mt-px flex min-w-0 items-center font-['Figtree'] text-[22px] font-medium leading-[1.3] text-white max-[220px]:text-[18px] ${section.title !== 'Company' ? 'self-stretch' : ''}`}
-                >
-                  {section.title}
-                </h2>
-                <ul className="relative flex w-full flex-[0_0_auto] flex-col items-start gap-0.5">
-                  {section.items.map(({ label, href }, index) => (
-                    <li key={label} className="list-none">
-                      <a
-                        href={href}
-                        className={`relative flex min-w-0 max-w-full cursor-pointer items-center font-['Figtree'] text-[20px] font-normal leading-[1.4] text-greygrey-800 transition-colors hover:text-white max-[220px]:text-[16px] ${index === 0 ? '-mt-px' : ''}`}
-                      >
-                        {label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </section>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <path d={path} stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
             ))}
-          </nav>
+          </div>
+
+          <div className="flex items-center gap-7 font-['Figtree',sans-serif] text-[14px] text-greygrey-800 max-md:flex-wrap max-md:gap-4">
+            <span>Sheldonmind © {year}</span>
+            <a href="/privacy" className="transition-colors hover:text-white">
+              Privacy Policy
+            </a>
+            <a href="/terms" className="transition-colors hover:text-white">
+              Term of Service
+            </a>
+          </div>
         </div>
       </div>
     </footer>

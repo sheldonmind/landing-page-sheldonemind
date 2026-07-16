@@ -7,6 +7,8 @@
   --font-product-sans: "DM Sans", "Inter", "system-ui", "sans-serif";
   /* Figma node 2316-23681 headline */
   --font-figtree: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  /* Editorial serif for section displays — substitute for the reference's proprietary face */
+  --font-serif-display: "Source Serif 4", "Playfair Display", Georgia, serif;
   --color-background: #0a0a0a;
   --color-surface: #111111;
   --color-surface-elevated: #111827;
@@ -138,6 +140,16 @@ body {
   overflow-x: hidden;
 }
 
+/* Tailwind v4 dropped Preflight's default pointer cursor on buttons; restore it
+   so every clickable control shows a pointer (links keep the browser default). */
+@layer base {
+  button:not(:disabled):not([disabled]),
+  [role="button"]:not([aria-disabled="true"]),
+  summary {
+    cursor: pointer;
+  }
+}
+
 /* Hide scrollbar but keep scroll functionality */
 .scrollbar-hide {
   -ms-overflow-style: none;
@@ -192,6 +204,46 @@ body {
 @keyframes marquee-reverse {
   0% { transform: translateX(-33.333%); }
   100% { transform: translateX(0); }
+}
+
+/* Cross-Platform Synchronisation orbit: rings revolve, chips counter-rotate upright. */
+@keyframes orbit-cw { to { transform: rotate(360deg); } }
+@keyframes orbit-ccw { to { transform: rotate(-360deg); } }
+@keyframes orbit-chip-cw { to { rotate: -360deg; } }
+@keyframes orbit-chip-ccw { to { rotate: 360deg; } }
+@media (prefers-reduced-motion: reduce) {
+  .orbit-anim { animation: none !important; }
+}
+
+/* Personalized Customer Experience: bubbles fly in, hold, then slide up and vanish. */
+@keyframes supIn1 {
+  0%   { opacity: 0; transform: translate(64px, -54px) scale(0.96); }
+  14%  { opacity: 1; transform: translate(0, 0) scale(1); }
+  64%  { opacity: 1; transform: translate(0, 0) scale(1); }
+  84%  { opacity: 0; transform: translate(0, -130px) scale(0.98); }
+  100% { opacity: 0; transform: translate(0, -130px) scale(0.98); }
+}
+@keyframes supIn2 {
+  0%   { opacity: 0; transform: translate(-64px, 60px) scale(0.96); }
+  11%  { opacity: 0; transform: translate(-64px, 60px) scale(0.96); }
+  27%  { opacity: 1; transform: translate(0, 0) scale(1); }
+  64%  { opacity: 1; transform: translate(0, 0) scale(1); }
+  84%  { opacity: 0; transform: translate(0, -170px) scale(0.98); }
+  100% { opacity: 0; transform: translate(0, -170px) scale(0.98); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sup-anim { animation: none !important; }
+}
+
+/* Deep Memory: a real 3D node cloud (nodes carry a z depth) spins around the
+   vertical axis so front/back nodes parallax past each other. */
+@keyframes graphSpin {
+  from { transform: rotateX(-12deg) rotateY(0deg); }
+  to   { transform: rotateX(-12deg) rotateY(360deg); }
+}
+.mg-cloud { transform-style: preserve-3d; animation: graphSpin 22s linear infinite; will-change: transform; }
+@media (prefers-reduced-motion: reduce) {
+  .mg-cloud { animation: none; transform: rotateX(-12deg) rotateY(26deg); }
 }
 
 /* Ultra-small viewport hardening (e.g. 154-177px QA checks) */
@@ -277,4 +329,370 @@ body {
     font-size: 13px !important;
     line-height: 1.25 !important;
   }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Artlist-inspired landing: display type + motion
+   ───────────────────────────────────────────────────────────── */
+
+/* Serif display. Reference measures 5.14vw / lh .88 / ls -.022em at 1512. */
+.serif-display {
+  font-family: var(--font-serif-display);
+  font-weight: 400;
+  font-size: clamp(38px, 5.14vw, 82px);
+  line-height: 0.88;
+  letter-spacing: -0.022em;
+}
+
+/* The one sans break (Video Studio). Reference: 80px / w400 / ls -.04em. */
+.sans-display {
+  font-family: var(--font-figtree);
+  font-weight: 500;
+  font-size: clamp(38px, 5.3vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.section-eyebrow {
+  font-family: var(--font-figtree);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* Container: reference caps at 1440. */
+.al-container {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+@media (min-width: 768px) {
+  .al-container { padding-inline: 40px; }
+}
+
+/* Vertical rhythm between sections. */
+.al-section { padding-block: clamp(64px, 8.5vw, 128px); }
+
+/* Horizontal scrollers bleed off the right edge, snap on touch. */
+.al-scroller {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+.al-scroller > * { scroll-snap-align: start; }
+
+@media (prefers-reduced-motion: reduce) {
+  .al-marquee { animation: none !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Fixed nav clears anchored sections. */
+section[id] { scroll-margin-top: 96px; }
+
+/* ─────────────────────────────────────────────────────────────
+   Imagine Studio — animated AI video canvas
+   Faithful rebuild of the reference workflow board. The canvas is
+   a container (cqw units scale every child with the panel width),
+   children are positioned in %, and the whole build sequence is one
+   synchronized 12s loop. BASE styles are the fully-assembled state;
+   animation only runs when JS adds data-animate="on" (in view AND
+   motion allowed), so reduced-motion users see the finished board.
+   ───────────────────────────────────────────────────────────── */
+.is-canvas { --dur: 12s; container-type: inline-size; }
+
+/* Marching-ants life on the dashed connectors (independent of the master loop). */
+@keyframes isMarch { to { stroke-dashoffset: -14; } }
+
+/* Reveal-and-hold-then-reset. Appear windows differ; the reset tail is shared. */
+@keyframes isRevEarly { 0%,3%{opacity:0;transform:translateY(8px)} 8%,92%{opacity:1;transform:none} 97%,100%{opacity:0} }
+/* Villa stack tosses in like the reference: each card flies from small + strongly
+   rotated (from behind/depth), snaps up fast with a slight overshoot (bounce), then
+   settles. Back card lands upright; front card rests at its 7° tilt. */
+@keyframes isRevA {
+  0%,9%    { opacity:0; transform:rotate(-24deg) scale(.5); }
+  11%      { opacity:1; transform:rotate(-8deg) scale(.8); }
+  13%      { opacity:1; transform:rotate(3deg) scale(1.05); }
+  16%,92%  { opacity:1; transform:none; }
+  97%,100% { opacity:0; transform:translateY(6px) scale(.98); }
+}
+@keyframes isRevB {
+  0%,12%   { opacity:0; transform:rotate(-20deg) scale(.5); }
+  14%      { opacity:1; transform:rotate(-4deg) scale(.82); }
+  16%      { opacity:1; transform:rotate(11deg) scale(1.06); }
+  19%,92%  { opacity:1; transform:var(--rest,rotate(7deg)); }
+  97%,100% { opacity:0; transform:rotate(4deg) scale(.97); }
+}
+/* Brief + node are UI panels: in the reference they fade + scale in place (no vertical
+   rise), then their text types in. */
+@keyframes isRevC { 0%,13%{opacity:0;transform:scale(.93)} 18%,92%{opacity:1;transform:none} 97%,100%{opacity:0;transform:scale(.97)} }
+/* Orb avatar sits with the top-right OUTPUT tiles, so it lands with them (after the node
+   generates) — not with the early input cards. */
+@keyframes isRevC2 {
+  0%,40%   { opacity:0; transform:rotate(-5deg) scale(.72); }
+  43%      { opacity:1; transform:rotate(1deg) scale(1.03); }
+  46%,92%  { opacity:1; transform:none; }
+  97%,100% { opacity:0; transform:translateY(6px); }
+}
+/* The two right-hand house tiles are OUTPUTS of the node (node→houses blue line). By the
+   feature's flow they must land AFTER the node has generated and the blue line has drawn to
+   them — so they materialise ~40–46% (right as the accent line reaches them), not early.
+   Kept style: slide in from the right → left. */
+@keyframes isRevHouses {
+  0%,40%   { opacity:0; transform:translateX(3cqw); }
+  46%,92%  { opacity:1; transform:none; }
+  97%,100% { opacity:0; transform:translateX(1.4cqw); }
+}
+/* Bottom-cluster avatar badge — lands with the cluster OUTPUT photos (after the node). */
+@keyframes isRevD {
+  0%,40%   { opacity:0; transform:rotate(-18deg) scale(.55); }
+  42%      { opacity:1; transform:rotate(-5deg) scale(.85); }
+  44%      { opacity:1; transform:rotate(3deg) scale(1.05); }
+  46%,92%  { opacity:1; transform:var(--rest,none); }
+  97%,100% { opacity:0; transform:translateY(6px) scale(.97); }
+}
+@keyframes isRevE { 0%,20%{opacity:0;transform:scale(.93)} 25%,92%{opacity:1;transform:none} 97%,100%{opacity:0;transform:scale(.97)} }
+/* Node panel UNROLLS open from the top downward (kept per your request) — like unfurling a
+   hanging wall scroll. A clip-path wipe grows the reveal from top to bottom. Reference cadence:
+   node appears ~2.8s and finishes ~3.4s (≈22–30% of the loop). */
+@keyframes isRevNode {
+  0%,22%   { opacity:0; clip-path:inset(0 0 100% 0); }
+  24%      { opacity:1; clip-path:inset(0 0 88% 0); }
+  30%,92%  { opacity:1; clip-path:inset(0 0 0 0); }
+  97%,100% { opacity:0; clip-path:inset(0 0 0 0); }
+}
+@keyframes isRevF { 0%,26%{opacity:0;transform:scale(.9)} 31%,92%{opacity:1;transform:none} 97%,100%{opacity:0} }
+/* Bottom cluster is an OUTPUT of the node (node→cluster blue line): it materialises AFTER the
+   node generates and the accent line reaches it (~40–50%). Kept style: the two frames spin in
+   ONE AT A TIME (photo 1 rotates in, then photo 2), each landing on its resting tilt. */
+@keyframes isRevSpin1 {
+  0%,40%   { opacity:0; transform:rotate(-165deg) scale(.4); }
+  43%      { opacity:1; }
+  46%,92%  { opacity:1; transform:rotate(-6deg) scale(1); }
+  97%,100% { opacity:0; transform:rotate(-6deg) scale(.95); }
+}
+@keyframes isRevSpin2 {
+  0%,44%   { opacity:0; transform:rotate(165deg) scale(.4); }
+  47%      { opacity:1; }
+  50%,92%  { opacity:1; transform:rotate(6deg) scale(1); }
+  97%,100% { opacity:0; transform:rotate(6deg) scale(.95); }
+}
+@keyframes isRevCore { 0%,30%{opacity:0} 34%,92%{opacity:1} 97%,100%{opacity:0} }
+/* Buttons reveal left→right (reference): "Create video" slides in from the left first,
+   then "Edit promt". Reference lands them ~3.6s (≈30–35%). */
+@keyframes isRevBtn1 { 0%,30%{opacity:0;transform:translateX(-14px)} 33%,92%{opacity:1;transform:none} 97%,100%{opacity:0} }
+@keyframes isRevBtn2 { 0%,32%{opacity:0;transform:translateX(-14px)} 35%,92%{opacity:1;transform:none} 97%,100%{opacity:0} }
+@keyframes isRevH { 0%,52%{opacity:0;transform:translateX(-6px)} 56%,92%{opacity:1;transform:none} 97%,100%{opacity:0} }
+@keyframes isRevInput { 0%,20%{opacity:0} 26%,92%{opacity:1} 97%,100%{opacity:0} }
+
+/* The generated-video result card is the FINAL step of the flow — it renders LAST, after the
+   node's other outputs (top-right tiles + bottom cluster) have landed. Fades in blurred
+   (rendering), then resolves sharp (~52–62%). */
+@keyframes isRevResult { 0%,52%{opacity:0;transform:translateY(16px) scale(.94);filter:blur(18px)} 57%{opacity:1;transform:none;filter:blur(18px)} 62%,92%{opacity:1;transform:none;filter:blur(0)} 97%,100%{opacity:0;filter:blur(10px)} }
+
+/* Typewriter feel via a top-down clip wipe. */
+@keyframes isTypeBrief { 0%,15%{clip-path:inset(0 0 100% 0)} 23%,92%{clip-path:inset(0 0 0 0)} 97%,100%{clip-path:inset(0 0 100% 0)} }
+@keyframes isTypePrompt { 0%,28%{clip-path:inset(0 0 100% 0)} 36%,92%{clip-path:inset(0 0 0 0)} 97%,100%{clip-path:inset(0 0 100% 0)} }
+
+/* Connectors DRAW in source→target — a mask wipe (isDraw*, stroke-dashoffset 1→0) reveals the
+   dashed line along its path while opacity fades it up. The order follows the FEATURE FLOW:
+   WHITE input lines (villa→node, brief→node) draw as the node appears (~25–31%), connecting the
+   already-present references + brief INTO the node. The ACCENT output lines (node→cluster,
+   node→houses) draw only after the node has finished generating (~36–43%), extending OUT toward
+   where the result cards then materialise (~40–50%) — so outputs never precede the node.
+   On teardown a line holds to the shared dissolve window (cards fade 92→97%) so line and image
+   LEAVE TOGETHER — finishing a hair earlier (96%) so a light line-layer never outlives a heavy
+   image-layer the compositor may drop a frame sooner, which would flash a bare line on the grid. */
+@keyframes isDrawWhite { 0%,25%{stroke-dashoffset:1} 31%,100%{stroke-dashoffset:0} }
+@keyframes isDrawBlue  { 0%,36%{stroke-dashoffset:1} 43%,100%{stroke-dashoffset:0} }
+@keyframes isConnWhite { 0%,25%{opacity:0} 27%,92%{opacity:.85} 96%,100%{opacity:0} }
+@keyframes isConnBlue { 0%,36%{opacity:0} 38%,92%{opacity:1} 96%,100%{opacity:0} }
+
+/* Wire the keyframes only while the board is on-screen and motion is allowed. */
+.is-canvas[data-animate="on"] .is-early     { animation: isRevEarly  var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-villa-back,
+.is-canvas[data-animate="on"] .is-avatar-villa { animation: isRevA var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-villa-front { animation: isRevB var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-brief     { animation: isRevC  var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-houses    { animation: isRevHouses var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-orb       { animation: isRevC2 var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-avatar-cluster { animation: isRevD var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-cluster1  { animation: isRevSpin1 var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-cluster2  { animation: isRevSpin2 var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-node      { animation: isRevE  var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-node-panel { animation: isRevNode var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-frames    { animation: isRevF  var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-coreflow  { animation: isRevCore var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-btn1      { animation: isRevBtn1 var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-btn2      { animation: isRevBtn2 var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-icons     { animation: isRevH  var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-input     { animation: isRevInput var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-result    { animation: isRevResult var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-type-brief  { animation: isTypeBrief  var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-type-prompt { animation: isTypePrompt var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-draw-white { animation: isDrawWhite var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-draw-blue  { animation: isDrawBlue  var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-conn-white { animation: isConnWhite var(--dur) linear infinite, isMarch 1.1s linear infinite; }
+.is-canvas[data-animate="on"] .is-conn-blue  { animation: isConnBlue  var(--dur) linear infinite, isMarch 1.1s linear infinite; }
+
+.is-canvas[data-animate="on"] .is-dot-white  { animation: isConnWhite var(--dur) linear infinite; }
+.is-canvas[data-animate="on"] .is-dot-blue   { animation: isConnBlue  var(--dur) linear infinite; }
+
+/* Board content is HIDDEN by default; ONLY the build (data-animate="on") reveals it. This is
+   the default rule — NOT gated on a media query — so a motion user never sees the static base
+   state (cards + dashed lines) that would otherwise flash on the empty grid while tile art
+   loads. Once the build starts, :not() stops matching and the keyframes drive opacity. */
+.is-canvas:not([data-animate="on"]) :is(
+  .is-early, .is-villa-back, .is-avatar-villa, .is-villa-front, .is-brief,
+  .is-houses, .is-orb, .is-cluster, .is-avatar-cluster, .is-node, .is-node-panel, .is-frames,
+  .is-coreflow, .is-buttons, .is-icons, .is-input, .is-result,
+  .is-conn-white, .is-conn-blue, .is-dot-white, .is-dot-blue
+) {
+  opacity: 0;
+}
+/* Reduced-motion users never run the build, so restore the finished board for them. */
+@media (prefers-reduced-motion: reduce) {
+  .is-canvas:not([data-animate="on"]) :is(
+    .is-early, .is-villa-back, .is-avatar-villa, .is-villa-front, .is-brief,
+    .is-houses, .is-orb, .is-cluster, .is-avatar-cluster, .is-node, .is-node-panel, .is-frames,
+    .is-coreflow, .is-buttons, .is-icons, .is-input, .is-result,
+    .is-conn-white, .is-conn-blue, .is-dot-white, .is-dot-blue
+  ) {
+    opacity: 1;
+  }
+}
+
+/* ── Multi AI Chat intro animation (infinite loop) ─────────────
+   Each cycle: the prompt box flips open on its bottom hinge, then each connector
+   line draws up to its model card while the card zooms in (staggered left→right),
+   the board holds assembled, then dissolves and replays. The per-element `--d`
+   offset is turned into a persistent phase shift via a negative animation-delay,
+   so the cascade stays staggered on every loop (positive delays wouldn't). JS
+   sets data-mc="ready" (hidden pre-state) before paint, then "play" in view. */
+@media (prefers-reduced-motion: no-preference) {
+  .multi-ai-chat-card[data-mc="ready"] .mc-flip {
+    opacity: 0;
+    transform: rotateX(-88deg);
+    transform-origin: center bottom;
+  }
+  .multi-ai-chat-card[data-mc="ready"] .mc-card {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  .multi-ai-chat-card[data-mc="ready"] .mc-line {
+    stroke-dasharray: 1;
+    stroke-dashoffset: -1;
+  }
+
+  /* Each stagger step has its own keyframe so the reveal order is baked in (not delay-based),
+     giving a clean cascade EVERY loop: empty → chat flips → card+line pairs reveal one by one
+     → brief hold → dissolve → repeat. */
+  .multi-ai-chat-card[data-mc="play"] { --dur: 4s; }
+  .multi-ai-chat-card[data-mc="play"] .mc-flip {
+    transform-origin: center bottom;
+    animation: mcFlip2 var(--dur) linear infinite;
+  }
+  /* All 5 cards pop in together, then all 5 connectors radiate up from the prompt at once. */
+  .multi-ai-chat-card[data-mc="play"] .mc-card { animation: mcCard var(--dur) linear infinite; }
+  .multi-ai-chat-card[data-mc="play"] .mc-line { stroke-dasharray: 1; animation: mcLine var(--dur) linear infinite; }
+
+  /* Skeleton shimmer on the model bars: a highlight runs in from each side to the
+     centre, staggered bottom→top (var --bd) so the light wave climbs up the stack.
+     Pseudo-elements sit above the resting gradient and are clipped to the pill. */
+  .mc-bar { position: relative; overflow: hidden; }
+  .mc-bar::before, .mc-bar::after {
+    content: ""; position: absolute; top: 0; bottom: 0; width: 55%;
+    opacity: 0; pointer-events: none; will-change: transform, opacity;
+  }
+  .mc-bar::before { left: 0;  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 100%); }
+  .mc-bar::after  { right: 0; background: linear-gradient(to left,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 100%); }
+  .multi-ai-chat-card[data-mc="play"] .mc-bar::before { animation: mcBarL 2s ease-in-out var(--bd, 0s) infinite; }
+  .multi-ai-chat-card[data-mc="play"] .mc-bar::after  { animation: mcBarR 2s ease-in-out var(--bd, 0s) infinite; }
+}
+@keyframes mcFlip2 {
+  0%, 6% { opacity: 0; transform: rotateX(-88deg); }
+  14%    { opacity: 1; transform: rotateX(0deg); }
+  86%    { opacity: 1; transform: rotateX(0deg); }
+  100%   { opacity: 0; transform: rotateX(-88deg); }
+}
+/* All cards reveal together (8→18%); all connectors then draw together, prompt → cards
+   (dashoffset -1 → 0 = radiating up from the dot). Hold, then dissolve. */
+@keyframes mcCard { 0%, 8% { opacity: 0; transform: scale(0.55); } 18% { opacity: 1; transform: scale(1); } 86% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.55); } }
+@keyframes mcLine { 0%, 20% { stroke-dashoffset: -1; } 34% { stroke-dashoffset: 0; } 86% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -1; } }
+/* Shimmer halves slide from the outer edges toward the centre, meet, then fade. */
+@keyframes mcBarL { 0% { transform: translateX(-120%); opacity: 0; } 18% { opacity: 0.9; } 50% { transform: translateX(0); opacity: 0.9; } 68%, 100% { transform: translateX(0); opacity: 0; } }
+@keyframes mcBarR { 0% { transform: translateX(120%); opacity: 0; } 18% { opacity: 0.9; } 50% { transform: translateX(0); opacity: 0.9; } 68%, 100% { transform: translateX(0); opacity: 0; } }
+
+/* ── Search Without Limits canvas ─────────────────────────────
+   Corner icons fly in from their corners → connector lines draw into the
+   centre → the search box rises in → hold → dissolve → loop. JS sets
+   data-sc="ready" (hidden pre-state) before paint, then "play" once in view.
+   Runs regardless of the reduced-motion setting: this is a decorative loop that
+   the page is built around, and without it the card would show a static box. */
+  /* Connector lines stay hidden by default (initial paint / any resting state);
+     only the play loop fades them in, after the four icons have settled.
+     Hidden via opacity — the pathLength/dashoffset trick doesn't hide the stroke. */
+  .sc-line { opacity: 0; stroke-dasharray: 1; stroke-dashoffset: 1; }
+  /* Icons start at the four card corners (canvas ≈360×225; settle at 18/82% × 30/66%). */
+  .sc-canvas[data-sc="ready"] .sc-tl { opacity: 0; transform: translate(-65px, -68px); }
+  .sc-canvas[data-sc="ready"] .sc-tr { opacity: 0; transform: translate(65px, -68px); }
+  .sc-canvas[data-sc="ready"] .sc-bl { opacity: 0; transform: translate(-65px, 77px); }
+  .sc-canvas[data-sc="ready"] .sc-br { opacity: 0; transform: translate(65px, 77px); }
+  .sc-canvas[data-sc="ready"] .sc-line { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .sc-canvas[data-sc="ready"] .sc-center { opacity: 0; transform: translateY(12px) scale(0.8); }
+  .sc-canvas[data-sc="ready"] .sc-pill { opacity: 0; transform: translateY(8px); }
+  .sc-canvas[data-sc="ready"] .sc-hl { opacity: 0; }
+
+  .sc-canvas[data-sc="play"] { --dur: 4s; }
+  .sc-canvas[data-sc="play"] .sc-tl { animation: scTL var(--dur) linear infinite; }
+  .sc-canvas[data-sc="play"] .sc-tr { animation: scTR var(--dur) linear infinite; }
+  .sc-canvas[data-sc="play"] .sc-bl { animation: scBL var(--dur) linear infinite; }
+  .sc-canvas[data-sc="play"] .sc-br { animation: scBR var(--dur) linear infinite; }
+  .sc-canvas[data-sc="play"] .sc-line { stroke-dasharray: 1; animation: scLine var(--dur) linear infinite; }
+  /* Endless cyan pulse: fades with the loop, but the dash keeps travelling nonstop. */
+  .sc-flow { opacity: 0; stroke-dasharray: 0.16 0.84; stroke-dashoffset: 1; }
+  .sc-canvas[data-sc="play"] .sc-flow { animation: scFlowFade var(--dur) linear infinite, scFlow 1s linear infinite; }
+  .sc-canvas[data-sc="play"] .sc-center { animation: scCenter var(--dur) linear infinite; }
+  .sc-canvas[data-sc="play"] .sc-pill { animation: scPill var(--dur) linear infinite; }
+  .sc-canvas[data-sc="play"] .sc-hl { animation: scHl var(--dur) linear infinite; }
+@keyframes scTL { 0%,5% { opacity: 0; transform: translate(-65px,-68px); } 14% { opacity: 1; transform: none; } 90% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translate(-65px,-68px); } }
+@keyframes scTR { 0%,5% { opacity: 0; transform: translate(65px,-68px); } 14% { opacity: 1; transform: none; } 90% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translate(65px,-68px); } }
+@keyframes scBL { 0%,5% { opacity: 0; transform: translate(-65px,77px); } 14% { opacity: 1; transform: none; } 90% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translate(-65px,77px); } }
+@keyframes scBR { 0%,5% { opacity: 0; transform: translate(65px,77px); } 14% { opacity: 1; transform: none; } 90% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translate(65px,77px); } }
+@keyframes scLine { 0%,15% { opacity: 0; stroke-dashoffset: 1; } 26% { opacity: 1; stroke-dashoffset: 0; } 90% { opacity: 1; stroke-dashoffset: 0; } 100% { opacity: 0; stroke-dashoffset: 1; } }
+/* Flow pulse: visible only while the connectors are up, but travels continuously (1s loop). */
+@keyframes scFlowFade { 0%, 15% { opacity: 0; } 26% { opacity: 0.95; } 90% { opacity: 0.95; } 100% { opacity: 0; } }
+@keyframes scFlow { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes scCenter { 0%,21% { opacity: 0; transform: translateY(12px) scale(0.8); } 29% { opacity: 1; transform: none; } 90% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(12px) scale(0.8); } }
+@keyframes scPill { 0%,25% { opacity: 0; transform: translateY(8px); } 32% { opacity: 1; transform: none; } 90% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(8px); } }
+@keyframes scHl { 0%,25% { opacity: 0; } 32% { opacity: 1; } 90% { opacity: 1; } 100% { opacity: 0; } }
+
+/* ── Upscale before/after auto-sweep ──────────────────────────
+   The blurred "before" copy is clipped from the right; the clip edge and the
+   divider handle sweep left↔right together (width 66%↔34%, matching the app). */
+.uc-before { filter: blur(1.5px) brightness(0.95); clip-path: inset(0 34% 0 0); animation: ucSweep 4.5s ease-in-out infinite; }
+.uc-divider { left: 66%; animation: ucHandle 4.5s ease-in-out infinite; }
+@keyframes ucSweep { 0%, 100% { clip-path: inset(0 34% 0 0); } 50% { clip-path: inset(0 66% 0 0); } }
+@keyframes ucHandle { 0%, 100% { left: 66%; } 50% { left: 34%; } }
+@media (prefers-reduced-motion: reduce) {
+  .uc-before { animation: none; clip-path: inset(0 50% 0 0); }
+  .uc-divider { animation: none; left: 50%; }
+}
+
+/* ── Change-plan hero heading ─────────────────────────────────
+   Same radial gradient as the app's change-plan page (.plan-hero-title in
+   SeldonMind/frontend/src/index.css): a bright brand-blue centre fading to
+   pale blue/mint at the edges. */
+.plan-hero-title {
+  background: radial-gradient(50% 50% at 57% 38%, #0472ef 0%, #7ebdea 41%, #d3f2e7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }

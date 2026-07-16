@@ -2,8 +2,8 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import SiteNav from './components/SiteNav';
-import PricingCards from './components/PricingCards';
-import SiteFaq from './components/SiteFaq';
+import ChangePlanCards from './components/ChangePlanCards';
+import PlanFaq from './components/PlanFaq';
 import SiteFooter from './components/SiteFooter';
 
 export function PricingPage() {
@@ -12,15 +12,18 @@ export function PricingPage() {
       <SiteNav
         navItems={[
           ['Feature', '/#features'],
-          ['Gallery', '/#gallery'],
+          ['Models', '/#models'],
+          ['Chat', '/#chat'],
+          ['Imagine Studio', '/#studio'],
+          ['Drama Studio', '/#drama-studio'],
           ['Pricing', '/pricing.html'],
-          ['FQA', '/#faq'],
-          ['Contact', '/#contact'],
+          ['FAQ', '/#faq'],
         ]}
       />
-      <main className="w-full overflow-x-hidden">
-        <PricingCards />
-        <SiteFaq />
+      {/* Nav is fixed, so the page needs to clear its 80px band. */}
+      <main className="w-full overflow-x-hidden pt-20">
+        <ChangePlanCards />
+        <PlanFaq />
       </main>
       <SiteFooter hashPrefix="/" />
     </div>
