@@ -1,14 +1,16 @@
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import useScaleToFit from '../hooks/useScaleToFit';
 
-/** The width the card is composed for — its max-w-[1080px] wrapper in MultiChat. */
-const DESIGN_W = 1080;
+/** The width the visual block is composed for: the card's max-w-[1080px] wrapper in MultiChat,
+ *  less the 20px padding either side of multi-ai-chat-inner. */
+const DESIGN_W = 1040;
 
 /**
  * Multi AI Chat — ported from main, scaled down ~65% for the artlist layout.
  * The model grid is a single 5-col row feeding connector curves into the prompt box, so it
- * can't reflow without losing that shape. Narrower than DESIGN_W the whole card is scaled
- * down instead (see useScaleToFit) — which is why nothing in here carries responsive variants.
+ * can't reflow without losing that shape. Narrower than DESIGN_W it is scaled down instead
+ * (see useScaleToFit) — which is why nothing inside it carries responsive variants. The copy
+ * sits outside that block and keeps its own, so it stays readable at any width.
  *
  * Scroll-triggered intro (motion users only): the prompt box flips open on its
  * bottom hinge, then each connector line draws up to its model card while the
@@ -71,10 +73,12 @@ function ModelCard({ model, index }: { model: Model; index: number }) {
 }
 
 export default function MultiAiChatCard() {
+  // data-mc drives the intro animation from the card, which the mc-* CSS selectors key off.
+  const cardRef = useRef<HTMLDivElement>(null);
   const { wrapRef, mockRef } = useScaleToFit(DESIGN_W);
 
   useLayoutEffect(() => {
-    const el = mockRef.current;
+    const el = cardRef.current;
     if (!el) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     // Hide the animated pieces before the first paint, then play once in view.
@@ -90,26 +94,26 @@ export default function MultiAiChatCard() {
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [mockRef]);
+  }, []);
 
   return (
-    <div ref={wrapRef}>
+    <div
+      ref={cardRef}
+      className="multi-ai-chat-card relative w-full overflow-hidden rounded-[20px]"
+    >
+      {/* Background ellipse glow */}
       <div
-        ref={mockRef}
-        className="multi-ai-chat-card relative w-full overflow-hidden rounded-[20px]"
-      >
-        {/* Background ellipse glow */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 -bottom-1/2 h-[200%] opacity-60"
-          style={{
-            background:
-              'radial-gradient(ellipse 60% 35% at 50% 80%, rgba(47,130,255,0.55) 0%, rgba(47,130,255,0.18) 40%, rgba(0,0,0,0) 70%)',
-          }}
-        />
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 -bottom-1/2 h-[200%] opacity-60"
+        style={{
+          background:
+            'radial-gradient(ellipse 60% 35% at 50% 80%, rgba(47,130,255,0.55) 0%, rgba(47,130,255,0.18) 40%, rgba(0,0,0,0) 70%)',
+        }}
+      />
 
-        <div className="multi-ai-chat-inner relative flex flex-col gap-8 p-5">
-          <div className="flex w-full flex-col items-center">
+      <div className="multi-ai-chat-inner relative flex flex-col gap-8 p-5 max-md:gap-6 max-md:p-4">
+        <div ref={wrapRef}>
+          <div ref={mockRef} className="flex w-full flex-col items-center">
             <div className="multi-ai-model-grid mb-0 grid w-full grid-cols-5 justify-center gap-3">
               {MODELS.map((m, i) => (
                 <ModelCard key={m.name} model={m} index={i} />
@@ -145,16 +149,16 @@ export default function MultiAiChatCard() {
               />
             </div>
           </div>
+        </div>
 
-          {/* Title + description */}
-          <div className="multi-ai-copy flex w-full max-w-[560px] flex-col gap-3">
-            <h3 className="font-['Figtree',sans-serif] text-[22px] font-medium leading-[1.2] text-white">
-              Multi AI Chat
-            </h3>
-            <p className="font-['Figtree',sans-serif] text-[15px] font-normal leading-[1.4] text-greygrey-800">
-              Chat with multiple AI models in one place — switch between GPT‑4o, Claude, Gemini, DeepSeek &amp; more for every conversation.
-            </p>
-          </div>
+        {/* Title + description — outside the scaled block, so it stays readable. */}
+        <div className="multi-ai-copy flex w-full max-w-[560px] flex-col gap-3 max-md:gap-2">
+          <h3 className="font-['Figtree',sans-serif] text-[22px] font-medium leading-[1.2] text-white max-md:text-[19px]">
+            Multi AI Chat
+          </h3>
+          <p className="font-['Figtree',sans-serif] text-[15px] font-normal leading-[1.4] text-greygrey-800 max-md:text-[14px]">
+            Chat with multiple AI models in one place — switch between GPT‑4o, Claude, Gemini, DeepSeek &amp; more for every conversation.
+          </p>
         </div>
       </div>
     </div>
