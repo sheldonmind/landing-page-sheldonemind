@@ -121,7 +121,7 @@ export default function SiteFooter({ hashPrefix = '' }: Props) {
                 target="_blank"
                 rel="noreferrer noopener"
                 aria-label={label}
-                className="text-white/55 transition-colors hover:text-white"
+                className="text-white/90 transition-colors hover:text-white"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
                   <path d={path} stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />

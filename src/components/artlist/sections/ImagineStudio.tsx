@@ -229,12 +229,14 @@ export default function ImagineStudio() {
         </div>
       </div>
 
-      {/* The animated board. Scrolls horizontally on small screens to stay legible. */}
+      {/* The animated board. Everything inside is sized in cqw/% off the .is-canvas container,
+          so below md it just shrinks to fit whole rather than scrolling horizontally — the
+          composition survives, the text becomes texture. */}
       <div className="al-container mt-16 max-md:mt-12">
         <div className="w-full overflow-x-auto scrollbar-hide">
           <div
             ref={canvasRef}
-            className="is-canvas relative mx-auto aspect-[40/27] w-full min-w-[920px] max-w-[1180px]"
+            className="is-canvas relative mx-auto aspect-[40/27] w-full max-w-[1180px] md:min-w-[920px]"
             style={{
               borderRadius: '2cqw',
               border: '1px solid rgba(255,255,255,0.08)',

@@ -1,8 +1,14 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect } from 'react';
+import useScaleToFit from '../hooks/useScaleToFit';
+
+/** The width the card is composed for — its max-w-[1080px] wrapper in MultiChat. */
+const DESIGN_W = 1080;
 
 /**
  * Multi AI Chat — ported from main, scaled down ~65% for the artlist layout.
- * The model grid stays responsive (5→3→2→1 cols); sizes are compact.
+ * The model grid is a single 5-col row feeding connector curves into the prompt box, so it
+ * can't reflow without losing that shape. Narrower than DESIGN_W the whole card is scaled
+ * down instead (see useScaleToFit) — which is why nothing in here carries responsive variants.
  *
  * Scroll-triggered intro (motion users only): the prompt box flips open on its
  * bottom hinge, then each connector line draws up to its model card while the
@@ -65,10 +71,10 @@ function ModelCard({ model, index }: { model: Model; index: number }) {
 }
 
 export default function MultiAiChatCard() {
-  const ref = useRef<HTMLDivElement>(null);
+  const { wrapRef, mockRef } = useScaleToFit(DESIGN_W);
 
   useLayoutEffect(() => {
-    const el = ref.current;
+    const el = mockRef.current;
     if (!el) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     // Hide the animated pieces before the first paint, then play once in view.
@@ -84,69 +90,71 @@ export default function MultiAiChatCard() {
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [mockRef]);
 
   return (
-    <div
-      ref={ref}
-      className="multi-ai-chat-card relative w-full overflow-hidden rounded-[20px]"
-    >
-      {/* Background ellipse glow */}
+    <div ref={wrapRef}>
       <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 -bottom-1/2 h-[200%] opacity-60"
-        style={{
-          background:
-            'radial-gradient(ellipse 60% 35% at 50% 80%, rgba(47,130,255,0.55) 0%, rgba(47,130,255,0.18) 40%, rgba(0,0,0,0) 70%)',
-        }}
-      />
+        ref={mockRef}
+        className="multi-ai-chat-card relative w-full overflow-hidden rounded-[20px]"
+      >
+        {/* Background ellipse glow */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 -bottom-1/2 h-[200%] opacity-60"
+          style={{
+            background:
+              'radial-gradient(ellipse 60% 35% at 50% 80%, rgba(47,130,255,0.55) 0%, rgba(47,130,255,0.18) 40%, rgba(0,0,0,0) 70%)',
+          }}
+        />
 
-      <div className="multi-ai-chat-inner relative flex flex-col gap-8 p-5 max-md:gap-6 max-md:p-4">
-        <div className="flex w-full flex-col items-center">
-          <div className="multi-ai-model-grid mb-0 grid w-full grid-cols-5 justify-center gap-3 max-lg:grid-cols-3 max-sm:grid-cols-2 max-md:mb-4">
-            {MODELS.map((m, i) => (
-              <ModelCard key={m.name} model={m} index={i} />
-            ))}
+        <div className="multi-ai-chat-inner relative flex flex-col gap-8 p-5">
+          <div className="flex w-full flex-col items-center">
+            <div className="multi-ai-model-grid mb-0 grid w-full grid-cols-5 justify-center gap-3">
+              {MODELS.map((m, i) => (
+                <ModelCard key={m.name} model={m} index={i} />
+              ))}
+            </div>
+
+            {/* Curves — one per model card, converging on the prompt box below. */}
+            <div aria-hidden className="relative mt-0 block h-[56px] w-full max-w-[900px] shrink-0">
+              <svg viewBox="0 0 1352 78" preserveAspectRatio="none" className="absolute inset-0 h-full w-full">
+                <defs>
+                  <linearGradient id="curveGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#2F82FF" stopOpacity="0.85" />
+                    <stop offset="100%" stopColor="#32EEFF" stopOpacity="1" />
+                  </linearGradient>
+                </defs>
+                <g fill="none" strokeWidth="1.4" strokeLinecap="round">
+                  <path className="mc-line mc-s0" pathLength={1} d="M 102.6 0 C 102.6 50, 675.5 35, 675.5 78" stroke="url(#curveGrad)" />
+                  <path className="mc-line mc-s1" pathLength={1} d="M 389.3 0 C 389.3 50, 675.5 45, 675.5 78" stroke="url(#curveGrad)" />
+                  <path className="mc-line mc-s2" pathLength={1} d="M 675.7 0 L 675.7 78" stroke="#32EEFF" strokeWidth="1.4" />
+                  <path className="mc-line mc-s3" pathLength={1} d="M 962.7 0 C 962.7 50, 675.5 45, 675.5 78" stroke="url(#curveGrad)" />
+                  <path className="mc-line mc-s4" pathLength={1} d="M 1249.4 0 C 1249.4 50, 675.5 35, 675.5 78" stroke="url(#curveGrad)" />
+                </g>
+              </svg>
+            </div>
+
+            {/* Search prompt image — flips open on its bottom hinge first. */}
+            <div className="mx-auto w-full max-w-[600px]" style={{ perspective: '1400px' }}>
+              <img
+                src="/searchinput-cropped.png"
+                alt="Search prompt: What is going on today?"
+                className="mc-flip mx-auto block h-auto w-full max-w-[600px] select-none"
+                draggable={false}
+              />
+            </div>
           </div>
 
-          {/* Curves — hidden below lg where the grid is no longer a single 5-col row */}
-          <div aria-hidden className="relative mt-0 hidden h-[56px] w-full max-w-[900px] shrink-0 lg:block">
-            <svg viewBox="0 0 1352 78" preserveAspectRatio="none" className="absolute inset-0 h-full w-full">
-              <defs>
-                <linearGradient id="curveGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#2F82FF" stopOpacity="0.85" />
-                  <stop offset="100%" stopColor="#32EEFF" stopOpacity="1" />
-                </linearGradient>
-              </defs>
-              <g fill="none" strokeWidth="1.4" strokeLinecap="round">
-                <path className="mc-line mc-s0" pathLength={1} d="M 102.6 0 C 102.6 50, 675.5 35, 675.5 78" stroke="url(#curveGrad)" />
-                <path className="mc-line mc-s1" pathLength={1} d="M 389.3 0 C 389.3 50, 675.5 45, 675.5 78" stroke="url(#curveGrad)" />
-                <path className="mc-line mc-s2" pathLength={1} d="M 675.7 0 L 675.7 78" stroke="#32EEFF" strokeWidth="1.4" />
-                <path className="mc-line mc-s3" pathLength={1} d="M 962.7 0 C 962.7 50, 675.5 45, 675.5 78" stroke="url(#curveGrad)" />
-                <path className="mc-line mc-s4" pathLength={1} d="M 1249.4 0 C 1249.4 50, 675.5 35, 675.5 78" stroke="url(#curveGrad)" />
-              </g>
-            </svg>
+          {/* Title + description */}
+          <div className="multi-ai-copy flex w-full max-w-[560px] flex-col gap-3">
+            <h3 className="font-['Figtree',sans-serif] text-[22px] font-medium leading-[1.2] text-white">
+              Multi AI Chat
+            </h3>
+            <p className="font-['Figtree',sans-serif] text-[15px] font-normal leading-[1.4] text-greygrey-800">
+              Chat with multiple AI models in one place — switch between GPT‑4o, Claude, Gemini, DeepSeek &amp; more for every conversation.
+            </p>
           </div>
-
-          {/* Search prompt image — flips open on its bottom hinge first. */}
-          <div className="mx-auto w-full max-w-[600px] md:max-lg:mt-4" style={{ perspective: '1400px' }}>
-            <img
-              src="/searchinput-cropped.png"
-              alt="Search prompt: What is going on today?"
-              className="mc-flip mx-auto block h-auto w-full max-w-[600px] select-none"
-              draggable={false}
-            />
-          </div>
-        </div>
-
-        {/* Title + description */}
-        <div className="multi-ai-copy flex w-full max-w-[560px] flex-col gap-3 max-md:gap-2">
-          <h3 className="font-['Figtree',sans-serif] text-[22px] font-medium leading-[1.2] text-white max-md:text-[19px]">
-            Multi AI Chat
-          </h3>
-          <p className="font-['Figtree',sans-serif] text-[15px] font-normal leading-[1.4] text-greygrey-800 max-md:text-[14px]">
-            Chat with multiple AI models in one place — switch between GPT‑4o, Claude, Gemini, DeepSeek &amp; more for every conversation.
-          </p>
         </div>
       </div>
     </div>

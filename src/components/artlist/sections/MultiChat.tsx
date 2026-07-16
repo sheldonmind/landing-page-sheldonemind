@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import useScaleToFit from '../../../hooks/useScaleToFit';
 import MultiAiChatCard from '../../MultiAiChatCard';
 import OrbitSync from '../OrbitSync';
 import SupportChat from '../SupportChat';
@@ -32,18 +33,69 @@ const aiTools = [
   { name: 'MiniMax', img: '/Logo Fullname-MiniMax.png' },
 ];
 
+/**
+ * The visual box is 208px tall and fluid in width on desktop — 640 at 1440, 432 at the lg
+ * breakpoint. That 432 is the narrowest it composes at, so it is what the fixed-px visuals get
+ * pinned to and scaled down from.
+ */
+const VISUAL_W = 432;
+
+/**
+ * For visuals that fill whatever box they are handed. They read better given the room than
+ * scaled down, so below lg the box just takes a shape that suits the narrower column.
+ */
+function FluidVisual({ children }: { children: ReactNode }) {
+  // Below lg the card drops its fixed height, so flex-1 would collapse this to 0 — and the
+  // visuals size off it (absolute inset-0), so they'd vanish. The aspect ratio keeps it
+  // width-driven instead.
+  return (
+    <div className="relative flex flex-1 items-center justify-center overflow-hidden max-lg:aspect-[16/10] max-lg:flex-none">
+      {children}
+    </div>
+  );
+}
+
+/**
+ * For visuals laid out in fixed px, which stop composing once the box narrows past VISUAL_W —
+ * the support chat's bubbles are `w-[300px] max-w-[58%]`, so when the % cap bites they shrink,
+ * their text rewraps taller, and they spill out. Pinned and scaled rather than left to reflow.
+ */
+function ScaledVisual({ children }: { children: ReactNode }) {
+  const { wrapRef, mockRef } = useScaleToFit(VISUAL_W);
+
+  return (
+    // min-h-0: as a flex item this defaults to min-height:auto, which would let an oversized
+    // visual push the row past 208 (the plain box above is spared that by its own overflow-hidden).
+    <div ref={wrapRef} className="min-h-0 flex-1 max-lg:flex-none">
+      {/* max-lg:h-[208px] — same reason FluidVisual needs an aspect ratio there. Keep it in
+          sync with what flex-1 resolves to at lg and up. */}
+      <div
+        ref={mockRef}
+        className="relative flex h-full items-center justify-center overflow-hidden max-lg:h-[208px]"
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
 function FeatureCard({
   title,
   description,
+  fluid = false,
   children,
 }: {
   title: string;
   description: string;
+  /** Set when the visual sizes itself off the box rather than composing at a fixed width. */
+  fluid?: boolean;
   children: ReactNode;
 }) {
+  const Visual = fluid ? FluidVisual : ScaledVisual;
+
   return (
     <div className="flex h-[320px] flex-col gap-2.5 overflow-hidden rounded-2xl p-4 max-lg:h-auto">
-      <div className="relative flex flex-1 items-center justify-center overflow-hidden">{children}</div>
+      <Visual>{children}</Visual>
       <div className="flex flex-col gap-2">
         <h3 className="font-['Figtree',sans-serif] text-[19px] font-medium leading-[1.2] text-white max-md:text-[17px]">{title}</h3>
         <p className="font-['Figtree',sans-serif] text-[14px] font-normal leading-[1.4] text-greygrey-800 max-md:text-[13px]">{description}</p>
@@ -115,6 +167,7 @@ export default function MultiChat() {
           </FeatureCard>
 
           <FeatureCard
+            fluid
             title="Deep Memory, Smart Nodes"
             description="Store, retrieve, and visualize your information through a neural-inspired graph architecture designed for lifelong learning."
           >
@@ -122,6 +175,7 @@ export default function MultiChat() {
           </FeatureCard>
 
           <FeatureCard
+            fluid
             title="Search Without Limits"
             description="Instantly access your entire library of links, files, and multimedia. Our AI categorizes and retrieves your web content the moment you need it."
           >
