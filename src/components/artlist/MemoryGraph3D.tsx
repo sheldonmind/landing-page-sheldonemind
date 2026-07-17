@@ -23,6 +23,23 @@ const COLORS = [
 ];
 const TARGET_R = 108;
 
+/**
+ * Camera distance, in multiples of TARGET_R. Nothing fades the box edges any more, so the clip
+ * is bare — whatever leaves the box is visibly guillotined, and the breath is what pushes it
+ * out. The camera's vertical fov is 50deg, so the graph spans TARGET_R / (d * tan25deg) of the
+ * half-height: a ratio, independent of the box's pixel size, which is why one pair of numbers
+ * holds at every breakpoint.
+ *
+ * DIST_MID - DIST_SWING is the closest the breath comes and is the number that matters. It has
+ * to cover the node radius and the bloom halo on top of TARGET_R, and the layout is only
+ * roughly spherical so the silhouette grows and shrinks as it rotates. Measured at 2.5: the
+ * graph reaches 84% of the box height at its widest rotation, ~17px clear of the edge. The old
+ * 2.05 +/- 0.55 sat at 112% at rest and 152% at the near end, which the edge fade hid by
+ * eating the rim of the graph.
+ */
+const DIST_MID = 2.9;
+const DIST_SWING = 0.35;
+
 const hash = (n: number) => {
   const v = Math.sin(n * 127.1 + 311.7) * 43758.5453;
   return v - Math.floor(v);
@@ -116,7 +133,7 @@ export default function MemoryGraph3D() {
       const { w, h } = sizeRef.current;
       fg.postProcessingComposer().addPass(new UnrealBloomPass(new THREE.Vector2(w, h), 0.7, 0.5, 0.12));
 
-      fg.cameraPosition({ x: 0, y: 0, z: TARGET_R * 2.1 }, { x: 0, y: 0, z: 0 }, 0);
+      fg.cameraPosition({ x: 0, y: 0, z: TARGET_R * DIST_MID }, { x: 0, y: 0, z: 0 }, 0);
 
       const controls = fg.controls();
       controls.enableZoom = false;
@@ -128,7 +145,7 @@ export default function MemoryGraph3D() {
       const cam = fg.camera();
       const animate = () => {
         const t = performance.now() / 1000;
-        const dist = TARGET_R * (2.05 + 0.55 * Math.sin(t * 1.9));
+        const dist = TARGET_R * (DIST_MID + DIST_SWING * Math.sin(t * 1.9));
         cam.position.setLength(dist);
         raf = requestAnimationFrame(animate);
       };
@@ -141,25 +158,22 @@ export default function MemoryGraph3D() {
     };
   }, []);
 
-  // The bloom pass renders through an EffectComposer, whose output is opaque
-  // (near-black) even though the canvas and `backgroundColor` are transparent, so
-  // the canvas would otherwise meet the page in a hard rectangular seam. The fill
-  // is only ~8/255 off the page background, so fading the edges out dissolves it.
+  // The bloom pass renders through an EffectComposer whose output is opaque, so a
+  // transparent `backgroundColor` still lands on the page as a near-black rectangle.
+  // `lighten` keeps each channel's max against the page, and that fill (~8/255) is below
+  // --color-background (10/255), so the empty canvas resolves to exactly the page and the
+  // rectangle has nothing to show; the nodes are far brighter and pass through at
+  // their true colour.
   //
-  // The radii must stay near 50%: they are a share of the box's full width/height,
-  // while the edge is only half of it away from the centre — at 78% the fade would
-  // finish outside the box and never reach the edge. Vertical is looser (68%) since
-  // the graph nearly fills the height; horizontal has room to fade fully.
+  // An edge fade would do the same job, but only by spending the rim of the box — and
+  // the camera swings in close enough to need all of it, so the graph would be clipped
+  // at the near end of the breath. Nothing here is masked, so it can use the full box.
+  //
+  // Two things this rests on: --color-background (#0a0a0a) must stay at or above the
+  // composer fill, and the card must stay on a flat background. Over a gradient the
+  // rectangle would return.
   return (
-    <div
-      ref={wrapRef}
-      className="absolute inset-0 overflow-hidden"
-      aria-hidden
-      style={{
-        maskImage: 'radial-gradient(ellipse 52% 68% at 50% 50%, #000 35%, transparent 100%)',
-        WebkitMaskImage: 'radial-gradient(ellipse 52% 68% at 50% 50%, #000 35%, transparent 100%)',
-      }}
-    >
+    <div ref={wrapRef} className="absolute inset-0 overflow-hidden" aria-hidden style={{ mixBlendMode: 'lighten' }}>
       <ForceGraph3D
         ref={fgRef}
         controlType="orbit"

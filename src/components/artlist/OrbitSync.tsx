@@ -94,7 +94,11 @@ const RINGS: Ring[] = [
 
 export default function OrbitSync() {
   return (
-    <div className="relative mx-auto aspect-square h-full max-h-[220px]" style={{ containerType: 'size' }} aria-hidden>
+    // The outermost orbit path is 116% of this box (radius 58%), so at h-full it would spill past
+    // the card's visual area and get clipped into a flat-topped circle. Everything here is sized
+    // off the box (% and cqmin), so holding the box under 100/1.16 keeps the composition intact
+    // and just draws it smaller.
+    <div className="relative mx-auto aspect-square h-[84%] max-h-[185px]" style={{ containerType: 'size' }} aria-hidden>
       {/* Faint concentric orbit paths. */}
       {[26, 43, 58].map((d) => (
         <span

@@ -1,6 +1,13 @@
 import { useEffect, useRef } from 'react';
+import useScaleToFit from '../../../hooks/useScaleToFit';
 import { SecondaryCtaLink } from '../SecondaryCta';
 import { ACCENT, MEDIA } from '../tokens';
+
+/** Same design width as Drama Studio's mock — the two compositions are mirrors of each
+ *  other (Drama's render card sits right with its chat panel left; this board sits left
+ *  with its chat panel right), so they must be composed against the same grid to line up.
+ *  The chat panel is fixed px and can't reflow, so the mock is pinned here and scaled. */
+const DESIGN_W = 1360;
 
 /**
  * Imagine Studio — an animated recreation of the reference "AI Video Creation
@@ -149,6 +156,7 @@ function Dot({
 
 export default function ImagineStudio() {
   const canvasRef = useRef<HTMLDivElement>(null);
+  const { wrapRef, mockRef } = useScaleToFit(DESIGN_W);
 
   useEffect(() => {
     const el = canvasRef.current;
@@ -230,13 +238,13 @@ export default function ImagineStudio() {
       </div>
 
       {/* The animated board. Everything inside is sized in cqw/% off the .is-canvas container,
-          so below md it just shrinks to fit whole rather than scrolling horizontally — the
-          composition survives, the text becomes texture. */}
-      <div className="al-container mt-16 max-md:mt-12">
-        <div className="w-full overflow-x-auto scrollbar-hide">
+          so the composition holds at any scale — the text just becomes texture as it shrinks. */}
+      <div className="al-container relative z-10 mt-16 max-md:mt-12">
+        <div ref={wrapRef}>
+          <div ref={mockRef} className="relative">
           <div
             ref={canvasRef}
-            className="is-canvas relative mx-auto aspect-[40/27] w-full max-w-[1180px] md:min-w-[920px]"
+            className="is-canvas relative mr-auto aspect-[16/9] w-[84%]"
             style={{
               borderRadius: '2cqw',
               border: '1px solid rgba(255,255,255,0.08)',
@@ -382,7 +390,7 @@ export default function ImagineStudio() {
             <div
               className="is-buttons"
               style={{
-                position: 'absolute', left: '38%', top: '54%', zIndex: 5,
+                position: 'absolute', left: '38%', top: '63%', zIndex: 5,
                 display: 'flex', gap: '0.85cqw',
               }}
             >
@@ -540,6 +548,63 @@ export default function ImagineStudio() {
             >
               ⊕
             </span>
+          </div>
+
+          {/* Chat panel — the mirror of Drama Studio's: same size and styling, but hung on
+              the right so it overlaps the board's right edge (Drama's card sits right with
+              the panel left; this board sits left with the panel right).
+              Deliberately left at z-index auto. `container-type: inline-size` on .is-canvas
+              does not make it a stacking context (contain computes to none), so the board's
+              tiles — z-index up to 6 — reach into this wrapper's context and paint over the
+              panel. That layering is intended: the cards ride above the chat. It also keeps
+              the fill honest at Drama's exact bg-black/60 — since those tiles paint above,
+              they never enter this panel's backdrop, leaving only the board's #0b0b0d and the
+              page's #0a0a0a behind it. Near-identical, so no seam shows where the board's
+              edge passes behind. Verified by sampling pixels against Drama's panel. */}
+          <div className="absolute right-0 top-10 flex h-[452px] w-[336px] flex-col overflow-hidden rounded-2xl border border-white/12 bg-black/60 shadow-[0_24px_70px_rgba(0,0,0,0.6)] backdrop-blur-xl">
+            {/* Header. */}
+            <div className="flex items-center justify-between gap-2 border-b border-white/[0.08] px-4 py-3">
+              <span className="truncate font-['Figtree',sans-serif] text-[13px] font-medium text-white">hello</span>
+              <div className="flex shrink-0 items-center gap-2.5 text-white/45">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M12 8v4l2.5 1.5M3.5 12a8.5 8.5 0 1 0 2.5-6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /><path d="M6 3v3.5H9.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" /></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" /></svg>
+              </div>
+            </div>
+
+            {/* Messages. */}
+            <div className="flex flex-1 flex-col gap-2.5 overflow-hidden px-4 py-4 font-['Figtree',sans-serif] text-[12px] leading-snug">
+              <div className="max-w-[80%] self-end rounded-2xl bg-white/90 px-3 py-2 text-[#0d0d0d]">hello</div>
+              <div className="max-w-[88%] self-start rounded-2xl bg-white/[0.06] px-3 py-2 text-white/80">
+                Hello! How can I assist you today?
+              </div>
+              <div className="max-w-[80%] self-end rounded-2xl bg-white/90 px-3 py-2 text-[#0d0d0d]">Make me an animated film.</div>
+              <div className="max-w-[92%] self-start rounded-2xl bg-white/[0.06] px-3 py-2.5 text-white/80">
+                <p className="m-0">Got it! A few questions about your film:</p>
+                <p className="m-0 mt-2 text-white/55">1. What is the theme or storyline?</p>
+                <p className="m-0 text-white/55">2. How long do you want the film to be?</p>
+                <p className="m-0 text-white/55">3. Any specific characters or visual styles?</p>
+                <p className="m-0 mt-2">Feel free to answer any or all of these!</p>
+              </div>
+            </div>
+
+            {/* Composer. */}
+            <div className="m-3 rounded-xl border border-white/12 bg-white/[0.04] p-3">
+              <span className="font-['Figtree',sans-serif] text-[13px] text-white/40">Type a message…</span>
+              <div className="mt-5 flex items-center justify-between">
+                <span className="flex items-center gap-1.5 rounded-full bg-white/8 px-2 py-1 font-['Figtree',sans-serif] text-[11px] text-white/70">
+                  <span className="size-3.5 rounded-full bg-gradient-to-br from-[#7EBDEA] to-[#0472EF]" />
+                  GPT-4o Mini
+                </span>
+                <div className="flex items-center gap-2">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden className="text-white/45"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" strokeWidth="1.6" /><path d="M3 15l5-4 4 3 3-2 6 5" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" /><circle cx="8.5" cy="9" r="1.4" fill="currentColor" /></svg>
+                  <span className="grid size-7 place-items-center rounded-full bg-white">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M12 19V5M5 12l7-7 7 7" stroke="#0d0d0d" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
           </div>
         </div>
       </div>

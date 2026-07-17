@@ -51,7 +51,11 @@ function Bar({ w, reverse = false, i = 0 }: { w: string; reverse?: boolean; i?: 
 function ModelCard({ model, index }: { model: Model; index: number }) {
   return (
     <div
-      className={`multi-ai-model-card mc-card mc-s${index} relative flex aspect-[268.772/283.107] flex-col gap-2 rounded-xl p-4`}
+      // No fixed aspect: the card ends where the last bar ends (hence pb-0), because the
+      // connector below starts at the grid's bottom edge and has to meet that bar. The card
+      // carries no border or fill any more, so its box only reads through its content —
+      // an aspect ratio would just park the connector 87px under the bar in dead space.
+      className={`multi-ai-model-card mc-card mc-s${index} relative flex flex-col gap-2 rounded-xl p-4 pb-0`}
     >
       <div className="multi-ai-model-card-header flex shrink-0 items-center gap-2.5">
         <div className="multi-ai-model-icon flex shrink-0 items-center justify-center rounded-full border border-solid border-white/70 p-1">
@@ -120,8 +124,13 @@ export default function MultiAiChatCard() {
               ))}
             </div>
 
-            {/* Curves — one per model card, converging on the prompt box below. */}
-            <div aria-hidden className="relative mt-0 block h-[56px] w-full max-w-[900px] shrink-0">
+            {/* Curves — one per model card, converging on the prompt box below.
+                Width has to track the grid above, not a figure of its own: preserveAspectRatio
+                is none, so viewBox x maps straight onto this box's width, and a narrower box
+                squeezed every line inward (the outer two by 39px) off its card.
+                Each line starts at its card's centre — for 5 columns of (100% - 4*gap)/5, those
+                sit at 9.54/29.77/50/70.23/90.46% of the grid, scaled here by the 1352 viewBox. */}
+            <div aria-hidden className="relative mt-0 block h-[56px] w-full shrink-0">
               <svg viewBox="0 0 1352 78" preserveAspectRatio="none" className="absolute inset-0 h-full w-full">
                 <defs>
                   <linearGradient id="curveGrad" x1="0" y1="0" x2="0" y2="1">
@@ -130,11 +139,11 @@ export default function MultiAiChatCard() {
                   </linearGradient>
                 </defs>
                 <g fill="none" strokeWidth="1.4" strokeLinecap="round">
-                  <path className="mc-line mc-s0" pathLength={1} d="M 102.6 0 C 102.6 50, 675.5 35, 675.5 78" stroke="url(#curveGrad)" />
-                  <path className="mc-line mc-s1" pathLength={1} d="M 389.3 0 C 389.3 50, 675.5 45, 675.5 78" stroke="url(#curveGrad)" />
-                  <path className="mc-line mc-s2" pathLength={1} d="M 675.7 0 L 675.7 78" stroke="#32EEFF" strokeWidth="1.4" />
-                  <path className="mc-line mc-s3" pathLength={1} d="M 962.7 0 C 962.7 50, 675.5 45, 675.5 78" stroke="url(#curveGrad)" />
-                  <path className="mc-line mc-s4" pathLength={1} d="M 1249.4 0 C 1249.4 50, 675.5 35, 675.5 78" stroke="url(#curveGrad)" />
+                  <path className="mc-line mc-s0" pathLength={1} d="M 129 0 C 129 50, 676 35, 676 78" stroke="url(#curveGrad)" />
+                  <path className="mc-line mc-s1" pathLength={1} d="M 402.5 0 C 402.5 50, 676 45, 676 78" stroke="url(#curveGrad)" />
+                  <path className="mc-line mc-s2" pathLength={1} d="M 676 0 L 676 78" stroke="#32EEFF" strokeWidth="1.4" />
+                  <path className="mc-line mc-s3" pathLength={1} d="M 949.5 0 C 949.5 50, 676 45, 676 78" stroke="url(#curveGrad)" />
+                  <path className="mc-line mc-s4" pathLength={1} d="M 1223 0 C 1223 50, 676 35, 676 78" stroke="url(#curveGrad)" />
                 </g>
               </svg>
             </div>

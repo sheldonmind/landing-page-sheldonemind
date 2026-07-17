@@ -299,7 +299,8 @@ body {
     aspect-ratio: auto !important;
     width: 100% !important;
     gap: 8px !important;
-    padding: 12px !important;
+    /* Bottom stays 0, as on desktop: the card is meant to end on its last bar. */
+    padding: 12px 12px 0 !important;
     border-radius: 12px !important;
   }
 
@@ -342,6 +343,25 @@ body {
   font-size: clamp(38px, 5.14vw, 82px);
   line-height: 0.88;
   letter-spacing: -0.022em;
+}
+
+/* Section displays dim their first and last glyphs. The reference does it with two
+   page-coloured veils painted over the ends of the text, but an opaque veil only
+   disappears on a flat background: WhyUs sits on an accent glow, and there the veil
+   stamped a hard black rectangle across it. So the fade is a mask on the text itself —
+   identical result on flat sections, and whatever is behind now shows through.
+   Stops are the veil geometry solved for text alpha: the veils ran 12% wide pulled 3%
+   out (45% / 20% from md), so the text reaches full opacity at 9% (25% from md). */
+.edge-fade-heading {
+  -webkit-mask-image: linear-gradient(to right, transparent -3%, #000 9%, #000 91%, transparent 103%);
+  mask-image: linear-gradient(to right, transparent -3%, #000 9%, #000 91%, transparent 103%);
+}
+
+@media (min-width: 768px) {
+  .edge-fade-heading {
+    -webkit-mask-image: linear-gradient(to right, transparent -20%, #000 25%, #000 75%, transparent 120%);
+    mask-image: linear-gradient(to right, transparent -20%, #000 25%, #000 75%, transparent 120%);
+  }
 }
 
 /* The one sans break (Video Studio). Reference: 80px / w400 / ls -.04em. */
