@@ -17,6 +17,7 @@ export function PricingPage() {
           ['Imagine Studio', '/#studio'],
           ['Drama Studio', '/#drama-studio'],
           ['Pricing', '/pricing.html'],
+          ['Affiliate', '/affiliate.html'],
           ['FAQ', '/#faq'],
         ]}
       />

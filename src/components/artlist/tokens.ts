@@ -106,3 +106,6 @@ export const CHAT_MODELS = [
 ] as const;
 
 export const APP_URL = 'https://app.sheldonmind.com/';
+
+/** Where "Join now" sends the user to sign up as an affiliate (Lemon Squeezy portal). */
+export const AFFILIATE_SIGNUP_URL = 'https://seldonmin.lemonsqueezy.com/affiliates';

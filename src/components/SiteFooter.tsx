@@ -56,6 +56,7 @@ export default function SiteFooter({ hashPrefix = '' }: Props) {
       items: [
         { label: 'Contact Us', href: h('#contact') },
         { label: 'Pricing', href: hashPrefix ? '/pricing.html' : '#pricing' },
+        { label: 'Affiliate', href: '/affiliate.html' },
         { label: 'Privacy Policy', href: '/privacy' },
         { label: 'Term of Service', href: '/terms' },
       ],

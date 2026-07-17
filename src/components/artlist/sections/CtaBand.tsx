@@ -23,8 +23,12 @@ export default function CtaBand() {
             <div aria-hidden className="absolute inset-0 bg-black/65" />
             <div className="relative z-10 flex flex-col items-center px-6 text-center">
               <h2 className="serif-display m-0 max-w-[16ch] text-white">Your AI journey starts here.</h2>
-              <div className="mt-9">
-                <FigmaPrimaryCtaLink text="Try Free Now" />
+              {/* Equal 1fr columns under an intrinsically-sized grid: both buttons take the
+                  width of the wider one, so the pair stays symmetric without pinning a
+                  magic px value. Stacks below 420px, where two 176px pills won't fit. */}
+              <div className="mt-9 grid grid-cols-2 gap-5 max-[420px]:grid-cols-1">
+                <FigmaPrimaryCtaLink text="Try Free Now" className="w-full" />
+                <FigmaPrimaryCtaLink href="/affiliate.html" text="Affiliate" className="w-full" />
               </div>
             </div>
           </div>

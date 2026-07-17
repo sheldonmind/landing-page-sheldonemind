@@ -13,6 +13,7 @@ export default defineConfig({
         privacy: resolve(__dirname, 'privacy.html'),
         terms: resolve(__dirname, 'terms.html'),
         pricing: resolve(__dirname, 'pricing.html'),
+        affiliate: resolve(__dirname, 'affiliate.html'),
       },
     },
   },

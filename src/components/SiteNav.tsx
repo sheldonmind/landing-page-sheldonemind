@@ -19,6 +19,7 @@ const defaultItems: NavItem[] = [
   ['Imagine Studio', '#studio'],
   ['Drama Studio', '#drama-studio'],
   ['Pricing', '#pricing'],
+  ['Affiliate', '/affiliate.html'],
   ['FAQ', '#faq'],
 ];
 
