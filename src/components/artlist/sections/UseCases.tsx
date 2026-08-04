@@ -2,63 +2,111 @@ import CardScroller from '../CardScroller';
 import HoverVideoCard from '../HoverVideoCard';
 import MotionControlCard from '../MotionControlCard';
 import UpscaleCard from '../UpscaleCard';
-import { MEDIA } from '../tokens';
+import { MEDIA, TOOL_MEDIA } from '../tokens';
 
-const CARDS = [
+/**
+ * Mirrors the tool grid on app.sheldonmind.com/create, in the same order, so the rail and
+ * the app can't drift.
+ *
+ * Every clip and poster comes from the app's own assets (see TOOL_MEDIA) rather than stock
+ * stand-ins — these are the demos the product already ships for each tool. Motion Control
+ * and Upscale keep their bespoke cards, which demo the tool rather than just show it.
+ */
+type Card =
+  | { label: string; caption: string; kind: 'img'; src: string }
+  | { label: string; caption: string; kind: 'video'; src: string; poster: string }
+  | { label: string; caption: string; kind: 'custom' };
+
+const CARDS: Card[] = [
   {
     label: 'Create Image',
     caption: 'Studio-quality images from a prompt or reference',
     src: MEDIA.createImage,
-    kind: 'img' as const,
+    kind: 'img',
   },
   {
     label: 'Imagine Studio',
     caption: 'From a spark of an idea to finished art',
-    src: MEDIA.imagine,
-    kind: 'img' as const,
+    src: '/tools/imagine-studio.jpg',
+    kind: 'img',
   },
   {
     label: 'Create Video',
     caption: 'Text or image in, cinematic clip out',
-    src: MEDIA.create,
-    kind: 'video' as const,
+    kind: 'video',
+    ...TOOL_MEDIA.createVideo,
   },
-  {
-    label: 'Motion Control',
-    caption: 'Direct camera and subject, shot by shot',
-    src: MEDIA.motion,
-    kind: 'video' as const,
-  },
+  { label: 'Motion Control', caption: 'Direct camera and subject, shot by shot', kind: 'custom' },
   {
     label: 'Drama Studio',
     caption: 'Turn a script into a film, scene by scene',
-    src: MEDIA.drama,
-    kind: 'video' as const,
+    kind: 'video',
+    ...TOOL_MEDIA.dramaStudio,
+  },
+  {
+    label: 'Video Extend',
+    caption: 'Carry an existing clip past its last frame',
+    kind: 'video',
+    ...TOOL_MEDIA.videoExtend,
+  },
+  {
+    label: 'Lipsync',
+    caption: 'Sync any face to an audio track',
+    kind: 'video',
+    ...TOOL_MEDIA.lipsync,
   },
   {
     label: 'Upscale',
     caption: 'Sharpen any asset to a cleaner, higher resolution',
-    src: MEDIA.upscale,
-    kind: 'img' as const,
+    kind: 'custom',
   },
   {
     label: 'Inpaint',
-    // TODO: swap for a before/after inpaint visual — using Mixed media as a placeholder.
     caption: 'Repaint any masked area from a prompt',
-    src: MEDIA.mixed,
-    kind: 'video' as const,
+    kind: 'video',
+    ...TOOL_MEDIA.inpaint,
   },
   {
     label: 'Outpaint',
     caption: 'Extend the frame beyond its edges',
-    src: MEDIA.snowboard,
-    kind: 'img' as const,
+    kind: 'video',
+    ...TOOL_MEDIA.outpaint,
   },
   {
     label: 'Relight',
     caption: 'Relight a scene with new light and mood',
-    src: MEDIA.prism,
-    kind: 'img' as const,
+    kind: 'video',
+    ...TOOL_MEDIA.relight,
+  },
+  {
+    label: 'Camera Angles',
+    caption: "Re-angle the subject's viewpoint without a reshoot",
+    kind: 'video',
+    ...TOOL_MEDIA.cameraAngles,
+  },
+  {
+    label: 'Text to Speech',
+    caption: 'Turn text into natural-sounding speech',
+    kind: 'video',
+    ...TOOL_MEDIA.textToSpeech,
+  },
+  {
+    label: 'Music',
+    caption: 'Generate a full track from a text prompt',
+    kind: 'video',
+    ...TOOL_MEDIA.music,
+  },
+  {
+    label: 'Sound Effects',
+    caption: 'Describe a sound, get it back as audio',
+    kind: 'video',
+    ...TOOL_MEDIA.soundEffects,
+  },
+  {
+    label: 'Voice Cloning',
+    caption: 'Clone a voice, then have it read anything',
+    kind: 'video',
+    ...TOOL_MEDIA.voiceCloning,
   },
 ];
 
@@ -71,7 +119,7 @@ export default function UseCases() {
           <div>
             <h2 className="section-eyebrow m-0 text-white">Explore what you can build</h2>
             <p className="mt-2 max-w-[58ch] font-['Figtree',sans-serif] text-[16px] leading-snug text-greygrey-800">
-              Chat, image, and video generation.
+              Chat, image, video and audio generation — {CARDS.length} tools in one workspace.
             </p>
           </div>
         </div>
@@ -93,7 +141,18 @@ export default function UseCases() {
                   <UpscaleCard key={card.label} label={card.label} caption={card.caption} className={size} />
                 );
               }
-              return <HoverVideoCard key={card.label} {...card} className={size} />;
+              if (card.kind === 'custom') return null;
+              return (
+                <HoverVideoCard
+                  key={card.label}
+                  src={card.src}
+                  kind={card.kind}
+                  poster={card.kind === 'video' ? card.poster : undefined}
+                  label={card.label}
+                  caption={card.caption}
+                  className={size}
+                />
+              );
             })}
             <div aria-hidden className="w-6 shrink-0 md:w-10" />
           </CardScroller>

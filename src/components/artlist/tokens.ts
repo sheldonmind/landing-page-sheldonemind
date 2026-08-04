@@ -56,44 +56,55 @@ export const MEDIA = {
 } as const;
 
 /**
- * Generation models, shown in the hero pill bar.
+ * Tool demos for the #features rail, copied verbatim from the app
+ * (`SeldonMind/frontend/public/assets/<tool>/`) — the same clips app.sheldonmind.com/create
+ * plays on its own cards.
  *
- * `img` points at monochrome white glyphs under /model-icons, extracted from the
- * `*-warp.png` chips. The chips ship as complete bordered pills — icon, ring, label,
- * fill — which cannot go inside a single glass bar without nesting frames.
+ * `poster` is the app's shipped poster, which is byte-for-byte the clip's first frame
+ * (verified by extracting frame 0 of each mp4 and comparing). That matters twice over:
+ * the card shows the still instead of a black box while the clip streams, and because the
+ * poster IS frame 0, hovering starts playback with no visible jump.
+ *
+ * create-video / drama-studio posters are frame 0 of the landing's own clips, extracted
+ * the same way; imagine-studio is a 900px JPEG of the 3.1 MB Imagine.png.
  */
-export const GEN_MODELS = [
-  { name: 'Veo', img: '/model-icons/veo.png' },
-  { name: 'Nano Banana', img: '/model-icons/nano-banana.png' },
-  { name: 'Kling', img: '/model-icons/kling.png' },
-  { name: 'Seedance', img: '/model-icons/seedance.png' },
-  { name: 'Flux', img: '/model-icons/flux.png' },
-  { name: 'Luma', img: '/model-icons/luma.png' },
-  { name: 'ElevenLabs', img: '/model-icons/elevenlabs.png' },
-  { name: 'GPT Image', img: '/model-icons/gpt-image.png' },
-  { name: 'Imagen', img: '/model-icons/imagen.png' },
-  { name: 'Seedream', img: '/model-icons/seedream.png' },
-  { name: 'Hailuo', img: '/model-icons/hailuo.png' },
-  { name: 'Qwen Image', img: '/model-icons/qwen-image.png' },
-  { name: 'Wan', img: '/model-icons/wan.png' },
-  { name: 'Stability', img: '/model-icons/stability.png' },
-  { name: 'Grok Imagine', img: '/model-icons/grok-imagine.png' },
-  { name: 'Pika', img: '/model-icons/pika.png' },
-  { name: 'Vidu', img: '/model-icons/vidu.png' },
-  { name: 'Recraft', img: '/model-icons/recraft.png' },
-  { name: 'Topaz', img: '/model-icons/topaz.png' },
-  { name: 'Leonardo', img: '/model-icons/leonardo.png' },
-  { name: 'PixVerse', img: '/model-icons/pixverse.png' },
-] as const;
+export const TOOL_MEDIA = {
+  createVideo: { src: MEDIA.create, poster: '/tools/create-video.jpg' },
+  dramaStudio: { src: MEDIA.drama, poster: '/tools/drama-studio.jpg' },
+  videoExtend: { src: '/tools/video-extend.mp4', poster: '/tools/video-extend.jpg' },
+  lipsync: { src: '/tools/lipsync.mp4', poster: '/tools/lipsync.jpg' },
+  inpaint: { src: '/tools/inpaint.mp4', poster: '/tools/inpaint.jpg' },
+  outpaint: { src: '/tools/outpaint.mp4', poster: '/tools/outpaint.jpg' },
+  relight: { src: '/tools/relight.mp4', poster: '/tools/relight.jpg' },
+  cameraAngles: { src: '/tools/camera-angles.mp4', poster: '/tools/camera-angles.jpg' },
+  textToSpeech: { src: '/tools/text-to-speech.mp4', poster: '/tools/text-to-speech.jpg' },
+  music: { src: '/tools/music.mp4', poster: '/tools/music.jpg' },
+  soundEffects: { src: '/tools/sound-effects.mp4', poster: '/tools/sound-effects.jpg' },
+  voiceCloning: { src: '/tools/voice-cloning.mp4', poster: '/tools/voice-cloning.jpg' },
+} as const;
 
 /**
- * Chat models, shown in the marquee and the model scroller.
+ * One brand in a model list.
  *
- * Icons are monochrome white glyphs extracted from the `Logo Fullname-*.png` chips, for
- * the same reason as GEN_MODELS: those chips are whole bordered pills, and the reference's
- * trust strip is a flat wordmark row.
+ * `icon` is optional: the app ships model families we have no monochrome glyph for
+ * (Z-Image, HappyHorse). Those still belong on the page, so both the hero pill bar and
+ * the marquee fall back to the wordmark alone rather than dropping the model.
  */
-export const CHAT_MODELS = [
+export type ModelBrand = { name: string; icon?: string };
+
+/**
+ * Icons are monochrome white glyphs under /model-icons, extracted from the `*-warp.png`
+ * and `Logo Fullname-*.png` chips. Those chips ship as complete bordered pills — icon,
+ * ring, label, fill — which cannot go inside a single glass bar without nesting frames.
+ *
+ * The three lists below mirror the model pickers in the app, one entry per brand family
+ * rather than per variant (the app exposes 36 chat / 40 image / 36 video variants):
+ *   - chat    → app.sheldonmind.com/chat
+ *   - image   → app.sheldonmind.com/create/image
+ *   - video   → app.sheldonmind.com/create/video
+ *   - toolkit → models that back a single tool rather than a picker (upscale, audio)
+ */
+export const CHAT_MODELS: readonly ModelBrand[] = [
   { name: 'ChatGPT', icon: '/model-icons/chat-chatgpt.png' },
   { name: 'Claude', icon: '/model-icons/chat-claude.png' },
   { name: 'Gemini', icon: '/model-icons/chat-gemini.png' },
@@ -103,9 +114,85 @@ export const CHAT_MODELS = [
   { name: 'Qwen', icon: '/model-icons/chat-qwen.png' },
   { name: 'Perplexity', icon: '/model-icons/chat-perplexity.png' },
   { name: 'MiniMax', icon: '/model-icons/chat-minimax.png' },
-] as const;
+];
+
+export const IMAGE_MODELS: readonly ModelBrand[] = [
+  { name: 'Nano Banana', icon: '/model-icons/nano-banana.png' },
+  { name: 'GPT Image', icon: '/model-icons/gpt-image.png' },
+  { name: 'Seedream', icon: '/model-icons/seedream.png' },
+  { name: 'Flux', icon: '/model-icons/flux.png' },
+  { name: 'Imagen', icon: '/model-icons/imagen.png' },
+  { name: 'Grok Imagine', icon: '/model-icons/grok-imagine.png' },
+  { name: 'Wan', icon: '/model-icons/wan.png' },
+  { name: 'Recraft', icon: '/model-icons/recraft.png' },
+  { name: 'Luma', icon: '/model-icons/luma.png' },
+  { name: 'Leonardo', icon: '/model-icons/leonardo.png' },
+  { name: 'Stability', icon: '/model-icons/stability.png' },
+  // Powers Camera Angles (qwen-image-edit multiple-angles), not the text-to-image picker.
+  { name: 'Qwen Image', icon: '/model-icons/qwen-image.png' },
+  { name: 'Z-Image' },
+];
+
+export const VIDEO_MODELS: readonly ModelBrand[] = [
+  { name: 'Veo', icon: '/model-icons/veo.png' },
+  { name: 'Kling', icon: '/model-icons/kling.png' },
+  { name: 'Seedance', icon: '/model-icons/seedance.png' },
+  { name: 'Hailuo', icon: '/model-icons/hailuo.png' },
+  { name: 'Wan', icon: '/model-icons/wan.png' },
+  { name: 'Vidu', icon: '/model-icons/vidu.png' },
+  { name: 'PixVerse', icon: '/model-icons/pixverse.png' },
+  { name: 'Pika', icon: '/model-icons/pika.png' },
+  { name: 'Grok Imagine', icon: '/model-icons/grok-imagine.png' },
+  // Gemini Omni Flash is a Google Gemini model, so it carries the Gemini glyph.
+  { name: 'Gemini Omni', icon: '/model-icons/chat-gemini.png' },
+  { name: 'HappyHorse' },
+];
+
+/** Backs a tool directly rather than a picker: Topaz → Upscale, ElevenLabs → the audio set. */
+export const TOOLKIT_MODELS: readonly ModelBrand[] = [
+  { name: 'Topaz', icon: '/model-icons/topaz.png' },
+  { name: 'ElevenLabs', icon: '/model-icons/elevenlabs.png' },
+];
+
+/**
+ * Everything that generates a media asset, for the hero pill bar. Derived from the lists
+ * above so a model added to the footer can't go missing from the hero (Wan, Grok Imagine
+ * and Gemini appear in more than one list — first occurrence wins).
+ */
+export const GEN_MODELS: readonly ModelBrand[] = [
+  ...IMAGE_MODELS,
+  ...VIDEO_MODELS,
+  ...TOOLKIT_MODELS,
+].filter((m, i, all) => all.findIndex((x) => x.name === m.name) === i);
 
 export const APP_URL = 'https://app.sheldonmind.com/';
+
+/**
+ * Every tool the app exposes, in the order app.sheldonmind.com/create lists them, plus
+ * AI Chat and Imagine Studio (which live on their own routes rather than the Create grid).
+ *
+ * `hash` is the landing-page section that shows the tool off. Everything without a
+ * dedicated section points at the #features rail, where each one now has a card.
+ */
+export const APP_FEATURES: readonly { label: string; hash: string }[] = [
+  { label: 'AI Chat', hash: '#chat' },
+  { label: 'Create Image', hash: '#features' },
+  { label: 'Create Video', hash: '#features' },
+  { label: 'Video Extend', hash: '#features' },
+  { label: 'Lipsync', hash: '#features' },
+  { label: 'Motion Control', hash: '#features' },
+  { label: 'Upscale', hash: '#features' },
+  { label: 'Inpaint', hash: '#features' },
+  { label: 'Outpaint', hash: '#features' },
+  { label: 'Relight', hash: '#features' },
+  { label: 'Camera Angles', hash: '#features' },
+  { label: 'Text to Speech', hash: '#features' },
+  { label: 'Music', hash: '#features' },
+  { label: 'Sound Effects', hash: '#features' },
+  { label: 'Voice Cloning', hash: '#features' },
+  { label: 'Drama Studio', hash: '#drama-studio' },
+  { label: 'Imagine Studio', hash: '#studio' },
+];
 
 /** Where "Join now" sends the user to sign up as an affiliate (Lemon Squeezy portal). */
 export const AFFILIATE_SIGNUP_URL = 'https://seldonmin.lemonsqueezy.com/affiliates';

@@ -1,5 +1,11 @@
 import Logo from './artlist/Logo';
-import { CHAT_MODELS } from './artlist/tokens';
+import {
+  APP_FEATURES,
+  CHAT_MODELS,
+  IMAGE_MODELS,
+  TOOLKIT_MODELS,
+  VIDEO_MODELS,
+} from './artlist/tokens';
 
 type Props = {
   /**
@@ -28,29 +34,24 @@ export default function SiteFooter({ hashPrefix = '' }: Props) {
   const year = new Date().getFullYear();
   const h = (hash: string) => `${hashPrefix}${hash}`;
 
+  /** Model columns are link lists too — every brand points at the #models marquee. */
+  const models = (brands: readonly { name: string }[]) =>
+    brands.map(({ name }) => ({ label: name, href: h('#models') }));
+
   const columns = [
     {
       title: 'Product',
-      // AI Chat lives in its own section; the rest are cards in the #features rail.
-      // Imagine Studio owns the #studio anchor; Drama Studio has its own.
-      items: [
-        { label: 'AI Chat', href: h('#chat') },
-        { label: 'Create Image', href: h('#features') },
-        { label: 'Create Video', href: h('#features') },
-        { label: 'Upscale', href: h('#features') },
-        { label: 'Motion Control', href: h('#features') },
-        { label: 'Drama Studio', href: h('#drama-studio') },
-        { label: 'Imagine Studio', href: h('#studio') },
-      ],
+      // Mirrors APP_FEATURES, which mirrors the tool grid on app.sheldonmind.com/create.
+      items: APP_FEATURES.map(({ label, hash }) => ({ label, href: h(hash) })),
     },
-    {
-      title: 'Models',
-      // Driven off the same source as the #models marquee so the two can't drift.
-      items: CHAT_MODELS.map(({ name }) => ({
-        label: name,
-        href: h('#models'),
-      })),
-    },
+    // Split by modality rather than one "Models" list: the app runs three separate
+    // pickers, and a single column would be 30-odd rows with no way to tell which
+    // brand does what. Driven off the same source as the #models marquee.
+    { title: 'Chat Models', items: models(CHAT_MODELS) },
+    { title: 'Image Models', items: models(IMAGE_MODELS) },
+    // Topaz (upscale) and ElevenLabs (speech, music, SFX) back tools rather than the
+    // video picker, but they belong with the time-based media rather than with stills.
+    { title: 'Video & Audio', items: models([...VIDEO_MODELS, ...TOOLKIT_MODELS]) },
     {
       title: 'Company',
       items: [
@@ -83,14 +84,17 @@ export default function SiteFooter({ hashPrefix = '' }: Props) {
       />
 
       <div className="al-container">
-        <div className="grid grid-cols-[1.4fr_repeat(4,1fr)] gap-10 max-lg:grid-cols-2 max-sm:grid-cols-1">
-          <div className="flex flex-col items-start gap-4">
-            <Logo className="size-11 text-white" />
-            <p className="m-0 max-w-[32ch] font-['Figtree',sans-serif] text-[15px] leading-snug text-greygrey-800">
-              Multi-AI chat, image and video generation. Pay as you go — no subscription required.
-            </p>
-          </div>
+        {/* Six link columns no longer fit beside the brand block at 1440px, so the brand
+            sits on its own row and the columns get the full width below it. */}
+        <div className="mb-14 flex flex-col items-start gap-4 max-md:mb-10">
+          <Logo className="size-11 text-white" />
+          <p className="m-0 max-w-[46ch] font-['Figtree',sans-serif] text-[15px] leading-snug text-greygrey-800">
+            Multi-AI chat, image, video and audio generation. Pay as you go — no subscription
+            required.
+          </p>
+        </div>
 
+        <div className="grid grid-cols-6 gap-x-8 gap-y-12 max-xl:grid-cols-3 max-md:grid-cols-2">
           {columns.map((col) => (
             <nav key={col.title} aria-label={col.title} className="flex flex-col gap-3.5">
               <h2 className="m-0 font-['Figtree',sans-serif] text-[15px] font-semibold leading-none text-white">

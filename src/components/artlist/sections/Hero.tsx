@@ -73,15 +73,15 @@ export default function Hero() {
               className="al-marquee m-0 flex w-max list-none items-center gap-8 p-0 group-hover:[animation-play-state:paused] max-md:gap-6"
               style={{ animation: 'marquee 32s linear infinite' }}
             >
-              {[...GEN_MODELS, ...GEN_MODELS, ...GEN_MODELS].map(({ name, img }, i) => (
+              {[...GEN_MODELS, ...GEN_MODELS, ...GEN_MODELS].map(({ name, icon }, i) => (
                 <li
                   key={`${name}-${i}`}
                   aria-hidden={i >= GEN_MODELS.length}
                   className="flex shrink-0 items-center gap-2"
                 >
-                  {img && (
+                  {icon && (
                     <img
-                      src={img}
+                      src={icon}
                       alt=""
                       aria-hidden
                       className="h-5 w-auto shrink-0 object-contain max-md:h-[18px]"
