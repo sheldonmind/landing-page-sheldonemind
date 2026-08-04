@@ -86,11 +86,22 @@ export const TOOL_MEDIA = {
 /**
  * One brand in a model list.
  *
- * `icon` is optional: the app ships model families we have no monochrome glyph for
- * (Z-Image, HappyHorse). Those still belong on the page, so both the hero pill bar and
- * the marquee fall back to the wordmark alone rather than dropping the model.
+ * `icon` is optional so a model can ship before its glyph does — the hero pill bar and the
+ * marquee both fall back to the wordmark alone rather than dropping the model.
  */
 export type ModelBrand = { name: string; icon?: string };
+
+/**
+ * Glyphs are per-vendor, not per-model: several model families share one mark, here and in
+ * the app. `wan.png` is the Alibaba mark and `veo.png` is the Google G — which is why the
+ * lists below point more than one brand at the same file.
+ *
+ * The app resolves icons as `icons/<modelKey>.webp` on R2 (see the app's
+ * `frontend/src/apis/core/media.ts`). Wan 2.7, Z-Image Turbo, HappyHorse 1.0 and 1.1 all
+ * return the same ETag there (d8e680f7…), i.e. literally the same file, so pointing them
+ * at one glyph here matches the app rather than approximating it.
+ */
+const ALIBABA = '/model-icons/wan.png';
 
 /**
  * Icons are monochrome white glyphs under /model-icons, extracted from the `*-warp.png`
@@ -123,14 +134,14 @@ export const IMAGE_MODELS: readonly ModelBrand[] = [
   { name: 'Flux', icon: '/model-icons/flux.png' },
   { name: 'Imagen', icon: '/model-icons/imagen.png' },
   { name: 'Grok Imagine', icon: '/model-icons/grok-imagine.png' },
-  { name: 'Wan', icon: '/model-icons/wan.png' },
+  { name: 'Wan', icon: ALIBABA },
   { name: 'Recraft', icon: '/model-icons/recraft.png' },
   { name: 'Luma', icon: '/model-icons/luma.png' },
   { name: 'Leonardo', icon: '/model-icons/leonardo.png' },
   { name: 'Stability', icon: '/model-icons/stability.png' },
   // Powers Camera Angles (qwen-image-edit multiple-angles), not the text-to-image picker.
   { name: 'Qwen Image', icon: '/model-icons/qwen-image.png' },
-  { name: 'Z-Image' },
+  { name: 'Z-Image', icon: ALIBABA },
 ];
 
 export const VIDEO_MODELS: readonly ModelBrand[] = [
@@ -138,14 +149,16 @@ export const VIDEO_MODELS: readonly ModelBrand[] = [
   { name: 'Kling', icon: '/model-icons/kling.png' },
   { name: 'Seedance', icon: '/model-icons/seedance.png' },
   { name: 'Hailuo', icon: '/model-icons/hailuo.png' },
-  { name: 'Wan', icon: '/model-icons/wan.png' },
+  { name: 'Wan', icon: ALIBABA },
   { name: 'Vidu', icon: '/model-icons/vidu.png' },
   { name: 'PixVerse', icon: '/model-icons/pixverse.png' },
   { name: 'Pika', icon: '/model-icons/pika.png' },
   { name: 'Grok Imagine', icon: '/model-icons/grok-imagine.png' },
-  // Gemini Omni Flash is a Google Gemini model, so it carries the Gemini glyph.
+  // The app gives Gemini Omni Flash the plain Google mark (same R2 ETag as Veo 3.1 and
+  // Nano Banana 2). The Gemini spark is kept here instead — it names the model, and the
+  // Google G is already on this row twice via Veo and Imagen.
   { name: 'Gemini Omni', icon: '/model-icons/chat-gemini.png' },
-  { name: 'HappyHorse' },
+  { name: 'HappyHorse', icon: ALIBABA },
 ];
 
 /** Backs a tool directly rather than a picker: Topaz → Upscale, ElevenLabs → the audio set. */
