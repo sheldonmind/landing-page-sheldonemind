@@ -17,9 +17,15 @@ interface Plan {
   planKey: 'free' | 'pro' | 'business';
   name: string;
   tagline: string;
+  /**
+   * Copied verbatim from GET https://api.sheldonmind.com/api/subscription/plans — same
+   * field names, same units. Prices are USD per month; `*Credit` fields are USD too, not
+   * credits, because that is what the API returns (the app multiplies by CREDITS_PER_USD
+   * at render time). Keeping the units means re-syncing is a straight copy, not a
+   * conversion someone has to redo correctly.
+   */
   monthlyPrice: number;
   yearlyPrice: number;
-  /** Credits granted per cycle, already converted from USD (1 USD = 1000 credits). */
   monthlyCredit: number;
   yearlyCredit: number;
   backgroundImage: string;
@@ -40,20 +46,21 @@ const PLANS: Plan[] = [
     planKey: 'pro',
     name: 'Pro',
     tagline: 'For creators leveling up',
-    monthlyPrice: 8,
-    yearlyPrice: 6.5,
-    monthlyCredit: 10_000,
-    yearlyCredit: 10_000,
+    monthlyPrice: 9.99,
+    yearlyPrice: 7.99,
+    monthlyCredit: 9.99,
+    // A yearly plan grants the whole year at once: 7.99 × 12.
+    yearlyCredit: 95.88,
     backgroundImage: '/assets/plan-card-bg-pro.webp',
   },
   {
     planKey: 'business',
     name: 'Business',
     tagline: 'For teams that ship together',
-    monthlyPrice: 12.5,
-    yearlyPrice: 10,
-    monthlyCredit: 16_000,
-    yearlyCredit: 16_000,
+    monthlyPrice: 15.99,
+    yearlyPrice: 12.99,
+    monthlyCredit: 15.99,
+    yearlyCredit: 155.88,
     backgroundImage: '/assets/plan-card-bg-business.webp',
   },
 ];
@@ -89,6 +96,17 @@ function monthlyRate(plan: Plan, cycle: BillingCycle): number {
 /** Whole dollars show no decimals, cents show two (6.5 → "6.50"). */
 function formatPrice(value: number): string {
   return Number.isInteger(value) ? String(value) : value.toFixed(2);
+}
+
+/**
+ * The product prices in USD but surfaces credits, at 1 USD = 1000 credits. Mirrors
+ * `formatCredits` in the app's `frontend/src/lib/credits.ts`, so 95.88 → "95,880".
+ */
+const CREDITS_PER_USD = 1000;
+
+function formatCredits(usd: number): string {
+  if (!Number.isFinite(usd) || usd <= 0) return '0';
+  return Math.max(1, Math.round(usd * CREDITS_PER_USD)).toLocaleString();
 }
 
 /** Yearly saving vs monthly, as a whole percent (0 when there is none). */
@@ -290,7 +308,7 @@ function CardCta({ plan }: { plan: Plan }) {
 function CardCredits({ plan, billingCycle }: { plan: Plan; billingCycle: BillingCycle }) {
   const cycleCredit = billingCycle === 'YEARLY' ? plan.yearlyCredit : plan.monthlyCredit;
   const label =
-    cycleCredit > 0 ? `${cycleCredit.toLocaleString()} credits/month` : '5,000 starter credits (one-time)';
+    cycleCredit > 0 ? `${formatCredits(cycleCredit)} credits/month` : '5,000 starter credits (one-time)';
   return (
     <div className="flex items-center gap-2">
       <Sparkles className="text-white" />

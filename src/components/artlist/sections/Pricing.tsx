@@ -24,9 +24,12 @@ export default function Pricing() {
                 <h3 className="m-0 font-['Figtree',sans-serif] text-[32px] font-normal leading-tight text-white max-md:text-[26px]">
                   Pro
                 </h3>
+                {/* $9.99/mo → 9,990 credits (1 USD = 1000 credits). Quoting the monthly
+                    cycle keeps this true whichever cycle the reader lands on; the yearly
+                    plan grants the same rate up front. */}
                 <p className="mt-5 max-w-[42ch] font-['Figtree',sans-serif] text-[16px] leading-[1.55] text-greygrey-800">
-                  Start free, then go Pro for 10,000 credits a month, every AI feature, and
-                  complimentary access to all GPT, Gemini, and Claude models.
+                  Start free, then go Pro at $9.99 a month for 9,990 credits, every AI feature,
+                  and complimentary access to all GPT, Gemini, and Claude models.
                 </p>
                 <div className="mt-8 lg:mt-auto lg:pt-8">
                   <FigmaPrimaryCtaLink href="/pricing.html" text="See Plans" size="sm" />
@@ -39,8 +42,8 @@ export default function Pricing() {
                   Business
                 </h3>
                 <p className="mt-5 max-w-[42ch] font-['Figtree',sans-serif] text-[16px] leading-[1.55] text-greygrey-800">
-                  For teams that ship together — 16,000 credits a month, member management, and
-                  shared collaboration across your whole workspace.
+                  For teams that ship together — $15.99 a month for 15,990 credits, member
+                  management, and shared collaboration across your whole workspace.
                 </p>
                 <div className="mt-8 lg:mt-auto lg:pt-8">
                   <FigmaPrimaryCtaLink href="/pricing.html" text="See Plans" size="sm" />
