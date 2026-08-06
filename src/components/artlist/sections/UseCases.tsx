@@ -125,9 +125,12 @@ export default function UseCases() {
         </div>
       </div>
 
-      {/* Rail starts at the container's left edge but runs to the viewport's right edge. */}
+      {/* Rail sits on the container's gutters, same as the copy above it. It used to run to
+          the viewport's right edge on the idea that the lopsided gutter signalled "scrolls" —
+          but once scrolled, both edges clip a card anyway, so the asymmetry read as a mistake
+          rather than a hint. The arrows do that job. */}
       <div>
-        <div className="mx-auto w-full max-w-[1440px] pl-6 md:pl-10">
+        <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10">
           <CardScroller>
             {CARDS.map((card) => {
               const size = 'h-[260px] w-[260px] md:h-[290px] md:w-[290px]';
@@ -154,7 +157,6 @@ export default function UseCases() {
                 />
               );
             })}
-            <div aria-hidden className="w-6 shrink-0 md:w-10" />
           </CardScroller>
         </div>
       </div>
