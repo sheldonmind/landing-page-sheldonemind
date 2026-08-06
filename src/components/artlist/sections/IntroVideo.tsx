@@ -40,8 +40,6 @@ export default function IntroVideo() {
   return (
     <section id="intro" className="relative w-full overflow-hidden pb-10 pt-0 max-md:pb-6">
       <div className="al-container">
-        {/* 40px rather than the rail's rounded-xl: the same corner on a frame five times as
-            wide reads as square, so it is scaled to match by eye. */}
         <video
           ref={videoRef}
           src={SRC}
@@ -51,7 +49,7 @@ export default function IntroVideo() {
           loop
           playsInline
           aria-hidden
-          className="block aspect-video w-full rounded-[40px] max-md:rounded-2xl"
+          className="block aspect-video w-full rounded-[10px]"
         />
       </div>
     </section>
