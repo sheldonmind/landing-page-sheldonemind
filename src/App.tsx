@@ -4,6 +4,7 @@ import SiteFooter from './components/SiteFooter';
 
 import Hero from './components/artlist/sections/Hero';
 import UseCases from './components/artlist/sections/UseCases';
+import IntroVideo from './components/artlist/sections/IntroVideo';
 import LogoStrip from './components/artlist/sections/LogoStrip';
 import Toolkit from './components/artlist/sections/Toolkit';
 import MultiChat from './components/artlist/sections/MultiChat';
@@ -21,11 +22,12 @@ function App() {
       <main className="w-full">
         <Hero />
         <UseCases />
+        <IntroVideo />
         <LogoStrip />
         <Toolkit />
-        <MultiChat />
         <ImagineStudio />
         <DramaStudio />
+        <MultiChat />
         <WhyUs />
         <Pricing />
         <CtaBand />

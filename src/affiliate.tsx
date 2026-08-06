@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import SiteNav from './components/SiteNav';
+import { NAV_CLEARANCE } from './components/navLayout';
 import SiteFooter from './components/SiteFooter';
 import { AffiliateHero } from './components/affiliate/AffiliateHero';
 import { AffiliateFeatures } from './components/affiliate/AffiliateFeatures';
@@ -28,8 +29,8 @@ export function AffiliatePage() {
           ['FAQ', '/#faq'],
         ]}
       />
-      {/* Nav is fixed, so the page needs to clear its 80px band. */}
-      <main className="w-full overflow-x-hidden pt-20">
+      {/* Nav (and the promo banner above it) are fixed, so the page clears their band. */}
+      <main className={`w-full overflow-x-hidden ${NAV_CLEARANCE}`}>
         <div className="mx-auto w-full max-w-6xl space-y-14 px-4 py-8 sm:py-12">
           <AffiliateHero />
           <AffiliateFeatures />

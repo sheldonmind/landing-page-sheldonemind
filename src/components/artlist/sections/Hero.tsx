@@ -1,4 +1,5 @@
 import { FigmaPrimaryCtaLink } from '../../FigmaPrimaryCta';
+import { HERO_CLEARANCE } from '../../navLayout';
 import GlassBar, { GlassDistortionDefs } from '../GlassBar';
 import { GEN_MODELS, MEDIA } from '../tokens';
 
@@ -11,7 +12,9 @@ import { GEN_MODELS, MEDIA } from '../tokens';
  */
 export default function Hero() {
   return (
-    <section className="relative flex min-h-[88vh] w-full flex-col items-center justify-center overflow-hidden pt-28 pb-16 max-md:min-h-[80vh] max-md:pt-24">
+    <section
+      className={`relative flex min-h-[88vh] w-full flex-col items-center justify-center overflow-hidden pb-16 max-md:min-h-[80vh] ${HERO_CLEARANCE}`}
+    >
       <GlassDistortionDefs />
 
       {/* z-0, not -z-20: a negative z-index paints behind the opaque page background,

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import Logo from './artlist/Logo';
+import PromoBanner from './PromoBanner';
+import { PROMO_ACTIVE, PROMO_H } from './navLayout';
 import { APP_URL } from './artlist/tokens';
 
 type NavItem = [label: string, href: string];
@@ -65,76 +67,82 @@ export default function SiteNav({ navItems = defaultItems }: Props) {
   // blur so content scrolling beneath it is softened rather than fully visible,
   // keeping the nav legible over any section.
   return (
-    <header
-      className="fixed inset-x-0 top-0 z-50 bg-black/30 backdrop-blur-xl"
-      style={{
-        maskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
-        WebkitMaskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
-      }}
-    >
-      <div className="al-container flex h-20 items-center gap-8 max-md:h-16">
-        <a href="/" className="flex shrink-0 items-center gap-2.5" aria-label="Sheldonmind — home">
-          <Logo className="size-9 text-white" />
-          <span
-            data-nowrap-safe="true"
-            className="font-['Figtree',sans-serif] text-[22px] font-medium leading-none whitespace-nowrap text-white max-[360px]:hidden"
-          >
-            Sheldonmind
-          </span>
-        </a>
+    <>
+      <PromoBanner />
 
-        <nav className="hidden flex-1 items-center gap-5 lg:flex xl:gap-7">
-          {navItems.map(([label, href]) => (
+      <header
+        className="fixed inset-x-0 z-50 bg-black/30 backdrop-blur-xl"
+        style={{
+          // Sits directly under the promo band rather than at the very top while it runs.
+          top: PROMO_ACTIVE ? PROMO_H : 0,
+          maskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
+        }}
+      >
+        <div className="al-container flex h-20 items-center gap-8 max-md:h-16">
+          <a href="/" className="flex shrink-0 items-center gap-2.5" aria-label="Sheldonmind — home">
+            <Logo className="size-9 text-white" />
+            <span
+              data-nowrap-safe="true"
+              className="font-['Figtree',sans-serif] text-[22px] font-medium leading-none whitespace-nowrap text-white max-[360px]:hidden"
+            >
+              Sheldonmind
+            </span>
+          </a>
+
+          <nav className="hidden flex-1 items-center gap-5 lg:flex xl:gap-7">
+            {navItems.map(([label, href]) => (
+              <a
+                key={label}
+                href={href}
+                className="font-['Figtree',sans-serif] text-[16px] font-medium whitespace-nowrap text-white/80 transition-colors hover:text-white"
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="ml-auto hidden items-center gap-6 lg:flex">
             <a
-              key={label}
-              href={href}
+              href={APP_URL}
               className="font-['Figtree',sans-serif] text-[16px] font-medium whitespace-nowrap text-white/80 transition-colors hover:text-white"
             >
-              {label}
+              Sign In
             </a>
-          ))}
-        </nav>
-
-        <div className="ml-auto hidden items-center gap-6 lg:flex">
-          <a
-            href={APP_URL}
-            className="font-['Figtree',sans-serif] text-[16px] font-medium whitespace-nowrap text-white/80 transition-colors hover:text-white"
-          >
-            Sign In
-          </a>
-          <SignUpCta />
-        </div>
-
-        <button
-          type="button"
-          onClick={() => setMobileOpen((o) => !o)}
-          className="ml-auto flex shrink-0 cursor-pointer flex-col gap-1 p-2 lg:hidden"
-          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={mobileOpen}
-        >
-          <span className="h-0.5 w-5 rounded-full bg-white" />
-          <span className="h-0.5 w-5 rounded-full bg-white" />
-          <span className="h-0.5 w-5 rounded-full bg-white" />
-        </button>
-      </div>
-
-      {mobileOpen && (
-        <div className="al-container flex flex-col gap-3 border-t border-white/10 bg-black/95 py-5 backdrop-blur-xl lg:hidden">
-          {navItems.map(([label, href]) => (
-            <a
-              key={label}
-              href={href}
-              className="cursor-pointer py-1 font-['Figtree',sans-serif] text-white/80 hover:text-white"
-              onClick={() => setMobileOpen(false)}
-            >
-              {label}
-            </a>
-          ))}
-          <div className="mt-2">
-            <SignUpCta onClick={() => setMobileOpen(false)} />
+            <SignUpCta />
           </div>
+
+          <button
+            type="button"
+            onClick={() => setMobileOpen((o) => !o)}
+            className="ml-auto flex shrink-0 cursor-pointer flex-col gap-1 p-2 lg:hidden"
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileOpen}
+          >
+            <span className="h-0.5 w-5 rounded-full bg-white" />
+            <span className="h-0.5 w-5 rounded-full bg-white" />
+            <span className="h-0.5 w-5 rounded-full bg-white" />
+          </button>
         </div>
-      )}
-    </header>
+
+        {mobileOpen && (
+          <div className="al-container flex flex-col gap-3 border-t border-white/10 bg-black/95 py-5 backdrop-blur-xl lg:hidden">
+            {navItems.map(([label, href]) => (
+              <a
+                key={label}
+                href={href}
+                className="cursor-pointer py-1 font-['Figtree',sans-serif] text-white/80 hover:text-white"
+                onClick={() => setMobileOpen(false)}
+              >
+                {label}
+              </a>
+            ))}
+            <div className="mt-2">
+              <SignUpCta onClick={() => setMobileOpen(false)} />
+            </div>
+          </div>
+        )}
+      </header>
+    </>
   );
 }

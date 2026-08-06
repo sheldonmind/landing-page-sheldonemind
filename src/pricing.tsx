@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import SiteNav from './components/SiteNav';
+import { NAV_CLEARANCE } from './components/navLayout';
 import ChangePlanCards from './components/ChangePlanCards';
 import PlanFaq from './components/PlanFaq';
 import SiteFooter from './components/SiteFooter';
@@ -21,8 +22,8 @@ export function PricingPage() {
           ['FAQ', '/#faq'],
         ]}
       />
-      {/* Nav is fixed, so the page needs to clear its 80px band. */}
-      <main className="w-full overflow-x-hidden pt-20">
+      {/* Nav (and the promo banner above it) are fixed, so the page clears their band. */}
+      <main className={`w-full overflow-x-hidden ${NAV_CLEARANCE}`}>
         <ChangePlanCards />
         <PlanFaq />
       </main>
