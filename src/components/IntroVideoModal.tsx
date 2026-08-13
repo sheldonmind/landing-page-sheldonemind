@@ -22,7 +22,11 @@ const OPEN_DELAY_MS = 800;
  */
 export default function IntroVideoModal() {
   const [open, setOpen] = useState(false);
+  // Starts muted because autoplay only survives muted; the speaker button is the user gesture
+  // that lets sound in.
+  const [muted, setMuted] = useState(true);
   const dialogRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const id = setTimeout(() => setOpen(true), OPEN_DELAY_MS);
@@ -70,11 +74,12 @@ export default function IntroVideoModal() {
       >
         <div className="relative">
           <video
+            ref={videoRef}
             src={SRC}
             poster={POSTER}
             preload="auto"
             autoPlay
-            muted
+            muted={muted}
             loop
             playsInline
             aria-hidden
@@ -175,6 +180,38 @@ export default function IntroVideoModal() {
             </a>
           </div>
         </div>
+
+        {/* Sound toggle. Same glass as the X, mirrored to the left corner. */}
+        <button
+          type="button"
+          aria-label={muted ? 'Unmute video' : 'Mute video'}
+          aria-pressed={!muted}
+          onClick={() => {
+            const next = !muted;
+            setMuted(next);
+            const video = videoRef.current;
+            if (video) {
+              // Set the property directly too: React writes `muted` as a property, and unmuting
+              // is only allowed here because this click is the user gesture.
+              video.muted = next;
+              if (!next) void video.play().catch(() => {});
+            }
+          }}
+          className="absolute left-3 top-3 grid size-7 cursor-pointer place-items-center rounded-full border border-black/10 bg-white/55 text-[#0f172a] shadow-[0_2px_10px_rgba(15,23,42,0.18)] backdrop-blur-md"
+        >
+          {muted ? (
+            <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M11 5 6 9H3v6h3l5 4z" />
+              <path d="m22 9-6 6M16 9l6 6" />
+            </svg>
+          ) : (
+            <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M11 5 6 9H3v6h3l5 4z" />
+              <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+              <path d="M18.5 5.5a9 9 0 0 1 0 13" />
+            </svg>
+          )}
+        </button>
 
         <button
           type="button"
