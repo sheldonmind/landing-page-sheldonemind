@@ -47,7 +47,7 @@ export default function IntroVideoModal() {
   const [open, setOpen] = useState(false);
   const [askingDismiss, setAskingDismiss] = useState(false);
   const [neverAgain, setNeverAgain] = useState(false);
-  const closeRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (readDismissed()) return;
@@ -67,7 +67,10 @@ export default function IntroVideoModal() {
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
-    closeRef.current?.focus();
+    // The card, not the close button: focusing a button drew Chrome's focus ring around the X
+    // the moment the modal appeared. The card is tabindex=-1 and outline-none, so focus still
+    // moves inside the dialog — Tab from there reaches the controls and rings them properly.
+    dialogRef.current?.focus();
 
     return () => {
       document.removeEventListener('keydown', onKey);
@@ -88,10 +91,12 @@ export default function IntroVideoModal() {
       onClick={() => setOpen(false)}
     >
       <div
+        ref={dialogRef}
+        tabIndex={-1}
         role="dialog"
         aria-modal="true"
         aria-label="Welcome to SheldonMind"
-        className="relative w-full max-w-[1000px] overflow-hidden rounded-[20px] border border-white/12 bg-[#0d0d0e] shadow-[0_40px_120px_rgba(0,0,0,0.6)]"
+        className="relative w-full max-w-[1000px] overflow-hidden rounded-[20px] border border-white/12 bg-[#0d0d0e] shadow-[0_40px_120px_rgba(0,0,0,0.6)] outline-none"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="relative">
@@ -239,7 +244,6 @@ export default function IntroVideoModal() {
         )}
 
         <button
-          ref={closeRef}
           type="button"
           aria-label="Close"
           aria-expanded={askingDismiss}
