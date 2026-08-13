@@ -76,7 +76,7 @@ export default function IntroVideoModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[200] flex items-center justify-center overflow-y-auto bg-black/75 p-4 backdrop-blur-sm max-sm:p-3"
+      className="fixed inset-0 z-[200] flex items-center justify-center overflow-y-auto bg-[#06182e]/35 p-4 backdrop-blur-xl max-sm:p-3"
       onClick={() => setOpen(false)}
     >
       <div
