@@ -11,46 +11,20 @@ const POSTER = '/sheldonmind-intro-poster.jpg';
  */
 const CYAN_INK = '#0d9bb5';
 
-/** Set only when the visitor ticks "Don't show this again" — a plain close leaves it unset. */
-const STORAGE_KEY = 'sheldonmind:intro-modal-dismissed';
-
 /** Lets the page paint before the overlay lands, so the first frame isn't the modal. */
 const OPEN_DELAY_MS = 800;
 
-function readDismissed() {
-  try {
-    return localStorage.getItem(STORAGE_KEY) === '1';
-  } catch {
-    // Private mode / blocked storage: treat as "not dismissed" rather than crashing.
-    return false;
-  }
-}
-
-function writeDismissed(dismissed: boolean) {
-  try {
-    if (dismissed) localStorage.setItem(STORAGE_KEY, '1');
-    else localStorage.removeItem(STORAGE_KEY);
-  } catch {
-    /* nothing we can do — the modal just reappears next visit */
-  }
-}
-
 /**
- * Welcome overlay: the brand film plus the free-credit offer, shown once per visit.
+ * Welcome overlay: the brand film plus the free-credit offer.
  *
- * The X doesn't close on the first press — it reveals a "Don't show this again" chip beneath
- * itself, and the second press closes. Ticking that box is the only thing that persists
- * anything; closing any other way (the backdrop, Esc, the box left unticked) is session-only,
- * so the modal returns next visit.
+ * Nothing is persisted — the X, the backdrop and Esc all just close it, and it comes back on
+ * the next load.
  */
 export default function IntroVideoModal() {
   const [open, setOpen] = useState(false);
-  const [askingDismiss, setAskingDismiss] = useState(false);
-  const [neverAgain, setNeverAgain] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (readDismissed()) return;
     const id = setTimeout(() => setOpen(true), OPEN_DELAY_MS);
     return () => clearTimeout(id);
   }, []);
@@ -77,11 +51,6 @@ export default function IntroVideoModal() {
       document.body.style.overflow = previousOverflow;
     };
   }, [open]);
-
-  const toggleNeverAgain = (checked: boolean) => {
-    setNeverAgain(checked);
-    writeDismissed(checked);
-  };
 
   if (!open) return null;
 
@@ -207,53 +176,16 @@ export default function IntroVideoModal() {
           </div>
         </div>
 
-        {/*
-          Hidden until the X is pressed, then anchored under it: the first press offers the
-          choice, the second closes. Same glass as the X so the two read as one control.
-        */}
-        {askingDismiss && (
-        <label className="absolute right-3 top-[46px] flex cursor-pointer select-none items-center gap-2 rounded-full border border-black/10 bg-white/55 py-1.5 pl-2 pr-3.5 font-['Figtree',sans-serif] text-[12px] leading-none text-[#0f172a] shadow-[0_2px_10px_rgba(15,23,42,0.18)] backdrop-blur-md transition-all duration-200 hover:border-[#32EEFF] hover:bg-[rgba(50,238,255,0.12)] hover:text-[#0d9bb5] hover:shadow-[0_0_20px_rgba(50,238,255,0.55),inset_0_0_18px_rgba(50,238,255,0.2)] max-sm:pr-3 max-sm:text-[11px]">
-          <input
-            type="checkbox"
-            checked={neverAgain}
-            onChange={(e) => toggleNeverAgain(e.target.checked)}
-            className="sr-only"
-          />
-          <span
-            aria-hidden
-            className="grid size-4 shrink-0 place-items-center rounded-[5px] border transition-colors"
-            style={{
-              borderColor: neverAgain ? ACCENT.cyan : 'rgba(15,23,42,0.35)',
-              backgroundColor: neverAgain ? ACCENT.cyan : 'transparent',
-            }}
-          >
-            {neverAgain && (
-              <svg width={10} height={10} viewBox="0 0 12 12" fill="none">
-                <path
-                  d="M2.5 6.2l2.3 2.3L9.5 3.8"
-                  stroke="#06182e"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            )}
-          </span>
-          Don&rsquo;t show this again
-        </label>
-        )}
-
         <button
           type="button"
           aria-label="Close"
-          aria-expanded={askingDismiss}
-          onClick={() => (askingDismiss ? setOpen(false) : setAskingDismiss(true))}
+          onClick={() => setOpen(false)}
           // Same glass as the offer bar: a white wash over `backdrop-filter`, so the button
           // carries the frame's colour instead of punching a black hole in it. The hairline and
           // the shadow are what keep it findable — white glass alone vanished on the clip's
           // near-white frames, leaving the × floating with no button under it.
-          // Hover is the Claim button's, declaration for declaration.
-          className="absolute right-3 top-3 grid size-7 place-items-center rounded-full border border-black/10 bg-white/55 text-[#0f172a] shadow-[0_2px_10px_rgba(15,23,42,0.18)] backdrop-blur-md transition-all duration-200 hover:border-[#32EEFF] hover:bg-[rgba(50,238,255,0.12)] hover:text-[#0d9bb5] hover:shadow-[0_0_20px_rgba(50,238,255,0.55),inset_0_0_18px_rgba(50,238,255,0.2)]"
+          // No hover tint: the cursor alone says it's clickable.
+          className="absolute right-3 top-3 grid size-7 cursor-pointer place-items-center rounded-full border border-black/10 bg-white/55 text-[#0f172a] shadow-[0_2px_10px_rgba(15,23,42,0.18)] backdrop-blur-md"
         >
           <svg width={12} height={12} viewBox="0 0 16 16" fill="none" aria-hidden>
             <path
