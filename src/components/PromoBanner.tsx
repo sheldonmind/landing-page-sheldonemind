@@ -35,15 +35,10 @@ export default function PromoBanner() {
       }}
     >
       <div className="flex items-center gap-x-2.5 font-['Figtree',sans-serif] text-[13px] leading-none max-sm:gap-x-2 max-sm:text-[12px]">
-        <span aria-hidden className="text-[13px]">
-          ✨
-        </span>
-
         <span className="whitespace-nowrap font-medium">
           <span className="max-sm:hidden">New here? Get </span>
           <span className="sm:hidden">Get </span>
           3,000 free credits
-          <span className="max-sm:hidden"> — one time only.</span>
         </span>
 
         <span aria-hidden className="h-3 w-px bg-white/30 max-sm:hidden" />

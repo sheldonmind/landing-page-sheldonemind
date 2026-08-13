@@ -1,6 +1,7 @@
 import SiteNav from './components/SiteNav';
 import SiteFaq from './components/SiteFaq';
 import SiteFooter from './components/SiteFooter';
+import IntroVideoModal from './components/IntroVideoModal';
 
 import Hero from './components/artlist/sections/Hero';
 import UseCases from './components/artlist/sections/UseCases';
@@ -22,7 +23,6 @@ function App() {
       <main className="w-full">
         <Hero />
         <UseCases />
-        <IntroVideo />
         <LogoStrip />
         <Toolkit />
         <ImagineStudio />
@@ -32,9 +32,11 @@ function App() {
         <Pricing />
         <CtaBand />
         <SiteFaq />
+        <IntroVideo />
       </main>
 
       <SiteFooter />
+      <IntroVideoModal />
     </div>
   );
 }

@@ -4,12 +4,12 @@ const SRC = '/sheldonmind-intro.mp4';
 const POSTER = '/sheldonmind-intro-poster.jpg';
 
 /**
- * The brand film, sat between the use-case rail and the model strip. Plays itself, loops,
- * and shows no controls — it reads as part of the page rather than as a player.
+ * The brand film, sat between the FAQ and the footer as a full-bleed band. Plays itself,
+ * loops, and shows no controls — it reads as part of the page rather than as a player.
  *
  * No edge feather: this clip is near-white (edges sampled at 241-255 against a #0a0a0a page),
  * and masking is alpha reduction, so any ramp let the page through as a grey band eating into
- * the picture. It sits as a clean rounded frame instead, like the cards on the rail above.
+ * the picture. Edge-to-edge with square corners instead — nothing of the page shows through.
  *
  * Muted because that is the only way browsers allow unattended playback; the clip's SFX
  * track is still in the file, just never audible here.
@@ -38,20 +38,25 @@ export default function IntroVideo() {
   }, []);
 
   return (
-    <section id="intro" className="relative w-full overflow-hidden pb-10 pt-0 max-md:pb-6">
-      <div className="al-container">
-        <video
-          ref={videoRef}
-          src={SRC}
-          poster={POSTER}
-          preload="none"
-          muted
-          loop
-          playsInline
-          aria-hidden
-          className="block aspect-video w-full rounded-[10px]"
-        />
-      </div>
+    // The poster is repeated as the section background because Chrome drops the `poster`
+    // attribute the moment loading starts, and this 12.5 MB clip takes seconds to reach its
+    // first frame — full-bleed that gap was a black band the height of the viewport.
+    <section
+      id="intro"
+      className="relative w-full overflow-hidden bg-cover bg-center"
+      style={{ backgroundImage: `url(${POSTER})` }}
+    >
+      <video
+        ref={videoRef}
+        src={SRC}
+        poster={POSTER}
+        preload="none"
+        muted
+        loop
+        playsInline
+        aria-hidden
+        className="block aspect-video w-full object-cover"
+      />
     </section>
   );
 }
