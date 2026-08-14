@@ -57,52 +57,22 @@ export default function IntroVideoModal() {
   }, [open]);
 
   /**
-   * The viewer's own choice, which is not the same thing as `muted`: `muted` also goes true when
-   * the browser forces it, and that must not be read back as "they asked for silence".
-   */
-  const wantsSoundRef = useRef(true);
-
-  /**
    * Sound is on by default, so playback can't ride on the `autoplay` attribute: browsers only
-   * grant unattended autoplay to muted media. Start it by hand instead.
-   *
-   * Chrome refuses `play()` on unmuted media until the page has been interacted with — verified
-   * on the live site, where the first attempt is rejected and this falls back to muted. There is
-   * no way around that from script, so the next best thing: fall back, then treat the very first
-   * gesture the page receives — a click, a key, a tap, anywhere — as the licence to turn sound
-   * on. The viewer doesn't have to find the speaker button; that button is now only for turning
-   * sound off.
+   * grant unattended autoplay to muted media. Start it by hand instead, and if `play()` is
+   * rejected — no prior interaction with the site, so audio is blocked — mute and start again,
+   * which always succeeds. The toggle then lets the click turn sound back on.
    */
   useEffect(() => {
     if (!open) return;
     const video = videoRef.current;
     if (!video) return;
 
-    let disarm = () => {};
-
     video.muted = false;
     video.play().catch(() => {
       video.muted = true;
       setMuted(true);
       void video.play().catch(() => {});
-
-      const onGesture = () => {
-        disarm();
-        if (!wantsSoundRef.current) return;
-        video.muted = false;
-        setMuted(false);
-        void video.play().catch(() => {});
-      };
-
-      // Capture phase, so this still runs for a click on the backdrop or the X, whose own
-      // handlers close the overlay and stop the event going any further.
-      const events = ['pointerdown', 'keydown', 'touchstart'] as const;
-      const opts = { capture: true } as const;
-      events.forEach((type) => document.addEventListener(type, onGesture, opts));
-      disarm = () => events.forEach((type) => document.removeEventListener(type, onGesture, opts));
     });
-
-    return () => disarm();
   }, [open]);
 
   if (!open) return null;
@@ -235,9 +205,6 @@ export default function IntroVideoModal() {
           aria-pressed={!muted}
           onClick={() => {
             const next = !muted;
-            // Records the intent as well as the state: muting here must stick even if the
-            // first-gesture handler is still armed.
-            wantsSoundRef.current = !next;
             setMuted(next);
             const video = videoRef.current;
             if (video) {
