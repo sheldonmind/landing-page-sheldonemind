@@ -22,9 +22,9 @@ const OPEN_DELAY_MS = 800;
  */
 export default function IntroVideoModal() {
   const [open, setOpen] = useState(false);
-  // Starts muted because autoplay only survives muted; the speaker button is the user gesture
-  // that lets sound in.
-  const [muted, setMuted] = useState(true);
+  // Sound on by default. Flipped to true only if the browser refuses to start playback with
+  // audio — see the play effect below.
+  const [muted, setMuted] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -56,6 +56,25 @@ export default function IntroVideoModal() {
     };
   }, [open]);
 
+  /**
+   * Sound is on by default, so playback can't ride on the `autoplay` attribute: browsers only
+   * grant unattended autoplay to muted media. Start it by hand instead, and if `play()` is
+   * rejected — no prior interaction with the site, so audio is blocked — mute and start again,
+   * which always succeeds. The toggle then lets the click turn sound back on.
+   */
+  useEffect(() => {
+    if (!open) return;
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = false;
+    video.play().catch(() => {
+      video.muted = true;
+      setMuted(true);
+      void video.play().catch(() => {});
+    });
+  }, [open]);
+
   if (!open) return null;
 
   return (
@@ -78,8 +97,6 @@ export default function IntroVideoModal() {
             src={SRC}
             poster={POSTER}
             preload="auto"
-            autoPlay
-            muted={muted}
             loop
             playsInline
             aria-hidden
@@ -191,8 +208,8 @@ export default function IntroVideoModal() {
             setMuted(next);
             const video = videoRef.current;
             if (video) {
-              // Set the property directly too: React writes `muted` as a property, and unmuting
-              // is only allowed here because this click is the user gesture.
+              // The element is driven imperatively — there is no `muted` prop on it, because
+              // React would re-assert the attribute and fight the play effect's fallback.
               video.muted = next;
               if (!next) void video.play().catch(() => {});
             }
